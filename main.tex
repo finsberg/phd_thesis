@@ -1,0 +1,60 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{graphicx}
+
+% Operators
+\newcommand{\tr}{\mathrm{tr} \hspace{0.05cm} }
+
+% Vectors
+\newcommand{\Xvec}{\bm{X}}
+\newcommand{\xvec}{\bm{x}}
+\newcommand{\uvec}{\bm{u}}
+\newcommand{\ef}{\bm{f}_0}
+\newcommand{\es}{\bm{s}_0}
+\newcommand{\ec}{\bm{e}_c}
+\newcommand{\V}[1]{\bm{#1}}
+
+% Tensors
+\newcommand{\C}{\bm{\mathcal{C}}}
+\newcommand{\F}{\bm{\mathcal{F}}}
+\newcommand{\I}{\bm{\mathcal{I}}}
+\newcommand{\T}{\bm{\mathcal{T}}}
+
+% Stress tensors
+\newcommand{\FPiola}{\bm{\mathcal{P}}}
+\newcommand{\SPiola}{\bm{\mathcal{S}}}
+\newcommand{\Cauchy}{\bm{\sigma}}
+
+
+\title{PhD thesis} 
+ \author{Henrik Finsberg}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In this paper with focus on the 
+\end{abstract}
+
+\input{sections/physiology}
+
+
+\input{sections/mechanics}
+\input{sections/crt}
+
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
