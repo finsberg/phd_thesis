@@ -1,57 +1,73 @@
-\documentclass[a4paper,10pt]{article}
+\documentclass{uiophd}
+
 \usepackage[utf8]{inputenc}
-\usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{url}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{booktabs}
+\usepackage[sectionbib]{chapterbib}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage[square,numbers,sectionbib]{natbib}
 
-% Operators
-\newcommand{\tr}{\mathrm{tr} \hspace{0.05cm} }
+% 
+  
+\input{commands}
 
-% Vectors
-\newcommand{\Xvec}{\bm{X}}
-\newcommand{\xvec}{\bm{x}}
-\newcommand{\uvec}{\bm{u}}
-\newcommand{\ef}{\bm{f}_0}
-\newcommand{\es}{\bm{s}_0}
-\newcommand{\ec}{\bm{e}_c}
-\newcommand{\V}[1]{\bm{#1}}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\pagestyle{fancy}
 
-% Tensors
-\newcommand{\C}{\bm{\mathcal{C}}}
-\newcommand{\F}{\bm{\mathcal{F}}}
-\newcommand{\I}{\bm{\mathcal{I}}}
-\newcommand{\T}{\bm{\mathcal{T}}}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+% \renewcommand{\sectionmark}[1]{\markright{\arabic{section}.\ #1}}
 
-% Stress tensors
-\newcommand{\FPiola}{\bm{\mathcal{P}}}
-\newcommand{\SPiola}{\bm{\mathcal{S}}}
-\newcommand{\Cauchy}{\bm{\sigma}}
+% \lhead[\thepage]{\leftmark} 
+% \rhead[\nouppercase{\rightmark}]{\thepage}
+\fancyhead[EL,OR]{\thepage}
+\fancyhead[ER]{\rightmark}
+\fancyhead[OL]{\leftmark}
+
+
+\titleformat{\chapter}
+  {\Large\bfseries} % format
+  {}                % label
+  {0pt}             % sep
+  {\huge}           % before-code
 
 
 \title{PhD thesis} 
- \author{Henrik Finsberg}
-
+\author{Henrik Finsberg}
 
 \begin{document}
 
+\frontmatter
 \maketitle
 
-\begin{abstract}
-In this paper with focus on the 
-\end{abstract}
-
-\input{sections/physiology}
+\include{pre_thesis/dedication}
+\include{pre_thesis/abstract}
+\include{pre_thesis/acknowledgements}
 
 
-\input{sections/mechanics}
-\input{sections/crt}
+
+\tableofcontents
+
+\mainmatter
+
+\cleardoublepage
+
+\include{chapters/introduction}
 
 
-\bibliographystyle{plain}
-\bibliography{bibliography}
+
+\cleardoublepage
+
+\include{chapters/paper1/article}
+
+
 \end{document}
 
 %%% Local Variables:

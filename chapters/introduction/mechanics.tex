@@ -1,0 +1,57 @@
+\section{Mechanical modeling}
+
+\subsection{Continuum description of the heart}
+
+\begin{itemize}
+  \item Reference to mehcanics book
+  \item Introduce basic notation (stress, strain, deformation)
+\end{itemize}
+
+We represent the heart as a continuum body  embedded in
+$\mathbb{R}^3$. Let $\Xvec$ and  $\xvec$ denote the corresponding
+coordinate in the reference and current configuration respectively.
+The motion of a point $\Xvec$ in the reference configuration to the
+point $\xvec$ in the current configuration  may be described by a
+deformation map  $\varphi :  \mathcal{B}_0  \rightarrow \mathcal{B}$.
+The deformation gradient associated with the motion $\xvec =
+\varphi(\Xvec)$ is a rank-2 tensor given by  
+\begin{align}
+\F(\Xvec) = \frac{\partial \varphi}{\partial \Xvec}, 
+\end{align}
+The deformed and reference configuration are related via the
+displacement field $\uvec$ by: 
+\begin{align}  
+\uvec = \xvec-\Xvec = \chi( \Xvec, t) -\Xvec,
+\end{align} 
+Further, we let $J = \det \F$ be the determinant of the deformation gradient 
+and $\C = \F^T\F$ the right Cauchy-Green deformation tensor.\cite{holzapfel2000nonlinear}
+
+
+
+
+\subsection{Passive behavior of the myocardium}
+
+\begin{itemize}
+  \item Hyperelasticiy, fung type-refer to relevant papers
+  \item Incompressibility
+\end{itemize}
+
+
+
+\subsection{Active behavior of the myocardium}
+
+
+\begin{itemize}
+  \item Active stress and strain (some mathematical aspects perhaps)
+\end{itemize}
+
+
+
+Saddle point problem
+
+  
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../main"
+%%% End:

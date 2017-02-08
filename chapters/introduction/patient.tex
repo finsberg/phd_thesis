@@ -1,0 +1,199 @@
+\section{Patient Specific Model Generation}
+
+In this section we will describe 
+
+\subsection{Geometry and microstructure}
+
+The geometry of a patient's heart can be aquired using medical
+imaging techniques, such as echocardiography (ultracound), magnetic
+resonance imaging (MRI) or computed tomography (CT). Each modality off
+advantages and disadvatages over the other. For example, MRI provides
+high quality images, uses zero radiation, but is exspensive and lacks
+temporal resolution. CT can more accuratley reconstruct the 3D image
+in contrast to MRI, in which 2D slices needs to be glued together to
+form a 3D surface. However, CT exposes the patient to radiation which
+increases the chance of developing cancer. Finally echocardiography is
+easy to use, cheap, harmless, and  has good temporal resolution, but
+is clearly inferior when it comes to image quality.
+
+The main modality used in this thesis is 3D echocardiography
+
+
+
+\begin{itemize}
+  \item Segmentation and aquisition using echopach
+  \item From closed endo- and epicardial surfaces to a mesh
+    (smoothing, cutting, orienting).
+  \item Marking of mesh accoring to AHA segments (16,17,18)
+  \item Local basis
+  \item Rule based fibers
+  \item Referece to mesh{\_}generation and patient repositories
+\end{itemize}
+
+\subsection{Continuum description of the heart}
+
+\begin{itemize}
+  \item Reference to mehcanics book
+  \item Introduce basic notation (stress, strain, deformation)
+\end{itemize}
+
+We represent the heart as a continuum body  embedded in
+$\mathbb{R}^3$. Let $\Xvec$ and  $\xvec$ denote the corresponding
+coordinate in the reference and current configuration respectively.
+The motion of a point $\Xvec$ in the reference configuration to the
+point $\xvec$ in the current configuration  may be described by a
+deformation map  $\varphi :  \mathcal{B}_0  \rightarrow \mathcal{B}$.
+The deformation gradient associated with the motion $\xvec =
+\varphi(\Xvec)$ is a rank-2 tensor given by  
+\begin{align}
+\F(\Xvec) = \frac{\partial \varphi}{\partial \Xvec}, 
+\end{align}
+The deformed and reference configuration are related via the
+displacement field $\uvec$ by: 
+\begin{align}  
+\uvec = \xvec-\Xvec = \chi( \Xvec, t) -\Xvec,
+\end{align} 
+Further, we let $J = \det \F$ be the determinant of the deformation gradient 
+and $\C = \F^T\F$ the right Cauchy-Green deformation tensor.\cite{holzapfel2000nonlinear}
+
+
+\subsection{Passive behavior of the myocardium}
+
+\begin{itemize}
+  \item Hyperelasticiy, fung type-refer to relevant papers
+  \item Incompressibility - Saddle point problem
+  \item Finding the unloaded configuration
+\end{itemize}
+
+
+
+\subsection{Active behavior of the myocardium}
+
+
+\begin{itemize}
+  \item Active stress and strain (some mathematical aspects perhaps)
+\end{itemize}
+
+
+
+
+\subsection{Adjoint-based Data Assimilation}
+
+\begin{itemize}
+  \item Examples of data you want to constrain
+  \item Forming of mismatch functional and problem formulation as
+    PDE-constrained optimization.
+  \item The adjoint approach. comparison with other methods.
+  \item Control parameters
+  \item Reference to pulse{\_}adjoint and pulse{\_}adjoint{\_}post
+    repositories
+\end{itemize}
+
+
+We will now explain what we mean by ``adjoint-based'', and why this
+approach is a key ingredient. The main theory presented here is taken
+from the dolfin-adjoint web page. A word about dolfin adjoint...\ref{}
+  
+\begin{equation}
+  \begin{aligned}
+    \label{eq:opt_matparam}
+    & \underset{m}{\text{minimize}}
+    & &  I(\state, m) \\
+    & \text{subject to}
+    & & \delta \Pi(\state, \mvec) = 0, 
+  \end{aligned}
+\end{equation}
+
+where $I(\state, m): \mathbb{W} \times \mathbb{Q} \mapsto
+\mathbb{R}$ for some state space $\mathbb{W}$ and parameter space
+$\mathbb{Q}$ and $\delta \Pi(\state) = 0$ is the force balance
+equation given by \ref{}.
+
+
+In order to apply optimisation algorithm...
+We reduce the objective functional to be a function of the control
+parameters only, $\hat{I}(\mvec) := I(\state(\mvec), \mvec)$. Consider an
+initial value of the parmameters $\mvec = \mvec^0$. If $\hat{I}(m)$ is defined
+and differentible in a neighborhood of $\mvec^0$ then $\hat{I}$ (and
+consequently $I$) decreases fastest in the direction of the gradient, 
+\begin{align}
+  \nabla_{\mvec} \hat{I}(\mvec^0) = \begin{bmatrix}
+    \frac{\mathrm{d} \hat{I}(\mvec^0) }{\mathrm{d} m_1},
+    \frac{\mathrm{d} \hat{I}(\mvec^0) }{\mathrm{d} m_2},
+    \cdots
+    \frac{\mathrm{d} \hat{I}(\mvec^0) }{\mathrm{d} m_N}
+  \end{bmatrix}^T.
+  \label{eq:functional_gradient}
+\end{align}
+Here $\frac{\mathrm{d} \hat{I} }{\mathrm{d} m_i}$ represents the
+total derivative:
+\begin{align}
+  \frac{\mathrm{d} \hat{I} }{\mathrm{d} m_i} = \frac{\mathrm{d} I (\state(\mvec), \mvec))}{\mathrm{d} m_i} = \frac{\partial  I }{\partial \state} \frac{\mathrm{d} \state}{\mathrm{d} m_i} + \frac{\partial  I }{\partial m_i}.
+  \label{eq:functional_derivative_component}
+\end{align}
+In other words, the sequence
+\begin{align}
+  \mvec^{k+1} = \mvec^{k} - \gamma_k \nabla_{\mvec} \hat{I}(\mvec^k), \gamma_n \in \mathbb{R}
+\end{align}
+satisfies $\hat{I}(\mvec^{k+1}) \leq \hat{I}(\mvec^k) \; \forall k \geq
+0$, and converges towards a local minimum. If $\hat{I}$ is convex then
+the minimum is also global.
+Being able to compute the gradient of the objective functional wrt to
+the control parameters allows us to employ gradient based optimization
+methods which are in general superior to gradient free methods.
+One way to compute the gradient is by means of the finite difference
+approach: For a given parameter $\mvec = \mvec^*$ we have
+\begin{align}
+  \frac{\mathrm{d} \hat{I} }{\mathrm{d} m_i}( \mvec^*) =
+  \lim_{h \mapsto 0} \frac{\hat{I}(\mvec^* + h\mathbf{e}_i) - \hat{I}(\mvec^*)}{h}, 
+\end{align}
+where $\mathbf{e}_i \in \mathbb{Q}$ is the $i$'th canonical basis
+vector. If $\dim(\mathbb{Q}) = N$, this approach would require $N+1$
+functional evaluations. Moreover, since the state-variables depends upon the
+control variables, we would also need to solve the force balance
+equation $N+1$ times, which is typically very copmutationally
+expensive. Hence, this approach is typically infeasable when the
+dimesion of your parameterspace is large. In this case the adjoint
+approach is much better. If $A$ is an operator (e.g a matrix), then
+the adjoint operator $B$ satisfies the relation $\langle Au, v \rangle
+= \langle u, Bv \rangle$, and we write $ B = A^*$. Here $(\cdot)^*$
+denotes the Hermitian transpose, which in the case where $A$ is a real
+matrix is just the transpose of $A$, $A^T$.  
+
+
+Note that the gradient in
+\eqref{eq:functional_gradient} can be rewritten (using the chain rule)
+as
+\begin{align}
+  \nabla_{\mvec} \hat{I} =  \frac{\partial  I }{\partial \state} \nabla_{\mvec} \state
+  + \frac{\partial  I }{\partial \mvec},
+  \label{eq:functional_gradient_chain}
+\end{align}
+in which the $\dim(\mathbb{V}) \times \dim(\mathbb{Q})$ matrix
+$\nabla_{\mvec} \state$ is difficult to compute.
+Differentiating the force-balance equation \ref{} with respect to the
+control parameters yields
+\begin{align}
+  & \nabla_{\mvec} \delta \Pi(\state, \mvec) = 0 \\
+  \implies & \frac{\partial  \Pi }{\partial \state} \nabla_{\mvec} \state
+  + \frac{\partial  \Pi }{\partial \mvec} = 0 \\
+  \implies & \nabla_{\mvec} \state =
+             - \left( \frac{\partial  \Pi }{\partial \state} \right)^{-1} \frac{\partial  \Pi }{\partial \mvec}.
+\end{align}
+Inserting this expression for $\nabla_{\mvec} \state$ into
+\eqref{eq:functional_gradient_chain}, gives
+\begin{align}
+  \nabla_{\mvec} \hat{I} =  - \frac{\partial  I }{\partial \state}
+  \left( \frac{\partial  \Pi }{\partial \state} \right)^{-1} \frac{\partial  \Pi }{\partial \mvec}
+  + \frac{\partial  I }{\partial \mvec}.
+\end{align}
+
+
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../main"
+%%% End:
