@@ -1,13 +1,45 @@
-\section{Patient Specific Model Generation}
+\section{Personalization of Cardiac Biomechanics}
 
-In this section we will describe 
 
-\subsection{Geometry and microstructure}
+In order to make use of models 
 
-The geometry of a patient's heart can be aquired using medical
-imaging techniques, such as echocardiography (ultracound), magnetic
-resonance imaging (MRI) or computed tomography (CT). Each modality off
-advantages and disadvatages over the other. For example, MRI provides
+
+\subsection{Data aquistition}
+
+Since the discovery of X-ray in 1895, medical imaging has played a central
+role in diagnosis, treatment planning and follow-up. Without the huge
+advancements in medical imaging the last decades, computational models
+would not have been as important and promising as it has become.
+
+The interaction between cardiac images and cardiac models are important.
+
+
+Still, one of the major bottlenecks in terms of personalized
+computaional models is the quality of data (and representations of
+model). There is a big issue in
+reproducebility, because of noisy data, and operator depedent
+measurements.
+
+Today there are three main non-invasive imaging techniques used in
+cardiology which is echocardiography (ECHO), magnetic
+resonance imaging (MRI) and computed tomography (CT), and all of them
+are used for aquiring data used in computaional modeling. Each
+modality offers advantages and disadvatages over the other, and we
+will make a short summary of pros and cons for each modelity below.
+
+\subsubsection{CT}
+Computed tomography is reconginzed as the 
+
+\subsubsection{ECHO}
+
+\subsubsection{MRI}
+
+
+
+
+
+
+For example, MRI provides
 high quality images, uses zero radiation, but is exspensive and lacks
 temporal resolution. CT can more accuratley reconstruct the 3D image
 in contrast to MRI, in which 2D slices needs to be glued together to
@@ -16,7 +48,107 @@ increases the chance of developing cancer. Finally echocardiography is
 easy to use, cheap, harmless, and  has good temporal resolution, but
 is clearly inferior when it comes to image quality.
 
-The main modality used in this thesis is 3D echocardiography
+The main modality used in this thesis is 4D echocardiography, and we
+will therefore focus on data aquired using this modality.
+With 4D we mean three spatial and one temporal dimesion.
+In order to aquire a 3D volume image using ultrasound, the speed of sound in
+human tissue (which is approxmately 1540 m/s) put some limitations on
+the image quality verus the frame-rate \cite{rabben2010technical}.
+Consequently, a 3D ultracound image is formed by stiching together $N$
+disjoint subvolumes aquired during $N$ cardiac cycles ($N$ typicall
+between 2 and 8)\cite{brekke2007volume}.
+
+The images are later processed using some image segmentation tool.
+One such tool is EchoPac which is used for analysing images for GE
+Vingmed. The 4D Auto LVQ tool in EchoPac, is a tool for processing 3D
+echo images, and traces of volume, triangulated surfaces and 3D strain
+traces together with a structured mesh of the AHA segments for each
+time point, can be exported to and HDF format and later used for mesh generation. 
+
+
+
+
+
+
+\subsection{Geometry and microstructure}
+
+
+\subsubsection{Mesh generation}
+In this section we will explain how to generate a left ventricular
+mesh based on segmented surfaces coming from 4D echocardiography.
+Figure \ref{fig:echopac_output} shows an example of how the exported data
+from the image semgentation tool looks like. For each time point we
+can extract triangulated surfaces of the endocardium and epicardium
+which can be seen in Figure \ref{fig:echopac_out_surf}. Together with
+these surfaces we are also given a so called strain mesh (Figure
+\ref{fig:echopac_out_strain_mesh}) located approximately in the
+midwall, which defines the approximate location of the AHA-segments
+\cite{cerqueira2002standardized}, and can be used to orient the mesh. 
+
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{chapters/introduction/figures/geometry/raw.png}
+    \caption{\label{fig:echopac_out_surf}}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{chapters/introduction/figures/geometry/strain_mesh.png}
+    \caption{\label{fig:echopac_out_strain_mesh}}
+  \end{subfigure}
+\caption{}
+\label{fig:echopac_output}
+\end{figure}
+
+
+As discussed in \ref{sec:mech_boudary}, we constrain the basal movement in
+the longitudinal direction, which is easiest to accomplished using a flat
+base located at a prescribed location. In order to make the base flat
+we first orient the surfaces so that the longitudinal axis is aligned
+with the $x$-axis, and the apex pointing in the postive $x$
+direction. To conststruct the basal plane we first take out the basal
+points from the strain mesh, and use these points to construct a least
+sqauare fitting plane (Figure \ref{fig:strain_mesh_plane}). Let $(x_i, y_i, z_i), i = 1, \cdots, N$
+be the basal points, and suppose the basal plane solves the equation
+$z = ax + by + c$, for some unknown constants $a,b,c$. Following a
+least square approach, we select the parameters $(a,b,c)$ that
+minimizes to sum
+\begin{align}
+  \sum_{i = 1}^{N} \left( z_i - ax_i + by_i + c \right)^2.
+\end{align}
+Once the parameters for the basal plane is found we adjust the size of
+the cut, by moving the plane along the longitudinal axis (here
+$x-$axis), until the cavity volume agrees with the measured volume
+given by the image segmentation tool within some specified tolerance. 
+When the correct size is found the points above the plane is removed,
+and the remaining surfaces are smoothed using the GAMer
+\cite{yu2008feature}. The actualy mesh generation is performed using Gmsh
+\cite{geuzaine2009gmsh}, which meshes the endocardial and epicardial
+surface togther unsing frontal-Delaunay meshing algorithm. Gmsh also marks
+the endocardal, the epicardial and the basal facets so that it is easy
+to 
+
+\begin{remark}
+  The cavity volume is computed by generating the whole mesh, and the
+  compute the volume using Equation \eqref{eq:volume_operator}. The cut size is
+  found by using a one dimensional optimization algorithm with
+  the objective funcitonal representing the squared error between
+  computed and measured volume.
+\end{remark}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{chapters/introduction/figures/geometry/strain_mesh_plane.pdf}
+    \caption{\label{fig:strain_mesh_plane}}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{chapters/introduction/figures/geometry/cut.png}
+    \caption{\label{fig:cut}}
+  \end{subfigure}
+\caption{}
+\label{fig:echopac_output}
+\end{figure}
 
 
 
@@ -28,56 +160,144 @@ The main modality used in this thesis is 3D echocardiography
   \item Local basis
   \item Rule based fibers
   \item Referece to mesh{\_}generation and patient repositories
-\end{itemize}
+  \end{itemize}
 
-\subsection{Continuum description of the heart}
 
-\begin{itemize}
-  \item Reference to mehcanics book
-  \item Introduce basic notation (stress, strain, deformation)
-\end{itemize}
+\subsection{Data Assimilation}
+The constitutive laws in cardiac mechanics comes from experiments
+done on tissue slabs, and relates stresses in the material to strain.
+If we had the same data available for a given patient we could easily
+have performed a regression analysis in order to identify the
+parameters in the contitutive model. However, this type of data
+typically requires that tissue samples are taken from the myocardium,
+which is not an option when dealing with living humans. In general,
+when dealing with physical system such as the heart or weather
+forecast it is not allways possible to design an experiment which
+allows to determine all properties of a physical system
+\cite{chapelle2013fundamental}. In such cases we have to take the
+measurement that we have, and do our best to incorporate them into the
+model. 
 
-We represent the heart as a continuum body  embedded in
-$\mathbb{R}^3$. Let $\Xvec$ and  $\xvec$ denote the corresponding
-coordinate in the reference and current configuration respectively.
-The motion of a point $\Xvec$ in the reference configuration to the
-point $\xvec$ in the current configuration  may be described by a
-deformation map  $\varphi :  \mathcal{B}_0  \rightarrow \mathcal{B}$.
-The deformation gradient associated with the motion $\xvec =
-\varphi(\Xvec)$ is a rank-2 tensor given by  
+For example, the type of data that we usually have available, are data
+that can be extracted using imaging techniques such as motion data,
+volume traces, regional strain traces etc. One technique to estimate
+model parameters based on such observations is called data assimilation.
+
+
+The field of data assimilation has its roots in meteorology, where
+a typical problem is to make predictions on the weather, based on
+observations (of temperature, humidity etc.) at different locations. 
+
+
+There are basically two main approaches to assimilate data;
+\emph{sequential data assimilation} and \emph{variational data
+  assimilation}. Sequential data assimilation, which is often
+referred to as filtering, is based on a predictor-corector approach
+where you start from your initial data and use a filter to predict the
+next state. Once you have your measurement available you correct the
+estimate based on the new observations. Some examples of sequential
+procedures include Kalman filtering and Luenberger observers
+\cite{chapelle2013fundamental}.
+
+The other approach called variational data assimilation, which is the
+one used in this thesis, is based on minimizing a cost functional that
+represents the mismatch between observations and simulations, with
+possibly additional regularization terms added to the objective
+functional. 
+
+% The general setup for a variational data assimilation problem is the
+% following. 
+We will now explain the general setup for variational data
+assimilation. In order to keep consistent notation we will refer to
+the \emph{state variable} as $\mathbf{w}$, which is our case
+represents jointly the displacement and hydrostatic pressure
+$\mathbf{w}=(\mathbf{u}, p)$.
+
+The state varibles are described by some \emph{phyiscal
+model} $\mathcal{L}$, which is our case is governed by the force balance
+equations \eqref{eq:force_balance}, and can be written in the form
+$\mathcal{L}\mathbf{w} = f$.
+
+We are also given a set of measurements (or observations) that we want
+to assimilate, and we denote this by the vector $\mathbf{y}$.
+For example, $\mathbf{y}$ might be a set of volume measurements or a
+combinations of volume and strain at given time points in the cardiac
+cycle. The \emph{observation operator} $\mathcal{H}$, is approximation
+of the observation and act as an operator from the state space to the
+observation space. We therefore have the relation
 \begin{align}
-\F(\Xvec) = \frac{\partial \varphi}{\partial \Xvec}, 
+  \mathbf{y} = \mathcal{H}(\mathbf{w}) + \xi_o, 
 \end{align}
-The deformed and reference configuration are related via the
-displacement field $\uvec$ by: 
-\begin{align}  
-\uvec = \xvec-\Xvec = \chi( \Xvec, t) -\Xvec,
-\end{align} 
-Further, we let $J = \det \F$ be the determinant of the deformation gradient 
-and $\C = \F^T\F$ the right Cauchy-Green deformation tensor.\cite{holzapfel2000nonlinear}
+where $\xi_o$ represents both the error in the measurements (e.g
+noise in the data) and error in the representation of the observation
+(that $\mathcal{H}$ do not represent the data good enough).
 
 
-\subsection{Passive behavior of the myocardium}
+\paragraph{The volume observation operator
+  $\mathcal{H}_{\mathrm{volume}}$}
+In some cases, the ventricular cavity volume can easily be computed
+analytically from the displacement field. Denote the inner cavity of
+the left ventricle in the current configuration by
+$\omega_{\mathrm{endo}}$. Further let $\mathrm{d} v$ and $\xvec$
+denote an infinitesimal volume element and the coordinate in the
+current configuration respectively. Then by the divergece theorem we have
+\begin{align}
+  \mathcal{H}_{\mathrm{volume}}(\uvec)= \int_{\omega_{\mathrm{endo}}} \mathrm{d} v =
+  \frac{1}{3}\int_{\omega_{\mathrm{endo}}} \nabla \cdot \xvec \mathrm{d} v =
+  \frac{1}{3}\int_{\partial \omega_{\mathrm{endo}}} \xvec \cdot \mathbf{n} \mathrm{d} s, 
+\end{align}
+where $\mathbf{n}$ and $\mathrm{d} s$ are the unit normal and a surface
+element on the current configuration respectively.
+Note that the boundary $\partial \omega_{\mathrm{endo}}$ includes the
+endocardial basal boundary. However in the case when the base is flat
+and fixed in longitudinal direction, the contribution from this
+boundary integral will be zero. In this case the boundary integral
+will be the same as the integral over the endocardial boundary
+decribed in \ref{refer_to_section}, with the only change being the
+change of sign on the normal vector. By Nansens formula we obtain
+\begin{align}
+  \mathcal{H}_{\mathrm{volume}}(\uvec)= -\frac{1}{3}\int_{\lvendo} \left( \Xvec + \uvec \right) J \F^{-T} \Nvec \mathrm{d}S,
+  \label{eq:volume_operator}
+\end{align}
+where now $\lvendo$,  $\Xvec$, $\Nvec$ and $\mathrm{d}S$ are respectively the
+endocardial surface, the referece coordinate, the unit normal and a
+surface element in the reference configuration.
 
-\begin{itemize}
-  \item Hyperelasticiy, fung type-refer to relevant papers
-  \item Incompressibility - Saddle point problem
-  \item Finding the unloaded configuration
-\end{itemize}
+
+\paragraph{The strain observation operator
+  $\mathcal{H}_{\mathrm{volume}}$}
+Another observation that is encountered in this thesis is strain
+measurements, of more precisely average regional strain in the
+circumferential, radial or longitudinal direction. Let $\Omega_j$
+denote the volume for which the strain should be averaged over, and
+let $\mathbf{e}_k$ denote the unit vectorfield in the preferred strain
+direction. Then for a given strain tensor $\mathbf{A}$ we define 
+\begin{align}
+  \mathcal{H}_{\mathrm{strain}}(\uvec) = \frac{1}{|\Omega_j|}\int_{\Omega_j} \mathbf{e}_k^T \mathbf{A}(\uvec) \mathbf{e}_k  \mathrm{d}V
+\end{align}
+The strain tensor $ \mathbf{A}$ is typically chosen to be the
+Grenn-Lagrange strain tensor $\mathbf{E}$\eqref{eq:green_lagrange}, or
+the material displacement gradient tensor $\F - \I$.
+
+\begin{remark}
+  Measured strains are computed relative to some reference
+  geometry, which do not always coinside with the reference geometry
+  chosen for your simulation. In these cases you have to either
+  recompute the measured strain according to the chosen referece for
+  the simulation, or recompute the simulated strains according to the
+  correct referece geometry for your measuments. 
+\end{remark}
+
+% Within varitaional data assimilation it is common to separate between
+% dynamic models and static models. These are conventionally reffered to as
+% $4D-$Var and $3D-$Var methods respectively. In the work done this
+% thesis we have used both of these methods. 
 
 
+% For an introduction to data assimilation we refer to e.g \cite{lahoz2010data}.
 
-\subsection{Active behavior of the myocardium}
+Let us assume that 
 
-
-\begin{itemize}
-  \item Active stress and strain (some mathematical aspects perhaps)
-\end{itemize}
-
-
-
-
-\subsection{Adjoint-based Data Assimilation}
 
 \begin{itemize}
   \item Examples of data you want to constrain
@@ -85,8 +305,11 @@ and $\C = \F^T\F$ the right Cauchy-Green deformation tensor.\cite{holzapfel2000n
     PDE-constrained optimization.
   \item The adjoint approach. comparison with other methods.
   \item Control parameters
+  \item OPtimization algorithm - stopping criteria
   \item Reference to pulse{\_}adjoint and pulse{\_}adjoint{\_}post
     repositories
+  \item Variational versus sequnetial
+  \item Question about uniquness
 \end{itemize}
 
 
@@ -97,19 +320,56 @@ from the dolfin-adjoint web page. A word about dolfin adjoint...\ref{}
 \begin{equation}
   \begin{aligned}
     \label{eq:opt_matparam}
-    & \underset{m}{\text{minimize}}
-    & &  I(\state, m) \\
+    & \underset{\mvec}{\text{minimize}}
+    & &  \mathcal{J}(\state, \mvec) \\
     & \text{subject to}
     & & \delta \Pi(\state, \mvec) = 0, 
   \end{aligned}
 \end{equation}
 
-where $I(\state, m): \mathbb{W} \times \mathbb{Q} \mapsto
+where $\mathcal{J}(\state, \mvec): \mathbb{W} \times \mathbb{Q} \mapsto
 \mathbb{R}$ for some state space $\mathbb{W}$ and parameter space
-$\mathbb{Q}$ and $\delta \Pi(\state) = 0$ is the force balance
+$\mathbb{Q}$ and $\delta \Pi(\state, \mvec)) = 0$ is the force balance
 equation given by \ref{}.
+$\mvec = (m_1, \cdots m_P)$
 
 
+Now suppose we have discretized the partial differental equation
+$\delta \Pi(\state, \mvec) = 0$, which reduces to a system of the form
+$\mathbf{A} \state = \mathbf{b}$, with possible all terms depending on
+the parameters $\mvec$. The gradient of the cost functional with
+respect to the parameter is given by
+\begin{align}
+  \frac{\mathrm{d} \mathcal{J}}{\mathrm{d} \mvec} = \frac{\partial \mathcal{J}}{\partial \mvec}
+  + \frac{\partial \mathcal{J}}{\partial \state} \frac{\mathrm{d} \state}{\mathrm{d} \mvec}.
+  \label{eq:grad_cost}
+\end{align}
+Here $\frac{\mathrm{d}}{\mathrm{d} \mvec}$ denotes the total
+derivative, while $ \frac{\partial}{\partial \mvec}$ denotes the
+partial derivative. Computing the partial derivatives in
+\eqref{eq:grad_cost} are usually straight forward, while computing  $
+\frac{\mathrm{d} \state}{\mathrm{d} \mvec}$ is hard. To see this, let
+us differentiate the equation $\mathbf{A} \state = \mathbf{b}$ with
+respect to $m_i$, and solve for the 
+
+
+\begin{remark}
+  In data assimilation we typically want to copmute the gradient of
+  the cost function because we want to employ gradient-based
+  optimization algorithms for finding the ``optimal'' parameter
+  set. In other cases, the gradient might be important because it
+  tells you something about the sensitivity of your function of
+  interest with respect to the parameters. For example, if you have a
+  model with many input parameters, you may want to identify what
+  impact the different parameters has on the output. Perturbing each
+  parameter and observing the chane in the objective function quickly
+  becomes infeasible when the number of parameters becomes large, in
+  which case the adjoint aproach offer a possible solution. 
+\end{remark}
+
+
+
+\subsubsection{Adjoint method}
 In order to apply optimisation algorithm...
 We reduce the objective functional to be a function of the control
 parameters only, $\hat{I}(\mvec) := I(\state(\mvec), \mvec)$. Consider an
@@ -189,6 +449,29 @@ Inserting this expression for $\nabla_{\mvec} \state$ into
 \end{align}
 
 
+\subsubsection{Dolfin-Adjoint}
+
+Dolfin-Adjoint is a software package that based on the FEniCS project
+which aims to derrive the discrete adjoint equation and the tangent
+linear models of finite element models implemented within the FEniCS
+framework. While the tradional approach is to derrive the adjoint code
+from the forward code, Dolfin-Adjoint utilises the high level symbolic
+representation \cite{UFL} in FEniCS to derrive the discrete adjoint equations
+from the discrete forward eqations, and then the FEniCS system
+derrives the adjoint code from the discrete adjoint equations.
+
+\subsubsection{Optimization methods}
+
+
+
+\subsection{Identifiability of parameters}
+Try dividing heart mesh is different segment, discuss uniqueness of
+paraperers
+Discuss regularization technices
+
+
+\subsection{Mehcanical biomarkers}
+A word about what models can contribute with
 
 
 

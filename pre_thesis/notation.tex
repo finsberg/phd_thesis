@@ -1,0 +1,27 @@
+\newenvironment{notation}%
+    {\cleardoublepage\thispagestyle{empty}\null\vfill\begin{center}%
+    \chapter*{Notation}\end{center}}%
+    {\vfill\null}
+        \begin{notation}
+      
+\begin{longtable}{ll}
+  
+  $\Xvec$ :& Coordinates in the referece configuration. \\
+  $\xvec$ :& Coordinates in the current configuration. \\
+  $\uvec$ :& Displacement, $\uvec = \xvec - \Xvec$. \\
+  $\Nvec$ :& Normal vector in the referece configuration. \\
+  $\Grad$ :& Gradient with respect to reference coordinates, $\Grad = \frac{\partial}{\partial \Xvec}$. \\
+  $\F$ :& Deformation gradient, $\F = \I + \Grad \uvec$. \\
+  $J$ :& Volume ratio, $J = \det \F$. \\
+  $\mathrm{Lin}$: & Space of all linear transformations for $\mathbb{R}^3$ to $\mathbb{R}^3$.\\ 
+  $\mathrm{Lin}^+$: & $\{ \mathbf{A} \in \mathrm{Lin} : \det A > 0 \}$. \\
+  $\mathrm{Orth}$: & $\{ \mathbf{A} \in \mathrm{Lin}^+ : \mathbf{A}^T \mathbf{A} = 1 \}$. \\
+  $\mathrm{Sym}$: & $\{ \mathbf{A} \in \mathrm{Lin}^+ : \mathbf{A}^T =  \mathbf{A}  \}$. \\
+  $\Cauchy$: & Cauchy stress tensor, $\Cauchy = J^{-1}\FPK \F^{T} = J^{-1}\F\SPK \F^{T}$ \\
+  $\FPK$: & First Piola Kirchoff stress tensor, $\FPK = J\Cauchy \F^{-T} = \F \SPK$ \\
+  $\SPK$: & Second Piola Kirchoff stress tensor, $\SPK = J\F^{-1}\Cauchy \F^{-T} = \F^{-1} \FPK$ \\
+
+
+    
+\end{longtable}
+\end{notation}

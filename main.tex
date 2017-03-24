@@ -2,6 +2,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage{amssymb}
+\usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{url}
 \usepackage{caption}
@@ -13,34 +14,20 @@
 \usepackage[sectionbib]{chapterbib}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
+% \usepackage[acronym]{glossaries}
+\usepackage{longtable}
 \usepackage[square,numbers,sectionbib]{natbib}
 
-% 
   
 \input{commands}
-
-\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
-\pagestyle{fancy}
-
-\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
-% \renewcommand{\sectionmark}[1]{\markright{\arabic{section}.\ #1}}
-
-% \lhead[\thepage]{\leftmark} 
-% \rhead[\nouppercase{\rightmark}]{\thepage}
-\fancyhead[EL,OR]{\thepage}
-\fancyhead[ER]{\rightmark}
-\fancyhead[OL]{\leftmark}
-
-
-\titleformat{\chapter}
-  {\Large\bfseries} % format
-  {}                % label
-  {0pt}             % sep
-  {\huge}           % before-code
 
 
 \title{PhD thesis} 
 \author{Henrik Finsberg}
+
+
+% Generate the glossary
+% \makeglossaries
 
 \begin{document}
 
@@ -50,6 +37,7 @@
 \include{pre_thesis/dedication}
 \include{pre_thesis/abstract}
 \include{pre_thesis/acknowledgements}
+\include{pre_thesis/notation}
 
 
 
@@ -66,6 +54,7 @@
 \cleardoublepage
 
 \include{chapters/paper1/article}
+% \include{chapters/paper2/paper2}
 
 
 \end{document}

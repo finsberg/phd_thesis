@@ -1,55 +1,550 @@
 \section{Mechanical modeling}
+\label{sec:intro_mechanical}
 
-\subsection{Continuum description of the heart}
+In this section we will ...
+For a thorough review of continuum mehcanics we refer
+to the book of Gerard Holzapel \cite{holzapfel2000nonlinear} from
+which most of the theory in this section is taken. For the even more
+mathematically oriented reader we refer to \cite{marsden1994mathematical}
+
+\subsection{Introductory continuum mechanics}
 
 \begin{itemize}
   \item Reference to mehcanics book
   \item Introduce basic notation (stress, strain, deformation)
-\end{itemize}
+  \end{itemize}
 
-We represent the heart as a continuum body  embedded in
-$\mathbb{R}^3$. Let $\Xvec$ and  $\xvec$ denote the corresponding
-coordinate in the reference and current configuration respectively.
-The motion of a point $\Xvec$ in the reference configuration to the
-point $\xvec$ in the current configuration  may be described by a
-deformation map  $\varphi :  \mathcal{B}_0  \rightarrow \mathcal{B}$.
-The deformation gradient associated with the motion $\xvec =
-\varphi(\Xvec)$ is a rank-2 tensor given by  
+
+% The mechanical modeling of the heart is based on a continuum approach
+% where the heart is represented as a continuum body  embedded in
+% $\mathbb{R}^3$.
+
+We represent the heart as a continuum body $\mathfrak{B}$ embedded in
+$\mathbb{R}^3$. A configuration of $\mathfrak{B}$ is a mapping $\chi:
+\mathfrak{B} \rightarrow \mathbb{R}^3$. 
+We denote the \emph{reference configuration} of the heart by $\Omega_0
+\equiv \chi_0(\mathfrak{B})$, and the \emph{current configuration} by $\Omega
+\equiv \chi(\mathfrak{B})$. The mapping $\varphi :  \Omega_0
+\rightarrow \Omega$ given by the composition $\varphi = \chi
+\circ \chi_0^{-1}$ is a smooth, orientation preserving (posive
+determinant) and invertible map. We denote the coordinates in the
+referece configuration by $\Xvec \in \Omega_0$, and the coordinates in the current
+configuration by $\xvec \in \Omega$. The coordinates $\Xvec$ and $\xvec$ are
+commonly refered to as material and spatial points respectively, and
+are related throgh the mapping $\varphi$, by $\xvec = \varphi(\Xvec)$.
+For time-dependent problems it is common to make  the time-dependence
+explicitely by writing $\xvec = \varphi(\Xvec, t)$. In the following
+we will only focus on the mapping between two configurations and
+therefore no time-dependence is needed. The mapping $\varphi$ will be
+referred to as the \emph{motion}. The \emph{deformation gradient} is a
+rank-2 tensor, defined as the partial derivative of the motion with
+respect to the material coordinates:
 \begin{align}
-\F(\Xvec) = \frac{\partial \varphi}{\partial \Xvec}, 
+  \F(\Xvec) = \frac{\partial \varphi}{\partial \Xvec} = \Grad \xvec.
+  \label{eq:deformation_gradient}
 \end{align}
-The deformed and reference configuration are related via the
-displacement field $\uvec$ by: 
-\begin{align}  
-\uvec = \xvec-\Xvec = \chi( \Xvec, t) -\Xvec,
-\end{align} 
-Further, we let $J = \det \F$ be the determinant of the deformation gradient 
-and $\C = \F^T\F$ the right Cauchy-Green deformation tensor.\cite{holzapfel2000nonlinear}
+Here we also introduce the notation $\Grad$, which means derivative
+with respect to reference coordinates.
+The deformation gradient maps vectors in the referece configuration to
+vectors in the current configuration, and belongs to the space of
+linear transformations from $\mathbb{R}^3$ to $\mathbb{R}^3$ with
+strictly posive determinant, which we denote by
+$\mathrm{Lin}^+$. Another important quantity is the
+\emph{displacement} field  
+\begin{align}
+  \uvec = \xvec-\Xvec, 
+  \label{eq:displacement}
+\end{align}
+which relates postitions in the reference configuration to positions
+in the current configuration. From \eqref{eq:deformation_gradient} we
+see that
+\begin{align}
+  \F = \Grad \xvec = \Grad \uvec + \Grad \Xvec = \Grad \uvec + \I
+\end{align}
+Some other useful quantities are the \emph{right Cauchy-Green} deformation
+tensor $\C = \F^T\F$, the \emph{left Cauchy-Green} deformation tensor
+$\mathbf{B} = \F\F^T$, the \emph{Green-Lagrange} strain tensor
+$\mathbf{E} = \frac{1}{2}(\C - \I)$, and the determinant of the
+deformation gradient $J = \det \F$.
+
+An important concept in mechanics is the concept of stress, which is
+defined as force per area
+$\left[\frac{\mathrm{N}}{\mathrm{m}^2}\right]$. When working with
+different configurations one needs to be careful with which forces and
+which areas we are talking about. Table \ref{tab:stress_tensor}
+shows how forces and areas are related for the most important stress
+tensors used in this thesis.  
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{lll}
+    \toprule
+    Stress tensor & Forces & Area \\
+    \midrule
+    Second Piola-Kirchhoff ($\SPK$) & Referece configuration & Referece configuration \\
+    First Piola-Kirchhoff ($\FPK$) & Current configuration  &  Referece configuration \\
+    Cauchy ($\Cauchy$) &  Current configuration & Current configuration  \\
+    \bottomrule
+  \end{tabular}
+  \caption{\label{tab:stress_tensor}Different stress tensor, and how
+    they relate forces to areas though different configurations.}
+\end{table}
+
+
+
+\subsection{Hyperelasticity}
+
+Even though experimental studies have idicated a viscoelastic behavior
+of the myocardium \cite{dokos2002shear, gultekin2016orthotropic}, a
+common assumption is to consider a quasistatic behaviour and therefore
+it is also possible to model the myocardium as hyperelastic.
+This means that we postulate the existence of
+a strain-energy denisity function $\Psi:\mathrm{Lin}^+ \rightarrow
+\mathbb{R}^+$ which is defined as energy per unit reference volume,
+and has units $\frac{\text{Joule}}{m^3}$. The first Piola-Kirchhoff
+stress for a hyperelastic material is given by th relation
+\begin{align}
+\FPK = \frac{\partial \Psi(\F)}{\partial \F}
+\end{align}
+The strain-energy density function provides us with the amount of
+energy that is stored within the material in response to a given
+strain. Hence, the stresses in a hyperelastic material with a given
+strain-energy density function depends only on the strain, and not the
+path for which the material deforms. On the contrary, if the model had
+been viscoelastic we would expect to see hysterisis in the
+stress/strain curve, but this is not possible for a hyperelastic
+material. 
+
+We say that the strain energy should be objective, meaning that the
+stored energy in the material should be invariant with respect to
+chage of observer. Formally we must have for any positive symmetric
+rank-2 tensor $\C \in \mathrm{Sym}$ 
+\begin{align}
+  \Psi(\mathbf{C}) = \Psi(\mathbf{Q}\mathbf{C}\mathbf{Q}^T), \; \forall \mathbf{Q} \in \mathcal{G} \subseteq \mathrm{Orth},
+\end{align}
+where $\mathrm{Orth}$ is the group of all postive orthogonal matrices.
+If $\mathcal{G} = \mathrm{Orth}$ we say that the matieral is
+isotropic, and otherwise we say that the material is anisotropic.
+
+\emph{In stead of introducing the invariants, look at Simones
+  thesis. Introduce the invariants in Holzapel and Ogden model}
+
+
+If the material is isotropic, the representation theorem for
+invariants states that $\Psi$ can be expressed in terms of the principle
+invariants of $\mathbf{C}$, theat is $\Psi = \Psi(I_1, I_2, I_3)$.
+Here $I_i$ are the coefficients in the characteristic polynomial of
+$\mathbf{C}$, and is given by 
+\begin{align}
+  I_1 = \tr \C,  && I_2 = \frac{1}{2}\left[ I_1^2 - \tr(\C^2)\right] && \text{and} && I_3 = \det \C.
+\end{align}
+In the case when the material constitutes a transversally isotropic
+behavior, that is the material has a preferred direction $\mathbf{a}$
+we have
+\begin{align*}
+  \mathcal{G} = \{ \mathbf{Q} \in \mathrm{Orth}: \mathbf{Q}(\mathbf{a}\otimes\mathbf{a})\mathbf{Q}^T\},
+\end{align*}
+with $\otimes$ being the outer product. In this case the strain-energy
+denisity function can still be expressed through invariants. However,
+we need to included the so called quasi-invariants, which are defined
+as streches in the local microstructural coordinate-system. The
+transversely isotropic invariants is given by
+\begin{align}
+  I_4 = \mathbf{a}_0 \cdot (\C \mathbf{a}_0) && \text{and} && I_5 = \mathbf{a}_0 \cdot (\C^2 \mathbf{a}_0).
+\end{align}
+For more detials about invariants see \cite{holzapfel2009constitutive,liu1982representations}.
+
+
+Recent studies \cite{gultekin2016orthotropic} have raised doubts to
+wether the myocardium can be considered purly hyperelastic, and
+proposed a viscoelastic model for the myocardium. 
+
+\subsection{Incompressibility}
 
 
 
 
-\subsection{Passive behavior of the myocardium}
 
+
+\subsection{Balance laws and trasformations}
+
+\subsection{Transformations between reference and current
+  configuration}
+By definition the reference configuration, $\Omega_0$ and current
+configuration $\Omega$ are related via the motion $\varphi$ in the
+sense that a point $p$ with reference coordinates $\Xvec$ and current
+coordinates $\xvec$ satisfies $\xvec = \varphi(\Xvec)$. Likewise a
+vector in the $\Omega_0$ is related to a vector in $\Omega$ via the
+deformation gradient $\F$; if $\mathrm{d}\Xvec$ is a vector in the
+reference configuration it will transform to the vector
+$\mathrm{d}\xvec$ in the current cofiguration, and $\mathrm{d}\xvec =
+\F \mathrm{d}\Xvec$. From this relation we also derrive that the
+transformation of an infinitesimal volume element in the reference
+cofiguration, $\mathrm{d}V$ is related to an infinitesimal volume
+element in the current cofiguration, $\mathrm{d}v$  via the determinant of the
+deformation gradient,
+\begin{align}
+  \mathrm{d}v =\det(\F) \mathrm{d}V.
+  \label{eq:volume_element}
+\end{align}
+Another important transformation is the transformation of normal
+vectors. By noting that we can write \eqref{eq:volume_element} using
+surface elements
+\begin{align*}
+  \mathrm{d}s \mathbf{n} \mathrm{d}\xvec  &= \mathrm{d}v = \det(\F) \mathrm{d}V = \det(\F) \mathrm{d}S  \Nvec \mathrm{d}\Xvec\\
+  &\implies \left( \mathrm{d}s \mathbf{n} \F  - \mathrm{d}S \det(\F) \Nvec \right) \mathrm{d}\Xvec = 0\\
+  &\implies \left( \mathrm{d}s \F^T \mathbf{n}  - \mathrm{d}S \det(\F) \Nvec \right) \mathrm{d}\Xvec = 0,\\
+\end{align*}
+we get Nansens formula
+\begin{align}
+  \mathrm{d}s \mathbf{n}  =  \det(\F) \F^{-T} \mathrm{d}S \Nvec,
+\end{align}
+which related normal vector in the current configuration to normal
+vector in the reference configuration.
+
+
+% \subsubsection{Conservation of mass}
+% Conservation of mass simply means that for a given motion $\varphi$
+% from the reference configuration $\Omega_0$ to the current
+% configuration $\Omega$ the mass is conserved. For a material with
+% constant density the means that we have
+% \begin{align}
+%   \int_{\Omega_0} \mathrm{d} V = 
+% \end{align}
+
+
+\subsection{Conservation of linear momentum}
+
+
+\subsection{Boudary Conditions}
+\label{sec:mech_boudary}
+Choosing the right boundary conditions for the model is essential,
+and the choice should mimic what is observed in the real life. To
+physiologically constrain the ventricle in a correct way is difficult,
+and many different approaches has been proposed.
+The boundary condition and the endocardium is typically modeled as a
+Neumann boundary condition, representing the endocardial blood
+pressure,
+\begin{align}
+  \mathbf{T} &= -p_{\mathrm{lv}}^{\mathrm{endo}} J\mathbf{F}^{-T} \cdot \mathbf{N}, \;  \mathbf{x} \in \lvendo
+\end{align}
+This condtion has a negative sign because the unit normal
+$\mathbf{N}$ is pointing out of the domain, while the pressure is
+acting into the domain. Likewise, it is common to enforce a
+Neumann boundary condition on the epicardium,
+\begin{align}
+\mathbf{T} &= -p_{\mathrm{lv}}^{\mathrm{epi}} J\mathbf{F}^{-T} \cdot \mathbf{N}, \;  \mathbf{x} \in \epi.
+\end{align}
+However, the pressure $p_{\mathrm{lv}}^{\mathrm{epi}}$ is usually set
+to zero. Therefore we drop the superscript and simply refere to the
+left ventricular pressure and the left ventricular endocardial
+pressure, i.e $p_{\mathrm{lv}} = p_{\mathrm{lv}}^{\mathrm{endo}}$.
+
+The heart in enclosed in the fibroserous sac, called the pericardium
+and slides within this sac during a heartbeat. A pericardial type
+boundary constraint has been proposed in
+\cite{nash2000computational}.
+
+Another approach commonly used, is constrain th longitudinal motion of
+base. To apply this type of condition, it is easiest if the base if
+flat and located at a prescribed location, for example in the $x= 0$ plane. 
+
+
+
+Using this
+constrain alone is not enough since, the ventricle is free to move in
+the basal plane.
+
+
+
+Different
+models of boundary conditons has been proposed in the litterature,
+some begin more popular than others. In Figure we maker
+
+
+
+One boundary conditions that is
+not debatable is the boundary conditions on the endocardium. The 
+
+
+
+in order to constrain you model appropratley at the boundary
+and 
+
+Write about different type of coundary conditions used, in partilar
+fixing the base, completely, fixing the endoring, fixing the epiring
+
+
+
+\subsection{Force-balance equation}
+There are many ways to arrive at the force-balance eqations for the
+cardiac mechanics problem. One way is consider conservation of
+momentum, which arrives at Cauchys momentum equation. Since we
+eventually want to solve this problem using the finite element method,
+we only have to consider the equations in its weak form. An intuitive
+way of doing this is by utilising a fundamental principle in physics
+called the \emph{principle of stationary potential energy}, or
+\emph{minimum total potential energy principle}, which states that a
+physical system is at equillibrium when the total potential energy is
+minmized, and any infinitesimal changes from this state should not add
+any energy to the system.
+
+We consider the incompressible case
+
+In orther to make use of this principle we first need to add all the
+potential energy in the system. Here we separate between internal and
+external energy. Internal energy, is energy that is stored within the
+material, for instance when you stretch a rubber band you increase its
+internal energy. External energy is all
+
+Denote the domain of interest by $\Omega \subset \mathbb{R}^3$, with
+boundary $\partial \Omega$. For the case of a left ventrcular domain
+we have $\partial \Omega = \lvendo \cup \lvepi \cup \lvbase$ and for a
+bi-ventricular domain we include $\rvendo$ in the partition as well.
+
+
+For a hyperelastic and incompressible materai, the total potential
+energy in the system is give by
+
+
+\begin{align}
+  \Pi(\mathbf{u}, p) &= \Pi_{\mathrm{int}}(\mathbf{u},p) + \Pi_{\mathrm{ext}}(\mathbf{u}). \\
+  \Pi_{\mathrm{int}}(u,p) &= \int_{\Omega} \left[ p(J(\mathbf{u}) - 1) +  \Psi(\mathbf{F}(\mathbf{u})) \right] \mathrm{d}V\\
+  \Pi_{\mathrm{ext}}(\mathbf{u}) &= - \int_{\Omega} \mathbf{B} \cdot \mathbf{u} \mathrm{d} V - \int_{\partial \Omega_N} \mathbf{T} \cdot \mathbf{u} \mathrm{d}S
+\end{align}
+
+Here $\mathbf{B}$ represents body forces acting on a volume element in the reference domain,
+e.g  gravity, and $\mathbf{T} = \mathbf{P} \mathbf{N}$ represents
+first Piola-Kirchoff traction force acting on a surface element in the
+referece domain, e.g pressure.
+According to the \emph{Principle of stationary potential energy} we
+have 
+\begin{align}
+  D_{\delta \mathbf{u}} \Pi(\mathbf{u}, p) = 0,  && \text{and} && D_{\delta p} \Pi(\mathbf{u}, p) = 0.
+  \label{eq:minimum_potential_energy}
+\end{align}
+Here $\delta \mathbf{u}$ and $\delta p$ are virtual variations in the
+space for the displacement and hydrostatic pressure respectively, and
+\begin{align}
+  D_{\mathbf{v}} \Phi(\mathbf{x}) = \frac{\mathrm{d}}{\mathrm{d}\varepsilon} \Phi(\mathbf{x} + \varepsilon \mathbf{v})\big|_{\varepsilon = 0}
+\end{align}
+is the directional derivative of $\Phi$ at $\mathbf{x}$ is the
+direction $\mathbf{v}$. The operator is also known as the G\^ateaux
+operator. The virtual variations $\delta \mathbf{u}$ and $\delta p$
+represents an arbitrary direction with infinitesimal magnitude.
+
+
+We have:
+\begin{align}
+  0 = D_{\delta p} \Pi(\mathbf{u}, p)
+       % = \frac{\mathrm{d}}{\mathrm{d}\varepsilon} \int_{\Omega} \left(p + \varepsilon \delta p\right)(J(\mathbf{u}) - 1) \mathrm{d}V\\
+  = \int_{\Omega}  \delta p(J(\mathbf{u}) - 1) \mathrm{d}V
+\end{align}
+and
+\begin{align}
+  \begin{split}
+  0 = D_{\delta \mathbf{u}} \Pi(\mathbf{u}, p) %\\
+  % =& \frac{\mathrm{d}}{\mathrm{d}\varepsilon} \int_{\Omega}  \left[ p(J(\mathbf{u} + \varepsilon \delta \mathbf{u}) - 1)
+    % +  \Psi(\overline{\mathbf{F}}(\mathbf{u}+\varepsilon\delta \mathbf{u})) \right] \mathrm{d}V \\
+     % &- \int_{\Omega} \mathbf{B} \cdot \delta \mathbf{u} \mathrm{d} V - \int_{\partial \Omega_N} \overline{\mathbf{T}} \cdot \delta \mathbf{u} \mathrm{d}S\\
+  =&  \int_{\Omega}  \left[ pJ \mathbf{F}^{-T} + \mathbf{P} \right] : \Grad \delta \mathbf{u} \mathrm{d}V\\ 
+  &- \int_{\Omega} \mathbf{B} \cdot \delta \mathbf{u} \mathrm{d} V - \int_{\partial \Omega_N} \overline{\mathbf{T}} \cdot \delta \mathbf{u} \mathrm{d}S
+  \end{split}
+\end{align}
+We have the following boundary condition
+\begin{align}
+  u_1 &= 0 , \;  \mathbf{x} \in \lvbase \\
+  k\mathbf{u} - \nabla \mathbf{u} \cdot  \mathbf{N}  &= \mathbf{0} , \;  \mathbf{x} \in \lvbase \\
+  \mathbf{T} &= -p_{\mathrm{lv}} J\mathbf{F}^{-T} \cdot \mathbf{N}, \;  \mathbf{x} \in \lvendo.
+\end{align}
+This Dirichlet condition represent fixing the base in the longitudinal ($x$-direction)
+direction, and is not present in the weak formuation.
+The Robin conditon acts a spring term with sitffness $k \geq 0$ that limits the movement of the
+base. The cornercase $k \rightarrow \infty$ represents fixing the base
+in all directions while $k = 0$ means that the base are free to move
+within the basal plane. The Neumann part of this conditon, $
+\mathbf{T} = - \nabla \mathbf{u} \cdot  \mathbf{N}$ is a force. The
+robin conditon  enforces that this force should increase linearly with
+the displacement. Hence, a larger dispacement will impose a greater
+force on the boundary. 
+% The problem with this is that any 
+The third conditon, i.e the Neumann condtion has a negative sign because the unit normal
+$\mathbf{N}$ is pointing out of the domain, while the pressure is
+acting into the domain. Plugging in the other two conditions we get the following
+force balance equation:
+\begin{align}
+  \begin{split}
+    0 
+    % & \int_{\Omega}  \left[ pJ \mathbf{F}^{-T} + \mathbf{P} \right] : \nabla_{\mathbf{X}} \delta \mathbf{u} \mathrm{d}V \\
+  % &+ \int_{\partial  \Omega_{i, \mathrm{LV endo}}} p_{\mathrm{lv}} J\mathbf{F}^{-T} \cdot \mathbf{N} \cdot \delta \mathbf{u} \mathrm{d}S\\
+    % &- \int_{ \partial \Omega_{i, \mathrm{base}}} \nabla \mathbf{u} \cdot  \mathbf{N} \cdot \delta \mathbf{u} \mathrm{d}S \\
+  =&  \int_{\Omega}  \left[ pJ \mathbf{F}^{-T} + \mathbf{P} \right] : \Grad \delta \mathbf{u} \mathrm{d}V \\
+  &+ \int_{\partial  \Omega_{i, \mathrm{LV endo}}} p_{\mathrm{lv}} J\mathbf{F}^{-T} \cdot \mathbf{N} \cdot \delta \mathbf{u} \mathrm{d}S \\
+  &- \int_{ \partial \Omega_{i, \mathrm{base}}} k \mathbf{u} \cdot \delta \mathbf{u} \mathrm{d}S
+  \end{split}
+\end{align}
+
+
+
+\subsection{Discretization of the force balance equations}
+
+The above eqations \eqref{} is only possible to solve analytically for
+very simplified problems. Therefore we need to employ a numerial
+approxation of the solution of the force balance equaiton. Using the
+finite element method we often refer to such approximation as a
+Garlerking approximation. This is based on approximating the solutions
+by basis functions in a finite dimesional subspace of the true
+solution. Let $(V, \langle \cdot \rangle_V)$
+and $(Q, \langle \cdot \rangle_Q)$ be two suitable Hilbert
+spaces for the displacement $\uvec$ and the hydrostatic pressure $p$
+respectively. Now we select some finite dimesional subspaces $V_h
+\subset V$ and $Q_h \subset Q$, which are spanned by a finite number
+of basis functions.
+
+For incompressible problems such as \eqref{}, we cannot choose the
+approximation spaces $V_h, Q_h$ at random. A known numerical issue
+that arises is locking, which can be seen if the material do not
+deform even if forces are applied. To illustrate the problem of
+locking , imagine an incomressible sphere exsposed to higher and higer
+hydrostatic pressure. In other words, the hydrostatic pressure is not
+unique for a given diplacement. The problem is solved by requirig the
+finte element approximation to satisfy the discrete inf-sup condition
+\cite{arnold1984stable}. There exist several mixed elements that
+satistifies the inf-sup condition. The one used in this thesis is the
+Taylor-Hood elements \cite{taylor1973numerical}, with
+
+
+\subsection{Constitutve relations}
+
+
+
+\subsubsection{Modeling of the passive myocardium}
 \begin{itemize}
   \item Hyperelasticiy, fung type-refer to relevant papers
-  \item Incompressibility
+  \item Incompressibility - Saddle point problem
+  \item Finding the unloaded configuration
 \end{itemize}
 
 
+Talk about the Holzapel Odgen Law, the invariants, the othotropic one,
+transvarsally isotropic one, the meaning of each term, analytic
+version of the stress
 
-\subsection{Active behavior of the myocardium}
+\subsubsection{Modeling of the active contraction}
 
 
 \begin{itemize}
   \item Active stress and strain (some mathematical aspects perhaps)
 \end{itemize}
 
-
-
-Saddle point problem
-
   
+
+One property that separate the myocardium from other materials is its
+ability to generate force without external stimulation. As discussed
+in Sction \ref{some part from electrophysiology}, then myocardium
+contracts in a cyclic manner blabal.
+
+There are basically two main approaches to model the active response
+of the myocardium; the \emph{active stress} and the \emph{active strain}
+formulation.
+
+In the active stress formulation \cite{hunter1998modelling} one assumes
+that the total Cauchy stress $\Cauchy$ can be written as an additive sum of one
+passive contribution $\Cauchy_p$ and one active contribution $\Cauchy_a$:
+\begin{align}
+  \Cauchy = \Cauchy_p + \Cauchy_a && \Cauchy_p = J^{-1} \frac{\partial \Psi(\F)}{\partial \F} \F^{T}
+\end{align}
+
+
+Historically the active stress formulation has been the
+
+
+\subsubsection{Choosing the reference geometry}
+A general problem in the biomechanics is that geometries extrated from
+imaging data if not the stress-free geometry, meaning the the geometry
+that we observe is subjected to a physical load, e.g blood pressure.
+This means that 
+
+
+\subsection{Implementation details}
+A word abour fenics and how we can implement this
+Newtons method, good initial guess, increament pressure.
+Relatively small system, dense matrix, plot stiffness matrix, Direct
+solver.
+Fenics compilation stored in cache.
+Fibers at quadrature points. Symbolic language.
+
+\subsubsection{FEniCS}
+
+
+
+\subsubsection{Numerical considerations}
+The solution of non-linear problems such as the one described here is
+typically solved using methods like Newton's method. The convergece of
+such methods depends on the initial guess, and if the
+initial guess is too far from the solution, the solver might diverge.
+Moreover, if the initial guess is close to the solution the
+convergence rate is in general quadratic.
+
+Let us consider a
+typical numerical problem of inflating the ventricular geomtry from a
+stress-free configuration to end-diastole. This involves increasing
+the pressure, or the boundary tranction on the endocardium, from zero
+to the end-diasolic pressure. A strategy know as the
+\emph{incremental load} technique is usually a good approach. In this
+strategy you select some incremental step-size (for instance $0.4$
+kPa), and increase the pressure linearly until the target pressure is
+reached. If the solver diverges you decrease the step-size (for
+instance by a factor of 0.5) until convergence is reached, and
+continue to step up the pressure with the new step-size. This is very
+robust, but definetly a slow approach. Since many of the 
+constitutive models for myocardium consist of an exponential
+realtionship between the stress and strain (so call Fung-type
+relation), the amount of stress needed to displace a material will be
+higher if the matieral is a state with high strain compared to a state
+of low strain. Therefore, the Newtons solver might perform less
+iterations to reach convergence when when the load is increased. As a
+result, one could improve the incremental load technique by adapting
+the step sice if the number of newton iterations are below a certain
+threshold (for instance $8$ iterations).
+
+An even more clever strategy, uses a technique from bifurcation
+chaos theory and is known as numerical continuation
+\cite{allgower2003introduction}.  Suppose we want to
+solve the non-linear problem $F(\uvec, \lambda)=0$ with state variable
+$\uvec$ and parameter $\lambda$. For instance $\uvec$ could be the
+displacement and $\lambda$ could be the endocardial pressure.
+The idea be numerical continuations is that given a solution pair
+$(\uvec_0, \lambda_0)$ there exist (under conditons stated by the
+implicit function theorem) a solution curve $\uvec(\lambda)$ such that
+$F(\uvec(\lambda), \lambda)=0$ and $\uvec(\lambda_0) = \uvec_0$.
+To explicitly find such a curve is not allways easy but a simple
+approximation can be found by extrapolation: Given two pairs
+$(\uvec_0, \lambda_0)$ and $(\uvec_1, \lambda_1)$, and a new target
+parameter $\lambda_2$, a possible solution is 
+\begin{align}
+  \uvec_2 =  (1-\delta)\uvec_0 + \delta \uvec_1 && \delta = \frac{\lambda_2 - \lambda_0}{\lambda_1 - \lambda_0}.
+\end{align}
+% Let $w_0$ denote the initial
+% state variable associated with endocardial pressure $p_0$. Increase
+% the pressure $p_1 = p_0 + \Delta p_0$, and solve to obtain $w_1$. Next
+% we would like to solve for $p_2 = p_1 + \Delta p_1$ where $\Delta
+% p_1$ might be the adapted step size. In stead of using $\tilde{w_2}=w_1$ as
+% initial guess for the newton solver, as we typically would do in the incremental load
+% technique, we observe that if $\delta = \frac{p_2 - p_0}{p_1 - p_0}$,
+% and hence $p_2 = (1-\delta)p_0 + \delta p_1$, then a better choice
+% of intial guess would be $\tilde{w_2} = (1-\delta)w_0 + \delta w_1$.
+Choosing $\uvec_2$ as initial guess for the non-linear solver has been
+successfully performed by others in non-linear caridac mechanics
+problems \cite{pezzuto2013mechanics}. 
+
+
+\subsection{Parall Performance}
+Write a section here where we test a sample code on multiple cores to
+test scalability
+
+
+
 
 %%% Local Variables:
 %%% mode: latex

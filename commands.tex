@@ -59,10 +59,17 @@
 % \newcommand{\fvec}{{\bf f}}
 % \newcommand{\evec}{{\bf e}}
 % \newcommand{\Ivec}{{\bf I}}
-\newcommand{\lvendo}{\partial \Omega_{ \textnormal{\tiny \text{endo}}}}
+\newcommand{\lVendo}{\partial \Omega_{ \textnormal{\tiny
+      \text{LVendo}}}}
+\newcommand{\lvendo}{\partial \Omega_{ \textnormal{\tiny
+      \text{endo}}}}
+\newcommand{\rvendo}{\partial \Omega_{ \textnormal{\tiny\text{RVendo}}}} 
+\newcommand{\epi}{\partial \Omega_{ \textnormal{\tiny \text{epi}}}}
+\newcommand{\base}{\partial \Omega_{ \textnormal{\tiny\text{base}}}}
 \newcommand{\lvepi}{\partial \Omega_{ \textnormal{\tiny \text{epi}}}}
-\newcommand{\lvbase}{\partial \Omega_{ \textnormal{\tiny\text{base}}}}
-\newcommand{\basebound}{\partial \Omega_{\textnormal{\tiny\text{base}}}}
+\newcommand{\lvbase}{\partial \Omega_{ \textnormal{\tiny\text{base}}}} 
+\newcommand{\basebound}{\partial
+  \Omega_{\textnormal{\tiny\text{base}}}} 
 
 
 \newcommand{\Nas}{N_\textnormal{\tiny \text{AS}}}
@@ -78,6 +85,27 @@
 
 % \newcommand{\Istrainavg}{\overline{I}_{\text{strain}}}
 % \newcommand{\Istrainrelmax}{\overline{I}^{\text{relmax}}_{\text{strain}}}
+
+\newtheorem{remark}{Remark}
+
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\pagestyle{fancy}
+
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+% \renewcommand{\sectionmark}[1]{\markright{\arabic{section}.\ #1}}
+
+% \lhead[\thepage]{\leftmark} 
+% \rhead[\nouppercase{\rightmark}]{\thepage}
+\fancyhead[EL,OR]{\thepage}
+\fancyhead[ER]{\rightmark}
+\fancyhead[OL]{\leftmark}
+
+
+\titleformat{\chapter}
+  {\Large\bfseries} % format
+  {}                % label
+  {0pt}             % sep
+  {\huge}           % before-code
 
 
 %%% Local Variables:
