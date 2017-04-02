@@ -1,0 +1,23 @@
+\documentclass[tightpage, 26pt]{standalone}
+\usepackage{array}
+\usepackage{bm,amsmath,amssymb}
+\usepackage{booktabs,dcolumn}
+\usepackage{graphicx}
+
+\newcommand{\imgcaseed}[1]{\raisebox{-.5\height}{\includegraphics[width=0.5\linewidth]{ed#1}}}
+\newcommand{\imgcaseun}[1]{\raisebox{-.5\height}{\includegraphics[width=0.5\linewidth]{unloaded#1}}}
+
+\begin{document}
+% \begin{minipage}{0.9\textwidth}
+% \scriptsize
+  \begin{tabular}{lccc}
+    \\
+  \Huge{Iteration} & \Huge{1} & \Huge{5} & \Huge{10} \\
+  \\
+    \Huge{End Diastole} & \imgcaseed{00} & \imgcaseed{05} & \imgcaseed{10} \\
+    \\
+  \Huge{Unloaded} & \imgcaseun{00} & \imgcaseun{05} & \imgcaseun{10} \\  
+\end{tabular}
+% \end{minipage}
+
+\end{document}

@@ -122,19 +122,7 @@ $x-$axis), until the cavity volume agrees with the measured volume
 given by the image segmentation tool within some specified tolerance. 
 When the correct size is found the points above the plane is removed,
 and the remaining surfaces are smoothed using the GAMer
-\cite{yu2008feature}. The actualy mesh generation is performed using Gmsh
-\cite{geuzaine2009gmsh}, which meshes the endocardial and epicardial
-surface togther unsing frontal-Delaunay meshing algorithm. Gmsh also marks
-the endocardal, the epicardial and the basal facets so that it is easy
-to 
-
-\begin{remark}
-  The cavity volume is computed by generating the whole mesh, and the
-  compute the volume using Equation \eqref{eq:volume_operator}. The cut size is
-  found by using a one dimensional optimization algorithm with
-  the objective funcitonal representing the squared error between
-  computed and measured volume.
-\end{remark}
+\cite{yu2008feature}.
 
 \begin{figure}[htbp]
   \centering
@@ -149,6 +137,104 @@ to
 \caption{}
 \label{fig:echopac_output}
 \end{figure}
+
+
+
+The actualy mesh generation is performed using Gmsh
+\cite{geuzaine2009gmsh}, which meshes the endocardial and epicardial
+surface togther unsing frontal-Delaunay meshing algorithm. Gmsh also marks
+the endocardal, the epicardial  and the basal facets, along with the
+endocardial 
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{chapters/introduction/figures/geometry/mesh.png}
+    \caption{\label{fig:mesh}}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{chapters/introduction/figures/geometry/markers_full.pdf}
+    \caption{\label{fig:markers_full}}
+  \end{subfigure}
+\caption{}
+\label{fig:echopac_output}
+\end{figure}
+
+
+
+\begin{remark}
+  The cavity volume is computed by generating the whole mesh, and the
+  compute the volume using Equation \eqref{eq:volume_operator}. The cut size is
+  found by using a one dimensional optimization algorithm with
+  the objective funcitonal representing the squared error between
+  computed and measured volume.
+\end{remark}
+
+
+
+
+\subsubsection{Rule-based fibers}
+\label{sec:rule_based_fiber}
+Mention papers about fiber distribution, fiber dependence and
+different rule-based fibers.
+
+Describe the main steps in the Bayer algorithm. 
+
+
+\subsubsection{The ventricular coordinate system}
+
+When dealing with geometric shapes such as a left ventricle, finding a
+coordinate system that is easy to work with is important. For
+example, when studing spherical shapes, the spherical coordinate system is
+usually easier to work with. Likewise, a coordinate system that is
+easy to use when studying ellipsoidal shapes like the left ventricle is
+the \emph{prolate spheroidal coordinate system} \cite{hunter1996kd}. 
+The cartesian coordinates $(x,y,z)$ are related to the prolate
+spheroidal coordinates by
+
+\begin{align}
+  \begin{split}
+    x &= a \sinh \mu \sin \nu \cos \theta  \\
+    y &= a \sinh \mu \sin \nu \sin \theta  \\
+    z &= a \cosh \mu \cos \nu,
+  \end{split}
+\end{align}
+where $a$ is the focal point, $\nu \in [0, \pi]$ is the longitudinal
+coordinate, $\theta \in [0, 2\pi]$ is the azimuthal angle and $\mu$
+is the radial coordinate. For an ellipse given by the equation
+$\frac{x^2}{b^2} +\frac{y^2}{c^2}  = 1$ with $b$ being the semimajor
+axis, and $c$ the semiminor axis, the focal point is given by
+\begin{align}
+  a =\sqrt{b^2 - c^2}.
+  \label{eq:focal_point}
+\end{align}
+Assuming the ventricle is axisymetric around the
+longitudinal axis, which is aligned with the $x$-axis it is possible
+to estimate the focal point by taking $b$ in \eqref{eq:focal_point} to
+be the maximum distance from the base to the apex, and $b$ the maximum
+radius at the based. Using this estimate, the base is assumed to be
+located approximately at the center of the ellipsoid, i.e $\nu = \pi /
+2$. Compared to geometries used in benchmarking of cardiac mechanics
+problems, this is not a totally wrong assumption
+\cite{land2015verification}
+
+
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{chapters/introduction/figures/geometry/prolate.png}
+    \caption{\label{fig:prolate_coord}}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{chapters/introduction/figures/geometry/prolate_cube.png}
+    \caption{\label{fig:prolate_cube}}
+  \end{subfigure}
+\caption{}
+\label{fig:prolate}
+\end{figure}
+
+\subsubsection{Marking the mesh according to the AHA-segments}
 
 
 
@@ -455,19 +541,141 @@ Dolfin-Adjoint is a software package that based on the FEniCS project
 which aims to derrive the discrete adjoint equation and the tangent
 linear models of finite element models implemented within the FEniCS
 framework. While the tradional approach is to derrive the adjoint code
-from the forward code, Dolfin-Adjoint utilises the high level symbolic
-representation \cite{UFL} in FEniCS to derrive the discrete adjoint equations
-from the discrete forward eqations, and then the FEniCS system
-derrives the adjoint code from the discrete adjoint equations.
+from the forward code using automatic differentiation tools,
+Dolfin-Adjoint utilises the high level symbolic representation
+\cite{UFL} in FEniCS to derrive the discrete adjoint equations from
+the discrete forward eqations, and then the FEniCS system derrives the
+adjoint code from the discrete adjoint equations. 
 
 \subsubsection{Optimization methods}
+
+Line search methods, interior point methods, gradient based methods,
+genetic methods, trust region
 
 
 
 \subsection{Identifiability of parameters}
-Try dividing heart mesh is different segment, discuss uniqueness of
-paraperers
-Discuss regularization technices
+% Try dividing heart mesh is different segment, discuss uniqueness of
+% paraperers
+% Discuss regularization technices
+When dealing with parameter estimation, you should always consider
+questions about identifiability and uniquness. This depends on the
+model, the data and the objective functional
+\cite{hadjicharalambous2015analysis}. A first test should be to
+generate synthetic data with some prescribed parameters, feed this
+error-free data to the data assimilation method, and ensure that you
+are able to retrieve the parameters that generated that data. If you
+end up with a different parameter set than the one generated the data,
+your problem is not \emph{structuraly identifiable}
+\cite{chabiniok2016multiphysics}. Your problem is said to be
+\emph{practical identifiable} if the parameters can be determined
+uniquely based on the data at hand. If the test passes you shold try
+to add noise to the data, and see if your data assimilation is stable
+with respect to noise in the measurement, and you should quantify the
+model out error versus the model input error. Demonstrating identifiability is
+often difficult, especially when your data is corrupted with noise,
+and when the complexity of the model increases. Balancing the
+complexity of model in terms of \emph{model fidelity}, i.e wheter your
+model is rich enough to representing the data, and the identifiability
+is often key in order to have robust model. A too simple model will
+often fail to represent your data, while a too complex model, might
+give completely differet answers with just a slight perturbation of
+the data, i.e with noise added to the measurement. The same problem is
+encountered in other scientific disiplines, for instance in
+statistical learning theory, \emph{overfitting} is related to
+overparameterization of the model, in which you can perfectly
+represent your data, but a small perturbation will cause a significant
+error. Another problem, which is also related to identifiability is
+the question about uniquness of the soluton. A practical test is to
+start the optimization algorithm from different intial points and see
+if you end up at the same optimum. If this does not happen, it is
+likely that the objective functional is not convex, which is a
+requirement for uniquness. Unfortunately, this is the case for many
+problems in PDE-constrained optimization. In these cases, the objective
+functional might have several distinct local minima, in which case
+different techniques for find the best local minima exists
+\cite{farrell2015multiple}. 
+
+\subsubsection{An example of a non-structuraly identifiable problem}
+Split the ventricle in two, and use volume as the only input.
+Show that differnt parameter sets (with $\gamma$) will generate the
+same volume
+
+
+
+\subsubsection{Material parameter estimation}
+
+\paragraph{One volume measurement only}
+
+\paragraph{Multiple volume measurements}
+
+\paragraph{Volume and strain measurements}
+
+\subsubsection{Coupled unloading and material parameter estimation}
+In Section \ref{sef:reference_geometry} we described a method for
+finding the uloaded configuration unsing the backward displacement
+method. The problem of using this method when dealing with parameter
+estimation is that the unloaded geometry depends on the material
+properties, which in general is unknown. Hence we need a way of
+estimating both the unloaded geometry and the material parameters at
+the same time. One possibible algorithm is the following:
+
+
+
+\begin{algorithm}
+\caption{Coupled Unloading and material parameters estimation}\label{alg:unloaded_material}
+\begin{algorithmic}[1]
+  \State $i = 0$
+  \State residual = $\infty$
+  \State $\mvec_0 =  \mvec$ \Comment{Initial guess for material parameters}
+  \While{i $<$ N and residual > tolerance }
+
+  \State $\Omega_{\mathcal{U}}^i$ = Unload($\Omega_{\mathcal{I}}, \mvec_i$) \Comment{unload
+    material}
+  \State $\mvec_{i+1}$ = EstimateMaterial($\Omega_{\mathcal{U}}^i,
+  \mvec_i$) \Comment{estimate material parameters}
+  \State residual = ComputeResidual($\Omega_{\mathcal{U}}^i,
+  \Omega_{\mathcal{U}}^{i-1}$)
+  \State $i = i +1$
+ 
+  \EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Activation parameter estimation}
+
+
+
+\subsubsection{Multiobjetive optimization}
+Paramaters in the model are estimated based on minimizing a cost
+functional representing the mismatch between observations and simulaton.
+Assume we are given $N$ different observations, then in priciple we
+have $N$ different cost funcitonals to solve
+\begin{equation}
+  \begin{aligned}
+    \label{eq:multiobjetive_opt}
+    & \text{minimize}
+    & &  \left\{ \mathcal{J}_1(\lambda), \mathcal{J}_2(\lambda), \cdots, \mathcal{J}_N(\lambda) \right\} \\
+    & \text{subject to}
+    & & \delta \Pi(\state(\lambda)) = 0, \lambda \in \mathcal{P},
+  \end{aligned}
+\end{equation}
+whith 
+\begin{align}
+  \mathcal{J}_i(\lambda) = \left( \mathbf{y} - \mathcal{H}(\state(\lambda)) \right)^2, \; i = 1,\cdots, N
+\end{align}
+The above observations comes from the same soure, and hence it should
+be intuitive that minimizing one of them, would also bring the other
+closer to a minimum. However, with precense of noise in the data,
+this might not always be the case, and hence we have a conflicting
+objectives. Problem \eqref{eq:multiobjetive_opt} is called a
+multiobjetive optimization problem \cite{deb2016multi}. Such problems
+typically do not have a single optimal solution, but a family of
+solutions called \emph{Pareto optmal solutions}. The basic methods for
+solving such problems inclues \emph{the weighted method}, \emph{the
+  $\varepsilon$-constraint method}, 
+
+
 
 
 \subsection{Mehcanical biomarkers}
