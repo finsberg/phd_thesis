@@ -9,6 +9,7 @@
 \usepackage{subcaption}
 \usepackage{graphicx}
 \usepackage{algorithm}
+\usepackage{multirow}
 \usepackage[noend]{algpseudocode}
 \usepackage{booktabs}
 \usepackage[sectionbib]{chapterbib}
@@ -17,7 +18,7 @@
 % \usepackage[acronym]{glossaries}
 \usepackage{longtable}
 \usepackage[square,numbers,sectionbib]{natbib}
-
+% \usepackage{cmbright}
   
 \input{commands}
 
@@ -45,6 +46,7 @@
 
 \mainmatter
 
+
 \cleardoublepage
 
 \include{chapters/introduction}
@@ -54,8 +56,13 @@
 \cleardoublepage
 
 \include{chapters/paper1/article}
-% \include{chapters/paper2/paper2}
+% \cleardoublepage
+\include{chapters/paper2/main}
 
+\include{chapters/numerical_experiments/main}
+
+
+\backmatter
 
 \end{document}
 

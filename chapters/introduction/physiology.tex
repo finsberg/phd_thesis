@@ -1,15 +1,14 @@
 \section{Cardiac Anatomy and Physiology}
 
+
 The heart is the muscular organ responsible for circulating the blood
 throughout the body.
 
 
 \begin{figure}[htbp]
   \centering
-    \includegraphics[width=0.8\textwidth]{chapters/introduction/figures/heart_anatomy.pdf}
-\caption{Backward displacement method might fail for bi-ventricular
-  geometries. This can be seen be noticing that the RV free wall is
-  buckling and colliding with the septum.}
+    \includegraphics[width=0.7\textwidth]{chapters/introduction/figures/heart_anatomy.pdf}
+\caption{The heart anatomy. (Adapted and modified from Wapcaplet in Sodipodi).}
 \label{fig:heart_anatomy}
 \end{figure}
 
@@ -27,9 +26,9 @@ The flow from one chamber to another is driven
 by pressure gradients, that is blood flows from regions with higher
 pressure to regions with lower pressure. Consequently, the lowest
 pressure is found in the veins entering the heart, and the highest
-pressure is found in the left ventricle. 
+pressure is found in the left ventricle.
 
-The heart itself is located approximately in the center of your chest
+The heart itself is located approximately in the center of the chest
 with the \emph{apex} of heart angled down towards the left of the
 body, and the \emph{base} located just behind the breastbone.
 
@@ -45,16 +44,84 @@ myocardium, which is the cardiac muscle cells.
 The myocardium is made up by individual cardiac muscle cells, or
 cardiac myocytes which branch and join neighbouring cell, and form a
 complicated fibrous network which is often referred to as a
-\emph{functional syncytium}; the number of active muscle fibers cannot
-be varied from beat to beat. 
+\emph{functional syncytium} meaning that the number of active muscle
+fibers cannot be varied from beat to beat. 
 
 
 Each myocyte is composed of bundles of myofibriles, which again
 contain \emph{myofilaments}. The myofilaments cosists of a repeated pattern
 of lines and bands which can be seen as a collection of individual
-contrictile units called \emph{sarcomeres}. 
+contractile units called \emph{sarcomeres}. A simple sketch of a
+sarcomere is shown in Figure \ref{fig:sarcomere}.
 
-\subsection{Cardiac pump function}
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=1.0\textwidth]{chapters/introduction/figures/Sarcomere.png}
+\caption{Illustration of the sarcomere structure.}
+\label{fig:sarcomere}
+\end{figure}
+
+These sarcomeres are composed thick and thin filaments that slides
+back and forth when the muscle contract or relaxes. For that reason we
+also refer to this model as the sliding-filamen model. 
+The thin filaments are made up by a protein called \emph{actin} while
+the thick filaments are made up by a protein called \emph{myosin}.
+In order for the muscle to contract, calcium enters the cell after a
+triggered action potential. These calcium ions binds to a complex called
+troponin C located at the thin filments, which then exposes the actin to the
+myosion head. When myosin binds to actin we say that a
+\emph{cross-bridge} is formed between the thin and thick
+filments. Now several models exist for the crossbridge cycle that
+constitutes the sliding filament theory, but main steps includes the
+use of ATP in order to trigger the \emph{power stroke} which makes the 
+
+\subsection{Passive and Active properties of the myocardium}
+The myocardium is composed by small blood vessels that supply the
+myocardial cells with oxygen. When the myocardium contracts this
+perfused blood is then squeezed out, resulting in an overall loss of
+volume. Such materials are referred to as compressible. When the
+volume are preserved we refer to the material as incompressible.
+
+
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.5\textwidth]{chapters/introduction/figures/Hill_muscle_model.pdf}
+\caption{The classical three-element Hill muscle model with one
+  contractile element and two non-linear springs, one arranged in
+  series and one parallel. }
+\label{fig:hill_muscle_model}
+\end{figure}
+
+
+
+\subsection{Ventricular pumping function}
+\label{sec:ventricular_pumping_function}
+The left ventricle is by far the most studied chamber of the heart,
+mainly because this is the chamber responsible for ejecting blood into the
+body and therefore a diseased left ventricle could be fatal. A heart
+beat can be described in many ways. One way is by looking at the
+electrical propagation of current that travels through the heart and
+activates the myocardium, leading to contraction. Such a diagram in
+known as the \emph{electrocardiogram} (ECG). Another way to descrive
+the cardiac cycle is by means of the LV pressure and volume. Plotting
+the LV volume on the $x-$axis and the LV pressure on the $y-$axis
+provides an intuitive representaion of the cardiac cycle known as the
+\emph{PV-loop}, see Figure \ref{fig:pv_loop}.
+
+
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.8\textwidth]{chapters/introduction/figures/cardiac_cycle.png}
+\caption{Showing the relation between pressure and volume in the left
+  ventricle during the cardiac cycle, which the different phases and
+  valvular events marked. To the left we show the a reduced version of
+the classical Wiggers diagram with pressure and volume plotted against
+time on the $x-$axis. To the right we show the pressure volume loop
+with volume plotted on the $x-$axis and pressure on the $y-$axis. }
+\label{fig:pv_loop}
+\end{figure}
 
 
 
@@ -127,7 +194,17 @@ are linearly related by the time-varying elastance, or formally:
 \end{align}
 Here $P$ is the endocardial pressure, $V$ the cavity volume, $E$ the
 time-varying elastance, and $V_0$ the volume axis intercept. This
-model  
+model
+
+
+\subsection{Summar of Cardiac Physiology}
+The multiscale and multiphysics phenomena governening the mechanics of
+the heart is complex. How the molecular dynamics should be coupled to
+the electrophysiology at the cellular level, how the electrophysiology
+should be coupled to the mechanics at the organ level and what type of
+feedback mechanisms that should be included is far from fully
+understood. In this thesis we limit ourself to the study of what is
+happending on the organ level.
 
 
 %%% Local Variables:
