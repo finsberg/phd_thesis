@@ -1,95 +1,24 @@
-% \documentclass[a4paper,10pt]{article}
-% % \documentclass[times]{cnmauth}
-% \usepackage[utf8]{inputenc}
-% \usepackage{amsmath}
-% \usepackage{amssymb}
-% \usepackage{caption}
-% \usepackage{subcaption}
-% \usepackage{graphicx}
-% \usepackage{tikz}
 
-
-% \usepackage[noend]{algpseudocode}
-% \usepackage{algorithm}
-% \usepackage{enumitem}% http://ctan.org/pkg/enumitem
-% \usepackage{color}
-% \usepackage{url}
-% \usepackage{booktabs}
-% \usepackage[export]{adjustbox}
-% % \usepackage[tablesonly]{endfloat} %Data table put at end according to Wiley preference.
 \graphicspath{{chapters/paper1/figures/}}
 
 
 \chapter{Paper 1: \\High Resolution Data Assimilation of Cardiac
   Mechanics}
 
-
-% \usetikzlibrary{shapes,arrows}
-% \usetikzlibrary{positioning}
-
-
 % \pagebreak
 \clearpage
 
-% \def\baselinestretch{2} 
-
-% \begin{document}
-
-%opening
-% \title{Dyssnychrony Specific Personalization of a Cardiac Mechanics Model by Adjoint Optimization}
-% \title{High Resolution Data Assimilation of Cardiac Mechanics \\ \large Applied to a Dyssynchronous Ventricle}
- % \author{Gabriel Balaban\footnotemark \affil{1}~\affil{2}~\affil{5},
- %         Henrik Finsberg\footnotemark[\value{footnote}]~\affil{1}~\affil{2}~\affil{5},
- %         Hans Henrik Odland~\affil{4}~\affil{7}, 
- %         Marie~E.~Rognes~\affil{1}~\affil{3},
- %         Stian Ross~\affil{4}~\affil{5},
- %         Joakim Sundnes~\affil{1}~\affil{2}~\affil{5},
- %         Samuel Wall~\affil{1}~\affil{6}~\affil{5}\\}
-
-% \address{\affilnum{1} Simula Research Laboratory, P.O. Box 134 1325 Lysaker, Norway \break
-% \affilnum{2}Department of Informatics, University of Oslo, P.O. Box 1080, Blindern 0316 Oslo, Norway \break
-% \affilnum{3}Department of Mathematics, University of Oslo, P.O Box 1053, Blindern 0316 Oslo, Norway \break
-% \affilnum{4}Faculty of Medicine, University of Oslo, P.O. Box 1078 Blindern, 0316 Oslo, Norway \break
-% \affilnum{5}Center for Cardiological Innovation, Songsvannsveien 9, 0372 Oslo, Norway \break
-% \affilnum{6}Department of Mathematical Science and Technology, Norwegian University of Life Sciences,
-% 	 Universitetstunet 3 1430 Ås, Norway \break
-% \affilnum{7}Department of Pediatrics, Oslo University Hospital, PO Nydalen, Oslo, Norway}
-
-% \corraddr{gabrib@math.uio.no} 
-
-% \cgsn{Research Council of Norway: Center for Biomedical Computing at Simula Research Laboratory
-%       and Center for Cardiological Innovation at Oslo University Hospital}{179578 and 203489}
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
-% \keywords{cardiac mechanics; data assimilation; patient-specific; adjoint; dyssynchrony}
+
 \section*{High Resolution Data Assimilation of Cardiac Mechanics}
 
-\begin{center}
+% \begin{center}
 G. Balaban\footnotemark,
 H. Finsberg\footnotemark[\value{footnote}], 
-H. Odland, M. E. Rognes,
+H. Odland, M. E. Rognes, \\
 S. Ross, J. Sundnes, and
 S. Wall
-\end{center}
-
-% \begin{center}
-% G. Balaban\textsuperscript{\footnotemark 1,2,5},
-% H. Finsberg\textsuperscript{\footnotemark[\value{footnote}], 1,2,5}, 
-% H. Odland\textsuperscript{4,7}, M. E. Rognes\textsuperscript{1,3},
-% S. Ross\textsuperscript{4,5}, J. Sundnes\textsuperscript{1,2,5},
-% S. Wall\textsuperscript{1,5, 6} 
 % \end{center}
-
-% \begin{enumerate}
-%   \itemsep-0.5em 
-% \item Simula Research Laboratory, P.O. Box 134 1325 Lysaker, Norway
-% \item Department of Informatics, University of Oslo, P.O. Box 1080, Blindern 0316 Oslo, Norway
-% \item Department of Mathematics, University of Oslo, P.O Box 1053, Blindern 0316 Oslo, Norway
-% \item Faculty of Medicine, University of Oslo, P.O. Box 1078 Blindern, 0316 Oslo, Norway 
-% \item Center for Cardiological Innovation, Songsvannsveien 9, 0372 Oslo, Norway
-% \item Department of Mathematical Science and Technology, Norwegian University of Life Sciences,
-%   Universitetstunet 3 1430 Ås, Norway
-% \item Department of Pediatrics, Oslo University Hospital, PO Nydalen, Oslo, Norway
-% \end{enumerate}
 
 \subsection*{Abstract}
 
@@ -1290,9 +1219,9 @@ and in accordance to the Helsinki Declaration of 1975, as revised in 2000.
 Computations were performed on the Abel supercomputing cluster at the
 University of Oslo via Notur projects nn9316k and nn9249k.
 
-\appendix
+\section{Appendix}
 
-\section{Sensitivity of elastic $a$ parameter to error in atrial systolic volume measurements}
+\subsection{Sensitivity of elastic $a$ parameter to error in atrial systolic volume measurements}
 In order to test the sensitivity of our estimated $a$ parameter to
 uncertainty in volume measurements we have carried out a series of estimations with
 various levels of volume perturbation. 
@@ -1348,7 +1277,7 @@ values are based on estimating $a$ with volume perturbations of $\pm 25 \% $ (Ta
 \end{figure}
 
 
-\section{Sensitivity of estimated parameters to spring constant $k$.}
+\subsection{Sensitivity of estimated parameters to spring constant $k$.}
 \label{sec:k_sense}
 The spring boundary condition that we used at the ventricular base has a significant
 effect on the simulated cavity volumes calculated by the model. This is due to the 
@@ -1395,7 +1324,7 @@ contraction $\overline{\gamma}$ to the choice of spring constant $k$.}
 \end{figure}
 
 
-\section{Effect of mesh resolution on estimated contraction $\gamma$ at P1 resolution}
+\subsection{Effect of mesh resolution on estimated contraction $\gamma$ at P1 resolution}
 \label{sec:mesh_res}
 Ventricular meshes were generated by Gmsh
 \cite{geuzaine2009gmsh} with three different resolutions controlled by the parameter
@@ -1428,7 +1357,7 @@ Number of elements & $\Ivolavg$ & $\Istrainavg$ & $\Istrainrelmax$ \\
 \end{figure}
 
 
-\section{Sensitivity of Contraction Size to choices of $\alpha$ and $\lambda$}
+\subsection{Sensitivity of Contraction Size to choices of $\alpha$ and $\lambda$}
 \label{sec:sense_alpha_lambda}
 Based on the trade-off curves in Figure~\ref{fig:lcurves} we chose 
 the optimization weights $\alpha = 0.95$ and $\lambda = 0.01$ for the personalization
@@ -1456,7 +1385,7 @@ $\alpha$ is varied. Right: $\alpha = 0.95$ and $\lambda$ is varied.}
 \end{figure}
 
 
-\section{Estimation of noise in echo speckle tracking strain measurements}
+\subsection{Estimation of noise in echo speckle tracking strain measurements}
 \label{sec:strain_noise_est}
 In order to increase the relevance of the synthetic tests we
 considered a set of regional strains that contained noise. This
@@ -1490,6 +1419,8 @@ the tracking error.
     \label{tab:noise_covar_mean}
   \end{center}
 \end{table}
+
+
 
 
 % \FloatBarrier
