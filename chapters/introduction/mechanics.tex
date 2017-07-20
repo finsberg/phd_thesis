@@ -10,6 +10,7 @@ therefore referred the textbook of Gerard Holzapfel
 section is taken. For the even more mathematically oriented reader we
 refer to \cite{marsden1994mathematical}.
 
+\subsection{Kinematics}
 We represent the heart as a continuum body $\mathfrak{B}$ embedded in
 $\mathbb{R}^3$. A configuration of $\mathfrak{B}$ is a mapping $\chi:
 \mathfrak{B} \rightarrow \mathbb{R}^3$. 
@@ -301,17 +302,59 @@ a convex function $\phi$ such that
 Note however, that if $\Psi$ is convex then it is also polyconvex.
 
 
+% \subsubsection{Work conjugates}
+
+
+% \begin{table}[h]
+%   \centering
+%   \begin{tabular}{ll}
+%     \toprule
+%     Stress & Strain \\
+%     \midrule
+%     Second Piola ($\SPiola$) & Green Lagrange ($\mathbf{E}$) \\
+%     First Piola ($\FPiola$) & Deformation gradient ($\mathbf{F}$) \\
+%     Cauchy ($\mathbf{\sigma}$) &  Eulerian-Almansi ($\mathbf{e}$) \\
+%     \bottomrule
+%   \end{tabular}
+%   \caption{\label{tab:work_conjugates}Work conjugate stress-strain pairs}
+% \end{table}
+
+% By conjuagate stress-strain paris we mean that the rate of mechanical
+% work is given by the stress times the strain-rate. For example,
+% the total work per unit volume done by the stresses from time $t_1$ to
+% $t_2$ is given by
+% \begin{align}
+%   \mathcal{W}(t_1, t_2) &=  \int_{t_1}^{t_2} \mathbf{P} : \dot{\F} dt
+%                           = \int_{t_1}^{t_2} \frac{\partial \Psi (\F)}{\partial \mathbf{F}}  : \dot{\F} - p \F^{-T} :  \dot{\F}  dt \\
+%                         &= \int_{t_1}^{t_2} \frac{D \Psi (\F)}{D t} - p\cdot 0 dt
+%                           = \Psi(\F(t_2)) - \Psi(\F(t_1)).
+% \end{align}
+% Note that this is a measure of work per unit volume.
+
+
 \subsection{Incompressibility}
 \label{sec:incompressibility}
-An incompressible material is a material in which only isochoric
-motions are possible. This means that volume of the material do not
-change during any deformation and hence we have the constraint
+
+The myocardium is composed by small blood vessels that supply the
+myocardial cells with oxygen. When the myocardium contracts this
+perfused blood is then squeezed out, resulting in an overall loss of
+2-4\% volume\cite{yin1996compressibility}. Such materials are
+referred to as compressible. When the 
+volume are preserved we refer to the material as incompressible.
+Since 2-4\% is very little, a common assumption in cardiac modeling,
+which has also been made in the work conducted in this thesis, is to assume
+the myocardium to be incompresible. The reason for this choice is
+purely numerical.
+
+For an incompressible material, only isochoric motions are
+possible. This means that volume of the material do not change during
+any deformation and hence we have the constraint 
 \begin{align}
   J = \det(\F) = 1.
   \label{eq:incompressible_cons}
 \end{align}
-The constraint \eqref{eq:incompressible_cons} can be imposed by considering the strain energy
-function
+The constraint \eqref{eq:incompressible_cons} can be imposed by
+considering the modified strain energy function
 \begin{align}
   \Psi = \Psi(\F) + p(J-1),
   \label{eq:incomp_strain_energy}
@@ -362,16 +405,17 @@ decoupling of the stress tensors has to be done.
 \label{sec:mech_boudary}
 
 
-Choosing the right boundary conditions for the model is essential,
+Choosing the correct boundary conditions for the model is essential,
 and the choice should mimic what is observed in the reality. To
 physiologically constrain the ventricle in a correct way is difficult,
-and many different approaches has been proposed.
-The boundary condition and the endocardium is typically modeled as a
+and different approaches has been proposed.
+The boundary condition at the endocardium is typically modeled as a
 Neumann boundary condition, representing the endocardial blood
-pressure
+pressure, for the left ventricle we have
 \begin{align}
-  \sigma \mathbf{n} = -p_{\mathrm{lv}} \mathbf{n}, \;  \xvec \in  \lvendo(t).
+  \sigma \mathbf{n} = -p_{\mathrm{lv}} \mathbf{n}, \;  \xvec \in  \lVendo(t), 
 \end{align}
+and for the right ventricle, ``lv'' is substituted with ``rv''.
 This condition has a negative sign because the unit normal
 $\mathbf{N}$ is pointing out of the domain, while the pressure is
 acting into the domain. 
@@ -379,17 +423,15 @@ Note that this condition is imposed on the current configuration, and
 to utilize the Lagrangian formulation we can pull back this condition
 to the reference configuration to obtain
 \begin{align}
-  \FPK\mathbf{N} &= -p_{\mathrm{lv}}^{\mathrm{endo}} J\mathbf{F}^{-T} \cdot \mathbf{N}, \;  \Xvec \in \lvendo
+  \FPK\mathbf{N} &= -p_{\mathrm{lv}} J\mathbf{F}^{-T} \cdot \mathbf{N}, \;  \Xvec \in \lVendo
 \end{align}
 Likewise, it is common to enforce a
 Neumann boundary condition on the epicardium,
 \begin{align}
-\FPK\mathbf{N}  &= -p_{\mathrm{lv}}^{\mathrm{epi}} J\mathbf{F}^{-T} \cdot \mathbf{N}, \;  \Xvec \in \epi.
+\FPK\mathbf{N}  &= -p_{\mathrm{epi}}  J\mathbf{F}^{-T} \cdot \mathbf{N}, \;  \Xvec \in \epi.
 \end{align}
-However, the pressure $p_{\mathrm{lv}}^{\mathrm{epi}}$ is usually set
-to zero. Therefore we drop the superscript and simply referred to the
-left ventricular pressure as the left ventricular endocardial
-pressure, i.e $p_{\mathrm{lv}} = p_{\mathrm{lv}}^{\mathrm{endo}}$.
+However, the pressure $p_{\mathrm{lv}}$ is usually set
+to zero.
 
 There exist a variety of boundary conditions at the base.
 It is common to constrain the longitudinal motion of
@@ -399,17 +441,17 @@ account the base movement is important to capture the correct
 geometrical shape \cite{palit2016passive}. However, this has not been
 done in the studies in this thesis.
 Fixing the longitudinal motion at the base is enforced through a
-Dirichlet boundary condition
+Dirichlet boundary condition,
 \begin{align}
-  u_1 = 0,  \;  \Xvec \in \lvbase
+  u_1 = 0,  \;  \Xvec \in \lvbase,
 \end{align}
-To apply this type of condition, it is easiest if the base is
-flat and located at a prescribed location, for example in the $x= 0$
-plane.
-Constraining the longitudinal motion of the base alone is not enough,
-since the ventricle is free to move in the basal plane. In order to
-anchor the geometry it is possible to fix the movement of the base in
-all directions
+where $u_1$ is the longitudinal component of the displacement $\uvec =
+(u_1, u_2, u_3)$. To apply this type of condition, it is easiest if
+the base is flat and located at a prescribed location, for example in
+the $x= 0$ plane. Constraining the longitudinal motion of the base
+alone is not enough since the ventricle is free to move in the basal
+plane. In order to anchor the geometry it is possible to fix the
+movement of the base in all directions
 \begin{align}
   \uvec = \mathbf{0},  \;  \Xvec \in \lvbase,
 \end{align}
@@ -418,6 +460,7 @@ or fixing the endocardial or epicardial ring
   \uvec &= \mathbf{0},  \;  \Xvec \in \Gamma_{\mathrm{endo}} \\
   \uvec &= \mathbf{0},  \;  \Xvec \in \Gamma_{\mathrm{epi}}.
 \end{align}
+
 Another approach which is used in this thesis is to impose a Robin
 type boundary condition at the base
 \begin{align}
@@ -432,7 +475,16 @@ movement. The limiting cases, $k = 0$ and $k \rightarrow
 \infty$ represent free and fixed boundary respectively.
 More complex boundary conditions to mimic the pericardium is also
 possible \cite{fritz2014simulation}, but not considered in this thesis.
+An overview of the location of the different boundaries for the
+bi-ventricular geometry is illustrated in Figure \ref{fig:boundaries}.
 
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{chapters/introduction/figures/boundaries}
+\caption{Illustration of the different boundaries in a bi-ventricular
+  domain.}
+\label{fig:boundaries}
+\end{figure}
 
 
 \subsection{Force-balance equation}
@@ -595,8 +647,8 @@ $k = 2$.
   such functions. Examples of such features are stress and
   strain with depends on the deformation gradient which again depends
   on the derivative of the displacement. One way to deal with this
-  issue is to 1) use other types of elements that are continusly differenetible
-  everywhere,  such a the cubic Hermite elements or 2) evaluate the features at the
+  issue is to 1) use other types of elements that are continusly
+  differentiable everywhere,  such a the cubic Hermite elements or 2) evaluate the features at the
   Gaussian quadrature points where there is no problem with continuity.
 \end{remark}
 
@@ -674,7 +726,7 @@ uniqueness discussed in Section \ref{sec:strain_energy_req} is
 fulfilled.
 
 In this thesis we have in several occasions used a
-transversely isotropic version of\eqref{eq:holzapel_full} which is
+transversely isotropic version of \eqref{eq:holzapel_full} which is
 obtained by setting $a_{fs} = b_{fs}= a_s = b_s = 0$, i.e
 \begin{align}
   \label{eq:holzapel_trans}
@@ -701,10 +753,11 @@ analytically from \eqref{eq:holzapel_full}, by using the chain rule and
     =& p \I + a \left( e^{ b (I_1 - 3)}  -1 \right) \mathbf{B} 
     + 2 a_f (I_{4\ef} - 1)_+  e^{ b_f (I_{4\ef} - 1)^2} \mathbf{f} \otimes \mathbf{f} \\
     &+ 2 a_f (I_{4\eS} - 1)_+  e^{ b_f (I_{4\eS} - 1)^2} \mathbf{s} \otimes \mathbf{s} 
-    + a_{fs} I_{8\ef\eS}  e^{ b_{fs} I_{8\ef\eS}^2} \left( \mathbf{f} \otimes \mathbf{s}  +  \mathbf{s} \otimes \mathbf{f} \right)
+    + a_{fs} I_{8\ef\eS}  e^{ b_{fs} I_{8\ef\eS}^2} \left( \mathbf{f} \otimes \mathbf{s}  +  \mathbf{s} \otimes \mathbf{f} \right),
   \end{split}
 \end{align}
-
+where $\mathbf{B} = \F \F^{T}$ is the left Cauchy-Green tensor,
+$\mathbf{f} = \F \ef$ and $\mathbf{s} = \F \eS$.
 
 \subsubsection{Modeling of the active contraction}
   
@@ -804,19 +857,17 @@ where we set $\gamma = \gamma_f$ for convenience.
 
 
 While the motivation behind the active stress formulation is purely
-physiological and based on the Hill model, the motivation behind the
-active strain formulation is more driven by ensuring mathematical
-robustness. In particular it has been shown \cite{ambrosi2012active}
-that with the active strain approach properties such as frame
-invariance and rank-one ellipticity is inherited from the strain
-energy of the material. In contrast, rank-one elipticity is not
-guaranteed for the active stress formulation.
+physiological and based on the classical Hill model shown in Figure
+\ref{fig:hill_muscle_model}, the motivation behind the active strain
+formulation is more driven by ensuring mathematical robustness. In
+particular it has been shown \cite{ambrosi2012active} that with the
+active strain formaulation properties such as frame invariance and
+rank-one ellipticity is inherited from the strain energy function. In
+contrast, rank-one elipticity is not guaranteed for the active stress
+formulation.  
 
-The active stress approach is by far the most used model of active
-contraction and is based on the classical Hill model, consisting of a
-three element model with one contractile element 
-
-Hybrid version \cite{goktepe2014generalized}
+% Other types of active models also exists \cite{goktepe2014generalized}
+% but will not be discssed f
 
 
 
@@ -830,6 +881,7 @@ FEniCS compilation stored in cache.
 Fibers at quadrature points. Symbolic language.
 
 \subsubsection{FEniCS}
+\label{sec:fenics}
 The FEniCS project started out in 
 FEniCS is a framework for solving partial differential
 equations using the finite element method. FEniCS has a python

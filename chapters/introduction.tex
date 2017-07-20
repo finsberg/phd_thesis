@@ -23,57 +23,60 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% THE PAST %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Over a century ago, in 1892 Robert Wood was one of the first to apply modeling
-in order to understand cardiac phyiology, by approximating the ventricle as a
-thinned-wall sherical shell. In this way the wall stress could be analytically
-estiamated via the \emph{Law of Laplace} \cite{woods1892few}. The Law
-of Laplace relates the wall stress $\sigma$ to the endocardial
-pressure $P$, the endocarial radius $r$ and the wall thickness $w$,
-and can in its simplest for be expressed as
-\begin{align}
-  \sigma = \frac{P \times r}{2 w}
-\end{align}
-Wall stress can be tought of as the load that the heart must work
-against, and it is therefore important to understand how different
-quantities affects the working heart. For instance when the heart
-ejects blood, the load that the heart ejects blood against is
-typically referred to as \emph{afterload}, but this is really the same
-as the wall stress in that particular state. 
-Even though it is obvious that the shape of a ventricle in most cases
-clearly deviates from a sphere, this forumla provides clinician with a tool
-that can be used to understand how diseases affect the heart. 
 
-For instance, in the case of ventricular dilation, the inner radius of
-the ventricle increases, which results in increased wall stress and
-hace the hear has to work harder in order to eject blood. In the other
-end we have the case of concentric hypertrophy which results in wall
-thickening and hence reduces the wall stress. In this case more muscle
-fibers are recruited and therefore the tension experiences by each
-individual unit will be less. 
 
-Since 1892 more realistic and sophisticated models has been developed
+% \section{Historical note}
+
+One of the earlies examples of modelling applied to cardiac
+physiology dates back to 1892 when Robert Wood approximated the
+ventricle as a thinned-wall sherical shell.
+% In this way, \emph{wall
+% stress} could be analytically estimated via the famous \emph{Law of Laplace}
+% \cite{woods1892few}. This law relates the wall stress $\sigma$ to the endocardial
+% pressure $P$, the endocarial radius $r$ and the wall thickness $w$
+% and can in its simplest for be expressed as
+% \begin{align}
+%   \sigma = \frac{P \times r}{2 w}.
+% \end{align}
+% Wall stress can be thought of as the load that the heart must work
+% against, and it is therefore important to understand how different
+% quantities affects the working heart. For instance when the heart
+% ejects blood, the load that the heart ejects blood against is
+% typically referred to as \emph{afterload}, but this is really the same
+% as the wall stress in that particular state. 
+% Even though it is obvious that the shape of a ventricle in most cases
+% clearly deviates from a sphere, this forumla provides clinician with a tool
+% that can be used to understand how diseases affect the heart. Take for
+% example the case of ventricular dilation, when the inner radius of 
+% the ventricle increases, resulting in increased wall stress and
+% hence the heart has to work harder in order to eject blood to the body. In the other
+% end we have the case of concentric hypertrophy which results in wall
+% thickening and hence reduced the wall stress. In this case more muscle
+% fibers are recruited and therefore the tension experienced by each
+% individual unit will be less. 
+Since 1892 more realistic and sophisticated models have been developed
 in order to better describe the anatomical as well as the biophysical
 nature of the ventricle. The first extension came in 1927 to
 thick-walled spheres \cite{love2013treatise}. In the 1960 the spheres
 were substitued by ellipsoids, with thin-walled models in 1963
-\cite{sandler1963left}, and in thick-walled models in 1968
+\cite{sandler1963left}, and by thick-walled models in 1968
 \cite{wong1968stress}. A thourough comparison of the different early
-models for ventricular wall stress is presented in
-\cite{huisman1980comparison}. The first reported usage of image-based
-geometries dates back to 1972 \cite{gould1972vivo} were they used
-X-ray to image the left ventricle and the finite element method to
-estimate the stress. The relatively poor computaional power, togther
-with the low image quality really challenged the biomedical engineers
-at that time, or as stated in \cite{heethaar1977computer}:
+models  is presented in \cite{huisman1980comparison}. The first
+reported usage of image-based geometries dates back to 1972
+\cite{gould1972vivo} were X-ray was used to image the left ventricle
+and the finite element method was used to estimate wall stress. The relatively
+poor computational power, together with the low image quality really
+challenged the biomedical engineers at that time. The following
+phrase, taken form \cite{heethaar1977computer} illustrates this fact:  
 \emph{``Programming for the solution of the large number of
   simultaneous linear equations generated by the finite element method
   on computers with capacity not exceeding 32K words of memory
   required special attention to very compact storage of the
-  stiffness matrix and the retrieval of its coefficients''}
+  stiffness matrix and the retrieval of its coefficients''}.
 A paradigm shift in the field of cardiac mechanical modeling came in
-the late 1980s at the University of Auckland, and the continuum
-description of the heart that were developed back
-\cite{hunter1988analysis} then is still in use today. 
+the late 1980s at the University of Auckland. Here the first  continuum
+description of the heart were developed \cite{hunter1988analysis},
+which is still in use today. 
 
 
 
@@ -84,35 +87,110 @@ description of the heart that were developed back
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% THE PRESENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Today, advanced imaging techniques allow us to aquire detailed
-mechanical information about the heart of the individual.
+mechanical information about the heart of the individual. In addition,
+advanced numerical algorithms combined with high performance computing
+power enable us to get more and more detailed simulation of a patients
+heart. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% THE FUTURE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The need for building adequate patient-specific models that captures
 the geometrical information observed in the images as well as the
-underlying biophysical processes is recognized as one of the key
+underlying biophysical processes, is recognized as one of the key
 challenges in modern bioengnieering \cite{hunter2010vision}.
-
-
+In the future, models could be used to as a diagnostic tool to extract
+features from a patients heart that are otherwise impossible to extract from
+images. Eventually, models could potentially predict the outcome of
+different treatment strategies and guide clinicians in the decision making.
 
 In other parts of physical sciences and engineering, such as the
 space industry or the weather forecast, the role of the computational
-science have been cruicial for its development. Without the increasing
+science has been cruicial for its development. Without the increasing
 computational power predicted by Moore's law
 \cite{brock2006understanding} and better numerical methods, such as the
 finite element method, scientist would not have been able to predict
-complex physical phenomena such as a Tsunami.
+complex physical phenomena such as a Tsunami, or being able to send
+humans out in space. 
 
 Despite our ability to simulate complex physical systems such as
 the weather, we still have a long way to go before we are able to
-simulate a human organ such as the heart. The multiscale nature of
+simulate a human organ, such as the heart. The multiscale nature of
 biophysical processes has challenged bioengnieers for decades.
 Even though we understand processes at each level, such as the flow of
-ions in and out of the cell, or the electical transduction though the
+ions in and out of the cell, or the electical transduction through the
 heart, the question of how to couple these levels together is still open
 \cite{noble2002modeling}.
-An even greater challenge 
+
+Another question is how to extract data
+observed in medical images and constrain models, in order to make
+models specific to the individual. These questions has to be adressed
+before we can take the next step into personalized simulations for
+\emph{in silico} medicine, and use computer simulations to guide
+treatment, and predict outcome.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% THIS THESIS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Some of these unanswered question serve as motivation for the work
+conducted in this thesis. We focus purely on the mechanical modeling
+of the heart and the aim has been to develop a framework for
+building mechanical models that are personalized at the level of the
+individual.
+
+The mechanics of the heart can be described via equations of nonlinear
+elasticity which is traditionally formulated using a continuum
+mechanics approach. This approach has been extensively used in other
+parts of engineering, and numerical solutions to these partial
+differential equations (PDE) are solved using the finite element
+method (FEM) with the open source software package FEniCS.
+
+These mechanical models contain model parameters which may vary from
+individual to individual, and patient specificity can be obtained by
+fitting these model parameters to additional clinical data. This
+process is often referred to as data assimilation, a field that has
+its root in meteorology where one want to make a weather forecast based
+on observations from strategically placed weather stations. The idea
+is to construct a functional which represent the mismatch between the
+model and the observations, and by changing the model parameters we
+also change the value of this mismatch functional. Now, what we want to do is to
+minimize this functional using these model parameters as control. At
+the same time, the governing PDE, which depend upon these model
+parameters, has to remain true. We therefore often
+refer to such problems as PDE-constrained optimization problems.  
+Solving such problems is challenging because evaluation of the
+mismatch functional requires the solution of a nonlinear PDE, which is
+computationally expensive, and we therefore want to keep the number of
+functional evaluations at a minimum. The best way of doing this is
+traverse the parameter space along the gradient descent, which is
+guaranteed to bring us towards a local minimum. However, this requires
+us to compute the functional gradient, or the derivative of the
+mismatch functional with respect to the model parameters. As we will
+see, the functional gradient can be computed efficiently by
+considering the adjoint equation, and recent development in numerical
+software tools \cite{farrell2013automated} allow us to exploit this
+also numerically. 
+
+
+The remaining introduction in this thesis is organized as follows. In
+Section \ref{sec:intro_physiology} we briefly explain some concepts in of
+cardiac anatomy and physiology which is used throughout the
+thesis. This section ends with a description of the different cardiac
+diseases encountered in this thesis. In Section
+\ref{sec:intro_mechanical} we give an introduction to continuum
+mechanics and mechanical modeling of the heart. The basic equations of
+elasticity as well as the constitutive relations for the cardiac
+tissue, and some numerical considerations are covered. Finally, in Section 
+\ref{sec:intro_personalization} we explain how to personalize a
+mechanical model using clinical data. We start by explaining the
+different imaging modalities used in this thesis, and how finite
+element meshes are created from images. We also explain how to find a
+more realistic reference geometry than the one obtained from medical
+images. At the end we introduce data assimilation, and how to compute
+the functional gradient using the adjoint method. 
+
+\newpage
+% An even greater challenge 
 
 
 % The problem
@@ -125,21 +203,24 @@ An even greater challenge
 % detailed information 
 
 
-\begin{itemize}
-\item Building models that are specified at the level of the
-  individual.
-\item Using patient observations to constrain model, while at the same
-  time ensuring that the underlying physical equations are satisfied. 
-\end{itemize}
+% \begin{itemize}
+% \item Building models that are specified at the level of the
+%   individual.
+% \item Using patient observations to constrain model, while at the same
+%   time ensuring that the underlying physical equations are satisfied. 
+% \end{itemize}
 
-\input{chapters/introduction/aim_of_thesis}
+% \input{chapters/introduction/aim_of_thesis}
 \input{chapters/introduction/physiology}
+\newpage
 \input{chapters/introduction/mechanics}
+\newpage
 \input{chapters/introduction/patient}
+\newpage
 \input{chapters/introduction/summary}
 
 
-\pagebreak
+\newpage
 
 
 \bibliographystyle{plain}

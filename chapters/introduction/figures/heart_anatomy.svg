@@ -23,7 +23,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -42,7 +42,7 @@
      showgrid="false"
      showguides="false"
      inkscape:zoom="1.0175439"
-     inkscape:cx="128.01244"
+     inkscape:cx="-23.332382"
      inkscape:cy="418.16477"
      inkscape:window-x="65"
      inkscape:window-y="24"
@@ -719,4 +719,26 @@
      d="M 374.6518,570.91879 307.21024,797.30538"
      id="path4282"
      inkscape:connector-curvature="0" />
+  <text
+     sodipodi:linespacing="125%"
+     id="text4262"
+     y="756.13794"
+     x="605.79309"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'TeX Gyre Schola Math';-inkscape-font-specification:'TeX Gyre Schola Math';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     xml:space="preserve"><tspan
+       y="756.13794"
+       x="605.79309"
+       id="tspan4264"
+       sodipodi:role="line">Apex</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'TeX Gyre Schola Math';-inkscape-font-specification:'TeX Gyre Schola Math';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="128.17242"
+     y="531.08624"
+     id="text4269"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan4271"
+       x="128.17242"
+       y="531.08624">Base</tspan></text>
 </svg>
