@@ -1,14 +1,13 @@
 \section{Personalization of Cardiac Biomechanics}
 \label{sec:intro_personalization}
 In this section we will go through the steps needed to personalize the
-mechanical models developed in the previous section towards a given
-patient. We will start by giving a brief overview of the
-interaction between medical imaging and cardiac computational model.
-Then we will explain how the geometries are extracted from the
-medical images and turned into a computational mesh,  which we can use
-for finite element computations. Finally we will explain how to
-incorporate additional data into model by means of adjoint based data
-assimilation techniques.
+mechanical model developed in the previous section. We will start by
+giving a brief overview of the interaction between medical imaging and
+cardiac computational modeling. Then we will explain how the geometries
+are extracted from the medical images and turned into a computational
+meshes which we can use for finite element computations. Finally we
+will explain how to incorporate additional data into model by means of
+adjoint based data assimilation techniques.
 
 
 \subsection{Medical Imaging}
@@ -26,9 +25,9 @@ without advancements in medical imaging technology, the role of
 computational models would be limited to simple, idealized cases. With
 access to high quality images, detailed information about cardiac structure
 can be used to e.g build anatomically correct models. The
-computational models can then later be validated agains this images,
-or we can assimilate additional data extracted from this images to
-extract biomarkers. Figure \ref{fig:cardiac_imaging_model} summarizes
+computational models can then later be validated using the same
+images, or additional data can be extracted from the images in order to
+compute potential biomarkers. Figure \ref{fig:cardiac_imaging_model} summarizes
 this interaction between medical images and computational models. 
 
 \begin{figure}[htbp]
@@ -38,7 +37,7 @@ this interaction between medical images and computational models.
   models. Medical images are used to extract geometric
   structure. These geometries together with the computational models
   can later be validated against the medical images. Computational
-  models can also be used togther with the medical images to
+  models can also be used together with the medical images to
   assimilate additional data in order to extraction clinically useful
   biomarkers. }
 \label{fig:cardiac_imaging_model}
@@ -51,16 +50,15 @@ this interaction between medical images and computational models.
 % model). There is a big issue in
 % reproducebility, because of noisy data, and operator depedent
 % measurements.
-Today there are three main non-invasive imaging techniques used in
-cardiology. These are chocardiography (Echo), magnetic
+Today there are three main non-invasive imaging modalities used in
+cardiology. These are echocardiography (Echo), magnetic
 resonance imaging (MRI) and computed tomography (CT). Each
-modality offers advantages and disadvatages over the other
-
+modality offers advantages and disadvantages over the other.
 For example, MRI provides
-high quality images, uses zero radiation, but is exspensive and lacks
-temporal resolution. CT can more accuratley reconstruct the 3D image
+high quality images, uses zero radiation, but is expensive and lacks
+temporal resolution. CT can more accurately reconstruct the 3D image
 in contrast to MRI, in which 2D slices needs to be glued together to
-form a 3D surface. However, CT exposes the patient to radiation which
+form a 3D surface. However, CT exposes the patient to radiation, which
 increases the chance of developing cancer. Finally echocardiography is
 easy to use, cheap, harmless, and  has good temporal resolution, but
 is clearly inferior when it comes to image quality. 
@@ -68,22 +66,22 @@ is clearly inferior when it comes to image quality.
 % \subsubsection{EchoPac}
 
 The main modality used in this thesis is 4D echocardiography, and we
-will therefore focus on data aquired using this modality.
-With 4D we mean three spatial and one temporal dimesion.
-The speed of sound in human tissue (which is approxmately 1540 m/s)
-put some limitations on the image quality verus the frame-rate
+will therefore focus on data acquired using this modality.
+With 4D we mean three spatial and one temporal dimension.
+The speed of sound in human tissue (which is approximately 1540 m/s)
+put some limitations on the image quality versus the frame-rate
 \cite{rabben2010technical} for these 3D volume images. In order to
-increase the resolution, such an image is formed by stiching together
-$N$ disjoint subvolumes aquired during $N$ cardiac cycles ($N$
-typicall between 2 and 8)\cite{brekke2007volume}. 
+enhance these 3D volume images, disjoint subvolumes acquired during
+$N$ cardiac cycles ($N$ typically between 2 and
+8)\cite{brekke2007volume} are stitched together.  
 
 The images are later processed using some image segmentation tool.
-One such tool is EchoPac which is used for analysing images for GE
-Vingmed. The 4D Auto LVQ tool in EchoPac, is a tool for processing 3D
-echo images, and traces of volume, triangulated surfaces and 3D strain
-\cite{heimdal20114d} traces together with a structured mesh of the
-American Heart Association (AHA) segments
-\cite{cerqueira2002standardized} for each time point, see Figure
+One such tool is EchoPac, which is used for analyzing images acquired with
+the echo scanner from GE Vingmed. The 4D Auto LVQ tool in EchoPac, is
+a tool for processing 3D echo images, and traces of volume,
+triangulated surfaces and 3D strain traces \cite{heimdal20114d},
+together with a structured mesh of the American Heart Association (AHA) segments
+\cite{cerqueira2002standardized} for each time point can be extracted, see Figure
 \ref{fig:echopac_output}. 
 
 \begin{figure}[htbp]
@@ -104,7 +102,7 @@ American Heart Association (AHA) segments
       endo- and epicardium, and Figure
       \ref{fig:echopac_out_strain_mesh} shows structured mesh of the
       American Heart Association (AHA) segments. These surfaces are
-      exported from the image segmentational tool EchoPac. Figure 
+      exported from the image segmentation tool EchoPac. Figure 
       \ref{fig:bullseye_intro} shows the American Heart Association (AHA)
       segments illustrated on a so called bullseye plot with name and
       numbers on the different segments. }
@@ -119,24 +117,24 @@ American Heart Association (AHA) segments
 In this section we will explain how to generate a left ventricular
 mesh based on segmented surfaces coming from 4D echocardiography.
 Figure \ref{fig:echopac_output} shows an example of how the exported data
-from the image semgentation tool looks like. For each time point we
+from the image segmentation tool looks like. For each time point we
 can extract triangulated surfaces of the endocardium and epicardium
 which can be seen in Figure \ref{fig:echopac_out_surf}. Together with
 these surfaces we are also given a so called strain mesh (Figure
 \ref{fig:echopac_out_strain_mesh}) located approximately in the
 midwall, which defines the approximate location of the AHA-segments
-\cite{cerqueira2002standardized}, and can be used to orient the mesh. 
+\cite{cerqueira2002standardized}, and can be used to orient the surfaces. 
 
 
 
-As discussed in \ref{sec:mech_boudary}, we constrain the basal movement in
+As discussed in Section \ref{sec:mech_boudary}, we constrain the basal movement in
 the longitudinal direction, which is easiest to accomplished using a flat
 base located at a prescribed location. In order to make the base flat
 we first orient the surfaces so that the longitudinal axis is aligned
-with the $x$-axis, and the apex pointing in the postive $x$
-direction. To conststruct the basal plane we first take out the basal
+with the $x$-axis, and the apex pointing in the positive $x$
+direction. To construct the basal plane we first take out the basal
 points from the strain mesh, and use these points to construct a least
-sqauare fitting plane (Figure \ref{fig:strain_mesh_plane}). Let $(x_i, y_i, z_i), i = 1, \cdots, N$
+square fitting plane (Figure \ref{fig:strain_mesh_plane}). Let $(x_i, y_i, z_i), i = 1, \cdots, N$
 be the basal points, and suppose the basal plane solves the equation
 $z = ax + by + c$, for some unknown constants $a,b,c$. Following a
 least square approach, we select the parameters $(a,b,c)$ that
@@ -148,8 +146,8 @@ Once the parameters for the basal plane is found we adjust the size of
 the cut, by moving the plane along the longitudinal axis (here
 $x-$axis), until the cavity volume agrees with the measured volume
 given by the image segmentation tool within some specified tolerance. 
-When the correct size is found the points above the plane is removed,
-and the remaining surfaces are smoothed using the GAMer
+When the correct cut size is found, the points above the plane is removed,
+and the remaining surfaces are smoothed using the mesh generation tool GAMer
 \cite{yu2008feature}.
 
 \begin{figure}[htbp]
@@ -176,10 +174,10 @@ and the remaining surfaces are smoothed using the GAMer
 
 
 
-The actualy mesh generation is performed using Gmsh
-\cite{geuzaine2009gmsh}, which meshes the endocardial and epicardial
-surface togther unsing frontal-Delaunay meshing algorithm. Gmsh also marks
-the endocardal, the epicardial  and the basal facets, along with the
+The actual mesh generation is performed using Gmsh
+\cite{geuzaine2009gmsh}, which mesh the endocardial and epicardial
+surface together using frontal-Delaunay meshing algorithm. Gmsh also marks
+the endocardial, the epicardial  and the basal facets, along with the
 endocardial and epicardial basal rings. 
 
 % \begin{figure}[htbp]
@@ -199,7 +197,7 @@ endocardial and epicardial basal rings.
   The cavity volume is computed by generating the whole mesh, and the
   compute the volume using Equation \eqref{eq:volume_operator}. The cut size is
   found by using a one dimensional optimization algorithm with
-  the objective funcitonal representing the squared error between
+  the objective functional representing the squared error between
   computed and measured volume.
 \end{remark}
 
@@ -210,12 +208,11 @@ endocardial and epicardial basal rings.
 \label{sec:rule_based_fiber}
 Both the passive and active properties of the myocardium depends on
 the underlying muscle fiber architecture, and it is therefore of high
-relevance to capture this architecture as accuratley as
+relevance to capture this architecture as accurately as
 possible. Unfortunately, imaging technology does not currently provide a
-way of extracting patients-specific fiber ortiention \emph{in
-  vivo}. Diffusion Tensor Imaging (DTI) can be utilized to reconstruct
-the fiber and lamiar structure \cite{rohmer2007reconstruction}
-\emph{ex vivo}.
+way of extracting patients-specific fiber orientation \emph{in
+  vivo}. Diffusion Tensor Imaging (DTI) can however be utilized to reconstruct
+the fiber and laminar structure \emph{ex vivo}\cite{rohmer2007reconstruction}.
 
 An alternative method for assigning myocardial fiber orientation is by
 rule-based methods \cite{potse2006comparison, bayer2012novel}. 
@@ -232,7 +229,7 @@ Rule-Based (LDRB) algorithm, proposed by Bayer et al \cite{bayer2012novel}.
   $60^{\circ}$ and $-60^{\circ}$ on the endo- and epicardium
   respectively. Color represents the helical angle, with blue being
   $0^{\circ}$ (circumferential) which can be seen in the midwall. }
-\label{fig:echopac_output}
+\label{fig:rule_based_fiber}
 \end{figure}
 
 
@@ -242,18 +239,20 @@ epicardium ($\alpha_{\mathrm{endo}}$ and $\alpha_{\mathrm{epi}}$) and
 the transverse fiber angle on the endo- and epicardium
 ($\beta_{\mathrm{endo}}$ and $\beta_{\mathrm{epi}}$), and outputs a
 set of three orthogonal vector fields, one representing the fiber
-angle $(\ef)$, one representing the sheet angle $(\es)$ and the final
-diraciton is called the sheet normal direction $(\en)$
+angle $(\ef)$, one representing the sheet angle $(\eS)$ and the final
+direction is called the sheet normal direction $(\en)$. Figure
+\ref{fig:rule_based_fiber} shows the output of this algorithm applied
+to both an LV and a BiV ellipsoidal geometry. 
 
 \subsubsection{The ventricular coordinate system}
 
 When dealing with geometric shapes such as a left ventricle, finding a
 coordinate system that is easy to work with is important. For
-example, when studing spherical shapes, the spherical coordinate system is
+example, when studying spherical shapes, the spherical coordinate system is
 usually easier to work with. Likewise, a coordinate system that is
 easy to use when studying ellipsoidal shapes like the left ventricle is
 the \emph{prolate spheroidal coordinate system} \cite{hunter1996kd}. 
-The cartesian coordinates $(x,y,z)$ are related to the prolate
+The Cartesian coordinates $(x,y,z)$ are related to the prolate
 spheroidal coordinates by
 
 \begin{align}
@@ -264,18 +263,18 @@ spheroidal coordinates by
   \end{split}
 \end{align}
 where $a$ is the focal point, $\nu \in [0, \pi]$ is the longitudinal
-coordinate, $\theta \in [0, 2\pi]$ is the azimuthal angle and $\mu$
+coordinate, $\theta \in [0, 2\pi]$ is the azimuth angle and $\mu$
 is the radial coordinate. For an ellipse given by the equation
-$\frac{x^2}{b^2} +\frac{y^2}{c^2}  = 1$ with $b$ being the semimajor
-axis, and $c$ the semiminor axis, the focal point is given by
+$\frac{x^2}{b^2} +\frac{y^2}{c^2}  = 1$ with $b$ being the semi-major
+axis, and $c$ the semi-minor axis, the focal point is given by
 \begin{align}
   a =\sqrt{b^2 - c^2}.
   \label{eq:focal_point}
 \end{align}
 The prolate spheroidal coordinate axes are illustrated in
-Figure~\ref{fig:prolate_coord}. There inverse relation, going from the
-cartesian coordinate $(x,y,z)$ to the prolate spheroidal coordinate
-$(\mu, \nu, \theta)$ given the focal point $a$ is a bit more
+Figure~\ref{fig:prolate_coord}. The inverse relation, going from the
+Cartesian coordinate $(x,y,z)$ to the prolate spheroidal coordinate
+$(\mu, \nu, \theta)$ given the focal point $a$, is a bit more
 intricate, but can be computed as follows 
 \begin{align}
   \begin{split}
@@ -306,7 +305,7 @@ ellipsoid, i.e $\nu = \pi / 2$ \cite{land2015verification}.
     \includegraphics[width=\textwidth]{chapters/introduction/figures/geometry/prolate_cube.png}
     \caption{\label{fig:prolate_cube}}
   \end{subfigure}
-\caption{}
+\caption{Illustration of the prolate spheroidal coordinate system.}
 \label{fig:prolate}
 \end{figure}
 
@@ -315,22 +314,26 @@ to the AHA segments
 
 \subsection{Choosing the reference geometry}
 \label{sef:reference_geometry}
-The choice of reference geometry ..
- choosing the geometry with the smallest
-volume as the reference geometry (i.e the end-systolic geometry)
-(references), the mid-diastolic or the end-diastolic ??
+% The choice of reference geometry ..
+%  choosing the geometry with the smallest
+% volume as the reference geometry (i.e the end-systolic geometry)
+% (references), the mid-diastolic or the end-diastolic ??
 
 
 A general problem in the biomechanics is that the geometry extracted from
 imaging data is not the stress-free geometry, meaning the the geometry
-that we observe is subjected to a physical load, e.g blood pressure.
-This is analogous to finding the geometry of a deflated balloon, given
-an image of and inflated one. Having this picture in mind, it is
+that we observe is subjected to a physical load, e.g blood
+pressure. In order for the stress and strain to be correct, we need to
+find a geometry, so that when loaded with the measured loads, gives
+back the geometry observed in the medical images. 
+This is analogous to the problem of finding the geometry of a deflated balloon, given
+that we have an image of and inflated version of the balloon. Having this picture in mind, it is
 intuitive that such a geometry not necessarily is unique.
 Several techniques have been applied in order to obtain the unloaded
 geometry, such as the inverse design analysis (ID)
 \cite{govindjee1996computational} or the modified updated Lagrangian
-formulation (MULF) \cite{gee2010computational}. Another popular
+formulation (MULF) \cite{gee2010computational}. Other approaches
+includes using the mid-diastolic or end-systolic geometry. Another popular
 technique is a fixed point iteration scheme,  known as the
 backward displacement method \cite{bols2013computational}. We briefly
 explain the steps in this methods.
@@ -347,13 +350,14 @@ explain the steps in this methods.
 \end{figure}
 
 
-Suppose you are given geometry $\Omega_{\mathcal{I}}$ taken from some medical image, and
-is thus loaded with some loads $\mathbf{T}$, and we want to find the unloaded geometry
-$\Omega_{\mathcal{U}}$, which is so that when we load $\Omega_{\mathcal{U}}$ with $\mathbf{T}$,
+Suppose you are given geometry $\Omega_{\mathcal{I}}$ taken from some
+medical image, which is loaded with some loads $\mathbf{T}$. We want
+to find the unloaded geometry 
+$\Omega_{\mathcal{U}}$, so that when we load $\Omega_{\mathcal{U}}$ with $\mathbf{T}$,
 you get back the starting geometry $\Omega_{\mathcal{I}}$. Let
 $\Xvec_{\mathcal{I}}$ denote the coordinates in $\Omega_{\mathcal{I}}$, and
 let $\mathbf{d}$ denote the displacement field which is the solution
-of \eqref{some_force_balance_eq} with $\mathbf{T}$ representing
+of \eqref{eq:intro_variational_form} with $\mathbf{T}$ representing
 the traction on the endocardium, and which depends on the reference
 coordinates. What we want, is to find
 $\Xvec_{\mathcal{U}}$ so that $\Xvec_{\mathcal{I}} =
@@ -371,29 +375,12 @@ is more than $100 \%$, this method will converge. Of course the
 question about convergence of the fixed point method is one
 thing. Another thing is the convergence of the nonlinear solver.
 For bi-ventricular geometries, the backward displacement method might
-fail to converge especially if the tissue is soft and the pressure in
-the right ventricle is large. In this case it can happen that the
-right ventricle free wall collided with the septal wall when
+fail to converge, especially if the tissue is soft and the pressure in
+the right ventricle is large. In this case the
+right ventricular free wall might collided with the septal wall when
 subtracting the displacement. An example of this is illustrated in
-Figure~\ref{fig:unloading_fail}. 
+Figure~\ref{fig:unloading_fail}.
 
-An alternative to the backward displacement method that do not
-necessary converge towards a fixed point but provides an a more stable
-way of obtainind an unloaded configuration was proposed in Ragahavan
-et. al \cite{raghavan2006non}. Let $k$ be a scalar, and suppose we can write
-\begin{align}
-  \Xvec_{\mathcal{I}} = \Xvec_{\mathcal{U}} + k \cdot \mathbf{d}(\Xvec_{\mathcal{U}}).
-\end{align}
-Of course this assumption might not be true, but we can find a value of
-$k$ that minimizes some residual using a 1D optimization
-algorithm. Note that choosing $k = 1$, would be the same as applying
-one iteration of the backward displacement method.
-
-Since the backward displcement method really does converge towards a
-fixed point, it is favorable to the Rahavan method. Therefore, a
-hybrid approach is to apply the backward displacement method as
-long as the non-linear solver converge, and switch to the Rahavan
-method upon divergence.
 
 \begin{figure}[htbp]
   \centering
@@ -404,17 +391,69 @@ method upon divergence.
 \label{fig:unloading_fail}
 \end{figure}
 
+An alternative to the backward displacement method that do not
+necessary converge towards a fixed point but provides an a more stable
+way of obtaining an unloaded configuration was proposed in Ragahavan
+et. al \cite{raghavan2006non}.
+This algorithm is based on subtracting a factor $k$ times
+the displacement obtained after inflating the image-based geometry to
+the target pressure. To estimate the
+unloaded configuration $\Xvec_{\mathcal{U}}$, we perform the following steps:
+\begin{enumerate}
+  \item Inflate $\Xvec_{\mathcal{I}}$ to target
+    pressure $(p_{\mathcal{I}}^{\mathrm{LV}},
+    p_{\mathcal{I}}^{\mathrm{RV}})$ to obtain
+    $\mathbf{d} = \mathbf{d}(\Xvec_{\mathcal{I}})$.
+  \item Given $k \in \mathbb{R}$, the unloaded configuration is given by
+    \begin{align}
+      \Xvec_{\mathcal{U}}(k) = \Xvec_{\mathcal{I}} - k \cdot \mathbf{d}(\Xvec_{\mathcal{I}}).
+     \end{align}
+     Further let $\mathbf{d}_k = \mathbf{d}(\Xvec_{\mathcal{U}}(k))$
+     be the displacement obtained after inflating the unloaded
+     configuration to the target pressure.
+   \end{enumerate}
+The uloading algorithm is based on finding $k$ so that the difference
+between the image-based geometry and the inflated, unloaded geometry
+is minimized, that is 
+\begin{align}
+  \underset{k}{\text{minimize}}
+  \;\;  \mathrm{res} ( \Xvec_{\mathcal{I}}, \Xvec_{\mathcal{U}}(k) + \mathbf{d}_k)
+  \label{eq:unloading_Raghavan}
+\end{align}
+with
+\begin{align}
+  \mathrm{res}(A, B) = \sup_{a \in A} \inf_{b \in B} d(a, b), 
+\end{align}
+and $d$ being the Euclidean distance. 
 
-For a transversely isotropic material (or orthotropic), the change in
-fiber field when going from one geometry to another, has to be
-considered. The natural thing to do is apply a \emph{Piola
-  transformation} to the fibers in the image based geometry: Let
-$\F_{n}= \I - \Grad \left(\mathbf{d}(\Xvec_n) \right)$ and left
-$\ef^{n} = J^{-1}\F_{n} \ef$ where $\ef$ is the fiber field on
-$\Omega_{\mathcal{I}}$. Another way is to regenerate the fibers (see
-Section \ref{sec:rule_based_fiber}) using the new unloaded geometry as
-input. We will see in the following numerical experiment that non of
-these methods gives the desired result.
+
+% suppose we can write
+% \begin{align}
+%   \Xvec_{\mathcal{I}} = \Xvec_{\mathcal{U}} + k \cdot \mathbf{d}(\Xvec_{\mathcal{U}}).
+% \end{align}
+% Of course this assumption might not be true, but we can find a value of
+% $k$ that minimizes some residual using a 1D optimization
+% algorithm. Note that choosing $k = 1$, would be the same as applying
+% one iteration of the backward displacement method.
+
+Since the backward displacement method really does converge towards a
+fixed point, it is favorable to the Rahavan method. Therefore, a
+hybrid approach is to apply the backward displacement method as
+long as the non-linear solver converges, and switch to the Rahavan
+method upon divergence.
+
+
+
+% For a transversely isotropic material (or orthotropic), the change in
+% fiber field when going from one geometry to another, has to be
+% considered. The natural thing to do is apply a \emph{Piola
+%   transformation} to the fibers in the image based geometry: Let
+% $\F_{n}= \I - \Grad \left(\mathbf{d}(\Xvec_n) \right)$ and left
+% $\ef^{n} = J^{-1}\F_{n} \ef$ where $\ef$ is the fiber field on
+% $\Omega_{\mathcal{I}}$. Another way is to regenerate the fibers (see
+% Section \ref{sec:rule_based_fiber}) using the new unloaded geometry as
+% input. We will see in the following numerical experiment that non of
+% these methods gives the desired result.
 
 
 
@@ -441,14 +480,14 @@ these methods gives the desired result.
 
 \subsection{Data Assimilation}
 The constitutive laws in cardiac mechanics comes from experiments
-done on tissue slabs, and relates stresses in the material to strain.
+done on tissue slabs, and relates stress in the material to strain.
 If we had the same data available for a given patient we could easily
 have performed a regression analysis in order to identify the
-parameters in the contitutive model. However, this type of data
+parameters in the constitutive model. However, this type of data
 typically requires that tissue samples are taken from the myocardium,
 which is not an option when dealing with living humans. In general,
-when dealing with physical system such as the heart or weather
-forecast it is not allways possible to design an experiment which
+when dealing with physical systems such as the heart or weather
+forecast, it is not always possible to design an experiment which
 allows to determine all properties of a physical system
 \cite{chapelle2013fundamental}. In such cases we have to take the
 measurement that we have, and do our best to incorporate them into the
@@ -468,7 +507,7 @@ observations (of temperature, humidity etc.) at different locations.
 There are basically two main approaches to assimilate data;
 \emph{sequential data assimilation} and \emph{variational data
   assimilation}. Sequential data assimilation, which is often
-referred to as filtering, is based on a predictor-corector approach
+referred to as filtering, is based on a predictor-corrector approach
 where you start from your initial data and use a filter to predict the
 next state. Once you have your measurement available you correct the
 estimate based on the new observations. Some examples of sequential
@@ -480,7 +519,7 @@ The other approach, called variational data assimilation, also known as
 represents the mismatch between observations and simulations, with
 possibly additional regularization terms added to the objective
 functional. We will focus this approach since this is the approach
-that is taken in this thesis. For a more thourough review of other
+that is taken in this thesis. For a more thorough review of other
 methods we refer to \cite{chapelle2013fundamental}.
 
 
@@ -495,23 +534,23 @@ the \emph{state variable} as $\mathbf{w}$, which is our case
 represents jointly the displacement and hydrostatic pressure
 $\mathbf{w}=(\mathbf{u}, p)$.
 
-The state varibles are described by some \emph{phyiscal forward
+The state variables are described by some \emph{physical forward
 model} $\mathcal{M}$, which is our case is governed by the force balance
 equation in \eqref{eq:force_balance_strong}. Moreover this model
 typically depends on some parameters $\mu$ that we want to
 adjust based on the observation at hand. For example, the unknown
 parameters could be related to the stiffness of the myocardium which
 which we want to adjust to each individual patient based on some
-clinical obervations. We can therefore assume that the underlying
+clinical observations. We can therefore assume that the underlying
 model can be written in the form $\mathcal{M}(\mathbf{w}, \mu) = 0$.
 
 We are also given a set of measurements (or observations) that we want
 to assimilate, and we denote a single observation by $y$.
 For example, $y$ might by a volume measurements at some given time
-points in the cardiac cycle, measuered using e.g unltrasound and image
+points in the cardiac cycle, measured using e.g ultrasound and image
 processing techniques. The \emph{observation operator} $\mathcal{H}$,
 is approximation of the observation and act as an operator from the
-state space to the observation space. For a single obervation, we
+state space to the observation space. For a single observation, we
 therefore have the relation
 \begin{align}
   y = \mathcal{H}(\mathbf{w}) + \xi, 
@@ -540,8 +579,8 @@ The above steps are continued until we have reached a minimum for the
 cost functional, e.g when the norm of the gradient becomes zero. In
 practice we continue these steps until either the norm of the
 gradient is below a certain tolerance or we have exceeded a maximum
-number of iterations. Such a minimum may not allways exists, or there
-may be several local minima. In the latter case, the choice of intial
+number of iterations. Such a minimum may not always exists, or there
+may be several local minima. In the latter case, the choice of initial
 guess determines which local minima you will end up in. The data
 assimilation pipeline is summarized in
 Figure~\ref{fig:data_assimilation}.
@@ -551,7 +590,7 @@ Figure~\ref{fig:data_assimilation}.
   avoid computing the gradient. Examples include genetic algorithms or
   particle swarm algorithms. The drawback with such methods is that
   they typically requires a lot of functional evaluations. In our
-  case this is very computatinally exspensive, because every functional
+  case this is very computationally expensive, because every functional
   evaluation require us to solve the non-linear forward model. 
 \end{remark}
 
@@ -559,15 +598,15 @@ Figure~\ref{fig:data_assimilation}.
 \begin{figure}[htbp]
   \centering
     \includegraphics[width=\textwidth]{chapters/introduction/figures/data_assimilation.eps}
-\caption{The different componenets involved in the data assimilation
+\caption{The different components involved in the data assimilation
   procedure. The mathematical description of each component is
-  displayed below each box. From a patients heart we typicall extract information
+  displayed below each box. From a patients heart we typically extract information
   that are used as input to the model. This can for instance be
   information about geometry or information about boundary
   conditions. This model input is used to create a mathematical model
   of the heart, which also depends on some parameters $\mu$.
   These unknown parameters are determined by minimizing the distance
-  between the clinical obervations $y$ and the modeled observation
+  between the clinical observations $y$ and the modeled observation
   $\mathcal{H}(\mathbf{w})$.}
 \label{fig:data_assimilation}
 \end{figure}
@@ -584,7 +623,7 @@ analytically from the displacement field. Denote the inner cavity of
 the left ventricle in the current configuration by
 $\omega_{\mathrm{endo}}$. Further let $\mathrm{d} v$ and $\xvec$
 denote an infinitesimal volume element and the coordinate in the
-current configuration respectively. Then by the divergece theorem we have
+current configuration respectively. Then by the divergence theorem we have
 \begin{align}
   \mathcal{H}_{\mathrm{volume}}(\uvec)= \int_{\omega_{\mathrm{endo}}} \mathrm{d} v =
   \frac{1}{3}\int_{\omega_{\mathrm{endo}}} \nabla \cdot \xvec \mathrm{d} v =
@@ -598,13 +637,13 @@ and fixed in longitudinal direction, the contribution from this
 boundary integral will be zero. In this case the boundary integral
 will be the same as the integral over the endocardial boundary, with
 the only change being the change of sign on the normal vector. By
-Nansens formula we obtain 
+Nansons formula we obtain 
 \begin{align}
   \mathcal{H}_{\mathrm{volume}}(\uvec)= -\frac{1}{3}\int_{\lvendo} \left( \Xvec + \uvec \right) J \F^{-T} \Nvec \mathrm{d}S,
   \label{eq:volume_operator}
 \end{align}
 where now $\lvendo$,  $\Xvec$, $\Nvec$ and $\mathrm{d}S$ are respectively the
-endocardial surface, the referece coordinate, the unit normal and a
+endocardial surface, the reference coordinate, the unit normal and a
 surface element in the reference configuration.
 
 
@@ -614,7 +653,7 @@ Another observation that is encountered in this thesis is strain
 measurements, or more precisely average regional strain in the
 circumferential, radial or longitudinal direction. Let $\Omega_j$
 denote the volume for which the strain should be averaged over, and
-let $\mathbf{e}_k$ denote the unit vectorfield in the preferred strain
+let $\mathbf{e}_k$ denote the unit vector field in the preferred strain
 direction. Then for a given strain tensor $\mathbf{A}$ we define 
 \begin{align}
   \mathcal{H}_{\mathrm{strain}}(\uvec) = \frac{1}{|\Omega_j|}\int_{\Omega_j} \mathbf{e}_k^T \mathbf{A}(\uvec) \mathbf{e}_k  \mathrm{d}V
@@ -625,15 +664,15 @@ the material displacement gradient tensor $\F - \I$.
 
 \begin{remark}
   Measured strains are computed relative to some reference
-  geometry, which do not always coinside with the reference geometry
+  geometry, which do not always coincide with the reference geometry
   chosen for your simulation (for example if you use the unloaded geometry). In
   these cases you have to either recompute the measured strain
-  according to the chosen referece for the simulation, or recompute
-  the simulated strains according to the correct referece geometry for
-  your measuments. In the latter case, one compute the strain tensor
+  according to the chosen reference for the simulation, or recompute
+  the simulated strains according to the correct reference geometry for
+  your measurements. In the latter case, one compute the strain tensor
   using the modified deformation gradient $\tilde{\F} = \F
   \F_{\mathrm{ref}}^{-1}$ where $\F_{\mathrm{ref}}$ is the deformation
-  gradient from your current referece to the correct reference state. 
+  gradient from your current reference to the correct reference state. 
 \end{remark}
 
 
@@ -642,7 +681,7 @@ the material displacement gradient tensor $\F - \I$.
 
 The variational data assimilation problem in cardiac mechanics belongs
 to a class of problems called PDE-constrained optimization problems,
-which can be formaluatd as follows:
+which can be formulated as follows:
 
 \begin{equation}
   \begin{aligned}
@@ -685,9 +724,9 @@ condition $D  \widehat{\mathcal{J}} = 0$. Here $D$ refers to the
 total derivative with respect to the control $\mu$, while $D_{x}$
 refers to the partial derivative with respect to $x$.
 
-\subsubsection{Computing the funtional gradient} 
+\subsubsection{Computing the functional gradient} 
 To move along the gradient descent it is required to actually
-compute this functinal gradient. The ``naive'' approach would be to
+compute this functional gradient. The ``naive'' approach would be to
 estimate the gradient using finite difference approximation. However,
 this require one functional evaluation for each degree of freedom in
 the parameter space, so when the number of parameters are large this
@@ -716,7 +755,7 @@ and we see that
 The system \eqref{eq:tangent_linear_model} is known as the tangent
 linear system, and can be computed numerically using ordinary
 algorithmic differentiation techniques. However it requires that you
-first specify theparameter $\mu$, meaning that it becomes expensive to
+first specify the parameter $\mu$, meaning that it becomes expensive to
 compute the functional gradient at several control points. 
 
 We could instead plug in the solution to
@@ -783,13 +822,13 @@ into \eqref{eq:functional_gradient} to compute the gradient.
 \subsubsection{Dolfin-Adjoint}
 
 Dolfin-Adjoint is a software package that based on the FEniCS project
-which aims to derrive the discrete adjoint equation and the tangent
+which aims to derive the discrete adjoint equation and the tangent
 linear models of finite element models implemented within the FEniCS
-framework. While the tradional approach is to derrive the adjoint code
+framework. While the traditional approach is to derive the adjoint code
 from the forward code using automatic differentiation tools,
-Dolfin-Adjoint utilises the high level symbolic representation
-\cite{UFL} in FEniCS to derrive the discrete adjoint equations from
-the discrete forward eqations, and then the FEniCS system derrives the
+Dolfin-Adjoint utilizes the high level symbolic representation
+\cite{UFL} in FEniCS to derive the discrete adjoint equations from
+the discrete forward equations, and then the FEniCS system derives the
 adjoint code from the discrete adjoint equations. 
 
 
@@ -797,11 +836,11 @@ adjoint code from the discrete adjoint equations.
 
 
 \subsubsection{Regularization}
-Regularization is an important concept in many scientific disiplines
+Regularization is an important concept in many scientific disciplines
 concerned with data fitting. When using data that essentially are
-realizations of a stochastic proccess, we need to take into account
+realizations of a stochastic process, we need to take into account
 that the data are corrupted with noise. Moreover, the model we are using
-is a simplification of a phyiscal proccess, and fitting the
+is a simplification of a physical process, and fitting the
 data exactly to the model is unrealistic. This is especially
 important if the number of parameters we are trying to estimate are
 more than the number of data points used as input. In such cases it is often
@@ -922,46 +961,46 @@ Newton solver.
 % paraperers
 % Discuss regularization technices
 When dealing with parameter estimation, you should always consider
-questions about identifiability and uniquness. This depends on the
+questions about identifiability and uniqueness. This depends on the
 model, the data and the objective functional
 \cite{hadjicharalambous2015analysis}. A first test should be to
 generate synthetic data with some prescribed parameters, feed this
 error-free data to the data assimilation method, and ensure that you
 are able to retrieve the parameters that generated that data. If you
 end up with a different parameter set than the one generated the data,
-your problem is not \emph{structuraly identifiable}
+your problem is not \emph{structurally identifiable}
 \cite{chabiniok2016multiphysics}. Your problem is said to be
 \emph{practical identifiable} if the parameters can be determined
-uniquely based on the data at hand. If the test passes you shold try
+uniquely based on the data at hand. If the test passes you should try
 to add noise to the data, and see if your data assimilation is stable
 with respect to noise in the measurement, and you should quantify the
 model out error versus the model input error. Demonstrating identifiability is
 often difficult, especially when your data is corrupted with noise,
 and when the complexity of the model increases. Balancing the
-complexity of model in terms of \emph{model fidelity}, i.e wheter your
+complexity of model in terms of \emph{model fidelity}, i.e whether your
 model is rich enough to representing the data, and the identifiability
 is often key in order to have robust model. A too simple model will
 often fail to represent your data, while a too complex model, might
-give completely differet answers with just a slight perturbation of
+give completely different answers with just a slight perturbation of
 the data, i.e with noise added to the measurement. The same problem is
-encountered in other scientific disiplines, for instance in
+encountered in other scientific disciplines, for instance in
 statistical learning theory, \emph{overfitting} is related to
 overparameterization of the model, in which you can perfectly
 represent your data, but a small perturbation will cause a significant
 error. Another problem, which is also related to identifiability is
-the question about uniquness of the soluton. A practical test is to
-start the optimization algorithm from different intial points and see
+the question about uniqueness of the solution. A practical test is to
+start the optimization algorithm from different initial points and see
 if you end up at the same optimum. If this does not happen, it is
 likely that the objective functional is not convex, which is a
-requirement for uniquness. Unfortunately, this is the case for many
+requirement for uniqueness. Unfortunately, this is the case for many
 problems in PDE-constrained optimization. In these cases, the objective
 functional might have several distinct local minima, in which case
 different techniques for find the best local minima exists
 \cite{farrell2015multiple}. 
 
-\subsubsection{An example of a non-structuraly identifiable problem}
+\subsubsection{An example of a non-structurally identifiable problem}
 Split the ventricle in two, and use volume as the only input.
-Show that differnt parameter sets (with $\gamma$) will generate the
+Show that different parameter sets (with $\gamma$) will generate the
 same volume
 
 
@@ -976,12 +1015,12 @@ same volume
 
 \subsubsection{Coupled unloading and material parameter estimation}
 In Section \ref{sef:reference_geometry} we described a method for
-finding the uloaded configuration unsing the backward displacement
+finding the unloaded configuration using the backward displacement
 method. The problem of using this method when dealing with parameter
 estimation is that the unloaded geometry depends on the material
 properties, which in general is unknown. Hence we need a way of
 estimating both the unloaded geometry and the material parameters at
-the same time. One possibible algorithm is the following:
+the same time. One possible algorithm is the following:
 
 
 
@@ -1010,8 +1049,8 @@ the same time. One possibible algorithm is the following:
 
 
 \subsubsection{Multiobjetive optimization}
-Paramaters in the model are estimated based on minimizing a cost
-functional representing the mismatch between observations and simulaton.
+Para maters in the model are estimated based on minimizing a cost
+functional representing the mismatch between observations and simulating.
 Assume we are given $N$ different observations, then in principle we
 have $N$ different cost functionals to minimize:
 \begin{equation}
@@ -1027,14 +1066,14 @@ with
 \begin{align}
   \mathcal{J}_i(\mu) = \left( \mathbf{y} - \mathcal{H}(\state(\lambda)) \right)^2, \; i = 1,\cdots, N
 \end{align}
-The above observations comes from the same soure, and hence it should
+The above observations comes from the same source, and hence it should
 be intuitive that minimizing one of them, would also bring the other
-closer to a minimum. However, with the prescense of noise in the data,
+closer to a minimum. However, with the presence of noise in the data,
 this might not always be the case, and hence we have conflicting
 objectives. Problem \eqref{eq:multiobjetive_opt} is called a
 multiobjetive optimization problem \cite{deb2016multi}. Such problems
 typically do not have a single optimal solution, but a family of
-solutions called \emph{Pareto optmal solutions}. The basic methods for
+solutions called \emph{Pareto optimal solutions}. The basic methods for
 solving such problems includes \emph{the weighted method}, \emph{the
   $\varepsilon$-constraint method}. In this thesis we have only used
 the weighted method, which is based on minimizing a weighted sum of
@@ -1057,9 +1096,9 @@ so that the weighted sum is a convex combination of the objective
 functionals. 
 
 
-\subsection{Mehcanical biomarkers}
+\subsection{Mechanical biomarkers}
 As can be seen from Figure \ref{fig:cardiac_imaging_model}, data
-assimilation of compuational models and medical imaging can be used to
+assimilation of computational models and medical imaging can be used to
 extract biomarkers which potentially can be used to gain further
 insight into ...
 

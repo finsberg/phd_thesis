@@ -17,8 +17,8 @@ $\mathbb{R}^3$. A configuration of $\mathfrak{B}$ is a mapping $\chi:
 We denote the \emph{reference configuration} of the heart by $\Omega
 \equiv \chi_0(\mathfrak{B})$, and the \emph{current configuration} by $\omega
 \equiv \chi(\mathfrak{B})$. The mapping $\varphi :  \Omega
-\rightarrow \omega$ given by the composition $\varphi = \chi
-\circ \chi_0^{-1}$ is a smooth, orientation preserving (positive
+\rightarrow \omega$, given by the composition $\varphi = \chi
+\circ \chi_0^{-1}$, is a smooth, orientation preserving (positive
 determinant) and invertible map. We denote the coordinates in the
 reference configuration by $\Xvec \in \Omega$, and the coordinates in the current
 configuration by $\xvec \in \omega$. The coordinates $\Xvec$ and $\xvec$ are
@@ -51,7 +51,7 @@ which relates positions in the reference configuration to positions
 in the current configuration. From \eqref{eq:deformation_gradient} we
 see that
 \begin{align}
-  \F = \Grad \xvec = \Grad \uvec + \Grad \Xvec = \Grad \uvec + \I
+  \F = \Grad \xvec = \Grad \uvec + \Grad \Xvec = \Grad \uvec + \I.
 \end{align}
 Some other useful quantities are the \emph{right Cauchy-Green} deformation
 tensor $\C = \F^T\F$, the \emph{left Cauchy-Green} deformation tensor
@@ -66,7 +66,7 @@ different configurations one needs to be careful with which forces and
 which areas we are talking about. Table \ref{tab:stress_tensor}
 shows how forces and areas are related for the most important stress
 tensors used in this thesis. Note that the explicit form of the stress
-tensor requires a consitutive law for the material at hand. This will
+tensor requires a constitutive law for the material at hand. This will
 be discussed in more detail in Section \ref{sec:constitutive_relations}.
 
 \begin{table}[h]
@@ -88,15 +88,16 @@ be discussed in more detail in Section \ref{sec:constitutive_relations}.
 
 \subsection{Balance laws and transformations}
 In this section we will cover some basic transformation used to
-derrive the fore-balance equations for the mechanics of the heart. 
+derive the fore-balance equations for the mechanics of the heart. 
 
 \subsubsection{Transformations between reference and current
   configuration}
-By definition the reference configuration, $\Omega$ and current
-configuration $\omega$ are related via the motion $\varphi$ in the
-sense that a point $\mathfrak{p}$ with reference coordinates $\Xvec$ and current
-coordinates $\xvec$ satisfies $\xvec = \varphi(\Xvec)$. Likewise a
-vector in the $\Omega$ is related to a vector in $\omega$ via the
+By definition, the reference configuration $\Omega$, and current
+configuration $\omega$, are related via the motion $\varphi$ in the
+sense that a point $\mathfrak{p} \in \mathfrak{B}$ with reference
+coordinates $\Xvec$ and current coordinates $\xvec$ satisfies $\xvec =
+\varphi(\Xvec)$. Likewise a vector in the reference configuration is
+related to a vector in the current configuration  via the
 deformation gradient $\F$; if $\mathrm{d}\Xvec$ is a vector in the
 reference configuration it will transform to the vector
 $\mathrm{d}\xvec$ in the current configuration, and $\mathrm{d}\xvec =
@@ -154,7 +155,7 @@ Cauchys momentum equation
   \nabla \cdot \sigma + \mathbf{b} =  \rho \dot{\mathbf{v}}.
   \label{eq:chauch_momentum_eq}
 \end{align}
-The contribution for the body force ($\mathbf{b}$)  and inertial term
+The contribution from the body force ($\mathbf{b}$)  and inertial term
 ($\rho \dot{\mathbf{v}}$) are negligible compared to the stresses
 \cite{hunter1996kd,tallarida1970left, moskowitz1981effects}, which is
 why the force balance equations is typically only stated as
@@ -187,8 +188,11 @@ symmetric
 
 Even though experimental studies have indicated a visco-elastic behavior
 of the myocardium \cite{dokos2002shear, gultekin2016orthotropic}, a
-common assumption is to consider a quasi-static behavior and therefore
-it is also possible to model the myocardium as hyperelastic.
+common assumption is to consider a quasi-static behavior, meaning that
+the inertial term in \eqref{eq:chauch_momentum_eq} is negligible and
+static equilibrium can be achieved at any time. Therefore
+it is also possible to model the myocardium as a hyperelastic material
+which is a type of elastic material.
 This means that we postulate the existence of
 a strain-energy density function $\Psi:\mathrm{Lin}^+ \rightarrow
 \mathbb{R}^+$, and that stress is given by the relation
@@ -209,7 +213,7 @@ material.
 
 \begin{remark}
   The second law of thermodynamics states that the total entropy
-  production in a thermodynamic process can never be nagative. Elastic
+  production in a thermodynamic process can never be negative. Elastic
   materials defines a special class of materials in which the entropy
   production is zero. Within this thermodynamic framework the
   strain-energy density function coincides (up to a constant) with the
@@ -225,10 +229,10 @@ First of all, we require that the reference state is stress free and
 that the stored energy increases monotonically with the deformation. 
 Formally this can be stated simply as 
 \begin{align*}
-  \Psi(\I) = 0 && \Psi(\F) \geq 0.
+  \Psi(\I) = 0 \; && \text{and} &&\; \Psi(\F) \geq 0.
 \end{align*}
-Moreover, if expanding or compressing a body to zero volume would
-require an infinite amount of energy:
+Moreover, expanding or compressing a body to zero volume would
+require an infinite amount of energy, i.e
 \begin{align*}
   \Psi(\F) \rightarrow \infty \; && \text{as} &&\; \det \F \rightarrow& 0 \\
   \Psi(\F) \rightarrow \infty \; && \text{as} &&\; \det \F \rightarrow& \infty
@@ -266,9 +270,9 @@ muscle fibers, we have
 \end{align*}
 with $\otimes$ being the outer product. In this case the strain-energy
 density function can still be expressed through invariants. However,
-we need to included the so called quasi-invariants, which are defined
+we need to include the so called quasi-invariants, which are defined
 as stretches in the local microstructural coordinate-system. The
-transversely isotropic invariants is given by
+transversely isotropic invariants are given by
 \begin{align*}
   I_{4\mathbf{a}_0 } = \mathbf{a}_0 \cdot (\C \mathbf{a}_0) && \text{and} && I_5 = \mathbf{a}_0 \cdot (\C^2 \mathbf{a}_0).
 \end{align*}
@@ -292,7 +296,7 @@ $\Xvec_1, \Xvec_2 \in \Omega$ we have
   \leq \lambda \phi(\Xvec_1)
   + (1-\lambda) \phi(\Xvec_2).
 \end{align}
-However, from a physical point of view this requirement is to strict
+However, from a physical point of view this requirement is too strict
 \cite{ball1976convexity}. A slightly weaker requirement is that the
 strain-energy function $\Psi$ is \emph{polyconvex}, meaning that there exist
 a convex function $\phi$ such that
@@ -336,14 +340,14 @@ Note however, that if $\Psi$ is convex then it is also polyconvex.
 \label{sec:incompressibility}
 
 The myocardium is composed by small blood vessels that supply the
-myocardial cells with oxygen. When the myocardium contracts this
-perfused blood is then squeezed out, resulting in an overall loss of
+myocardial cells with oxygen. When the myocardium contracts, this
+perfused blood is squeezed out, resulting in an overall loss of
 2-4\% volume\cite{yin1996compressibility}. Such materials are
 referred to as compressible. When the 
 volume are preserved we refer to the material as incompressible.
-Since 2-4\% is very little, a common assumption in cardiac modeling,
+Since 2-4\% is very little, a common assumption in cardiac mechanical modeling,
 which has also been made in the work conducted in this thesis, is to assume
-the myocardium to be incompresible. The reason for this choice is
+the myocardium to be incompressible. The reason for this choice is
 purely numerical.
 
 For an incompressible material, only isochoric motions are
@@ -360,9 +364,7 @@ considering the modified strain energy function
   \label{eq:incomp_strain_energy}
 \end{align}
 where $p$ is a scalar which serves as a Lagrange multiplier, but which
-can be identified as the hydrostatic pressure. Like the displacement,
-the hydrostatic pressure is unknown and has to be determined from the equilibrium
-equations \eqref{eq:force_balance_strong_ref}. If we differentiate
+can be identified as the hydrostatic pressure. If we differentiate
 \eqref{eq:incomp_strain_energy} with respect to $\F$ we get the First
 Piola-Kirchhoff stress tensor for an incompressible material
 \begin{align}
@@ -386,7 +388,7 @@ Likewise the Cauchy stress tensor is given by
 
 \subsubsection{Uncoupling of volumetric and isochoric response}
 The total strain energy function in \eqref{eq:incomp_strain_energy}
-is written as a sum of isochoric and volumetric components. Let
+can be written as a sum of isochoric and volumetric components. Let
 \begin{align}
   \F =  \F_{\mathrm{vol}} \F_{\mathrm{iso}},
 \end{align}
@@ -397,7 +399,7 @@ only deviatoric strains in the strain-energy density function, so that
 $\Psi = \Psi_{\mathrm{iso}}(\F_{\mathrm{iso}}) +
 \Psi_{\mathrm{vol}}(J)$. For incompressible material ($J = 1$), we
 have $\F_{\mathrm{vol}} = \I$ so that such a decomposition seems
-uneccesary. However, a similar decomposition has shown to be
+unnecessary. However, a similar decomposition has shown to be
 numerically beneficial \cite{weiss1996finite}. Note that, in this case, a similar
 decoupling of the stress tensors has to be done.
 
@@ -411,9 +413,9 @@ physiologically constrain the ventricle in a correct way is difficult,
 and different approaches has been proposed.
 The boundary condition at the endocardium is typically modeled as a
 Neumann boundary condition, representing the endocardial blood
-pressure, for the left ventricle we have
+pressure. For the left ventricle we have
 \begin{align}
-  \sigma \mathbf{n} = -p_{\mathrm{lv}} \mathbf{n}, \;  \xvec \in  \lVendo(t), 
+  \sigma \mathbf{n} = -p_{\mathrm{lv}} \mathbf{n}, \;  \xvec \in  \lVendoCur, 
 \end{align}
 and for the right ventricle, ``lv'' is substituted with ``rv''.
 This condition has a negative sign because the unit normal
@@ -430,7 +432,7 @@ Neumann boundary condition on the epicardium,
 \begin{align}
 \FPK\mathbf{N}  &= -p_{\mathrm{epi}}  J\mathbf{F}^{-T} \cdot \mathbf{N}, \;  \Xvec \in \epi.
 \end{align}
-However, the pressure $p_{\mathrm{lv}}$ is usually set
+However, the pressure $p_{\mathrm{epi}}$ is usually set
 to zero.
 
 There exist a variety of boundary conditions at the base.
@@ -491,7 +493,7 @@ bi-ventricular geometry is illustrated in Figure \ref{fig:boundaries}.
 We will now collect all the terms that makes up to force balance for
 the cardiac mechanics problem. Considering the myocardium as a incompressible,
 hyperelastic material with a Robin type boundary condition at the base
-we obtain the following set of equations in the Lagrangian formulation
+we obtain the following strong form in the Lagrangian formulation
 \begin{align}
   \begin{split}
   \nabla \cdot \FPK &= 0 \\
@@ -499,7 +501,9 @@ we obtain the following set of equations in the Lagrangian formulation
   \end{split}
  \label{eq:force_balance_strong}
 \end{align}
-with $J = \det(\F)$, and appropriate boundary conditions.
+completed with appropriate boundary conditions. To solve this
+numerically using the finite element method, we need to derrive weak
+variational form of this equaiton.
 % \begin{align}
 %   \FPK \Nvec + k \uvec &= \mathbf{0},  \;  \Xvec \in \lvbase\\
 %   u_1 &= 0,  \;  \Xvec \in \lvbase \\
@@ -543,8 +547,8 @@ external forces such as gravity and traction forces.
 For a hyperelastic and incompressible material, the total potential
 energy in the system is given by
 \begin{align}
-  \Pi(\mathbf{u}, p) &= \Pi_{\mathrm{int}}(\mathbf{u},p) + \Pi_{\mathrm{ext}}(\mathbf{u}). \\
-  \Pi_{\mathrm{int}}(u,p) &= \int_{\Omega} \left[ p(J(\mathbf{u}) - 1) +  \Psi(\mathbf{F}(\mathbf{u})) \right] \mathrm{d}V\\
+  \Pi(\uvec, p) &= \Pi_{\mathrm{int}}(\mathbf{u},p) + \Pi_{\mathrm{ext}}(\mathbf{u}). \\
+  \Pi_{\mathrm{int}}(\uvec,p) &= \int_{\Omega} \left[ p(J - 1) +  \Psi(\mathbf{F}) \right] \mathrm{d}V\\
   \Pi_{\mathrm{ext}}(\mathbf{u}) &= - \int_{\Omega} \mathbf{B} \cdot \mathbf{u} \mathrm{d} V - \int_{\partial \Omega_N} \mathbf{T} \cdot \mathbf{u} \mathrm{d}S
 \end{align}
 Here $\mathbf{B}$ represents body forces acting on a volume element in
@@ -562,7 +566,7 @@ space for the displacement and hydrostatic pressure respectively, and
   D_{\mathbf{v}} \Phi(\mathbf{x}) = \frac{\mathrm{d}}{\mathrm{d}\varepsilon} \Phi(\mathbf{x} + \varepsilon \mathbf{v})\big|_{\varepsilon = 0}
 \end{align}
 is the directional derivative of $\Phi$ at $\mathbf{x}$ is the
-direction $\mathbf{v}$. The operator is also known as the G\^ateaux
+direction $\mathbf{v}$. This operator is also known as the G\^ateaux
 operator. The virtual variations $\delta \mathbf{u}$ and $\delta p$
 represents an arbitrary direction with infinitesimal magnitude. We have
 \begin{align}
@@ -577,20 +581,22 @@ and
   \end{split}
 \end{align*}
 Note that the traction forces are now incorporated into the stress
-tesors after application of the divergence theorem. These equations
-are called the Euler-Lagrange equations. Here $\uvec  \in V = 
-H_D^1(\Omega) = \{ \mathbf{v}: \int_{\Omega} \left[ |\mathbf{v}|^2 +  |\Grad
-\mathbf{v}|^2 \right]\mathrm{dV} < \infty \wedge \mathbf{v}\big|_{\partial
-  \Omega_D} = 0\}$ and $p \in Q = L^2(\Omega)$, with $\partial
-\Omega_D$ representing the Dirichlet boundary.
-In sumarry, the Euler-Lagrange equations written in a mixed form reads
-: \emph{Find $(\uvec, p)\in V \times Q$ such that}
+tensors after application of the divergence theorem. These equations
+are also commonly referred to as the Euler-Lagrange equations. Here $\uvec  \in V = 
+\left[H_D^1(\Omega)\right]^3$, with $H_D^1(\Omega) = \{ \mathbf{v}:
+\int_{\Omega} \left[ |\mathbf{v}|^2 +  |\Grad \mathbf{v}|^2
+\right]\mathrm{dV} < \infty \wedge \mathbf{v}\big|_{\partial \Omega_D}
+= 0\}$ and $p \in Q = L^2(\Omega)$, with $\partial \Omega_D$
+representing the Dirichlet boundary. In summary, the Euler-Lagrange
+equations written in a mixed form reads : \emph{Find $(\uvec, p)\in V
+  \times Q$ such that} 
 \begin{align}
   \begin{pmatrix}
     D_{\delta p} \Pi(\mathbf{u}, p)\\
     D_{\delta \mathbf{u}} \Pi(\mathbf{u}, p) 
   \end{pmatrix}
   = \mathbf{0}.  && \forall \; (\delta \uvec, p) \in V \times Q.
+ \label{eq:intro_variational_form}
 \end{align}
 
 
@@ -599,13 +605,12 @@ In sumarry, the Euler-Lagrange equations written in a mixed form reads
 Equation \eqref{eq:force_balance_strong} is only possible to solve
 analytically for very simplified problems. Therefore we need to employ
 a numerical approximation method to solve the problem. One such method
-is the finite element method (FEM). When using the finite element method we often refer to such
+is the finite element method (FEM). When using the finite element method, we often refer to such
 approximation as a Galerkin approximation. This is based on
 approximating the solution by linear combinations of  basis functions in a finite dimensional
-subspace of the true solution. Let $(V, \langle \cdot \rangle_V)$
-and $(Q, \langle \cdot \rangle_Q)$ be two suitable Hilbert
+subspace of the true solution. If $V$ and $Q$ are two suitable Hilbert
 spaces for the displacement $\uvec$ and the hydrostatic pressure $p$
-respectively (see Section \ref{sec:variational_formulation}). Now we
+respectively (see Section \ref{sec:variational_formulation}), we now
 select some finite dimensional subspaces $V_h \subset V$ and $Q_h
 \subset Q$, which are spanned by a finite number of basis functions.
 
@@ -623,13 +628,13 @@ interest be denoted by $\Omega$, and let $\mathcal{T}_h$ be a
 triangulation of that domain in the sense that $\bigcup_{T \in
   \mathcal{T}_h} T = \overline{\Omega}$. Denote by $\mathcal{P}_k
 (T)$, the linear space of all polynomials of degree $\leq k$ defined
-on $T$. Then for $k \geq 2$, the Taylor-Hood finite elements are the spaces
+on $T$. Then for $k \geq 2$, the Taylor-Hood finite element spaces are the spaces
 \begin{align}
   V_h = \{  \phi \in C(\Omega) \;  | \; \phi \big| T  \in \mathcal{P}_k (T) , T \in \mathcal{T}_h \},\\
   Q_h = \{  \phi \in C(\Omega) \;  | \; \phi \big| T  \in \mathcal{P}_{k-1} (T) , T \in \mathcal{T}_h \},
 \end{align}
 where $C(\Omega)$ denotes the space of continuous function on
-$\Omega$. In this thesis we have exclusively used these elments with
+$\Omega$. In this thesis we have exclusively used these elements with
 $k = 2$.
 
 
@@ -647,7 +652,7 @@ $k = 2$.
   such functions. Examples of such features are stress and
   strain with depends on the deformation gradient which again depends
   on the derivative of the displacement. One way to deal with this
-  issue is to 1) use other types of elements that are continusly
+  issue is to 1) use other types of elements that are continuously
   differentiable everywhere,  such a the cubic Hermite elements or 2) evaluate the features at the
   Gaussian quadrature points where there is no problem with continuity.
 \end{remark}
@@ -655,18 +660,18 @@ $k = 2$.
 
 \subsection{Constitutive relations}
 \label{sec:constitutive_relations}
-We have now covered a general mechanical framework which holds for
-material science in general. What differentiate the mechanics of soft
+We have now covered a mechanical framework which holds any for
+material in general. What differentiate the mechanics of soft
 living tissue, like the myocardium, from other materials is the
 constitutive relations which describes the response of a material to
 applied load. Such constitutive relations often comes from
 experimental observations, both on observation of anatomical structure
-but also from experiments done of tissue slabs.
+but also from experiments done on tissue slabs.
 
 We have already covered the theory of hyperelasticity and incompressibility in Section
 \ref{sec:hyperelasticity} and \ref{sec:incompressibility} respectively
 which are types of constitutive relations. In this section we will
-cover consitutive relations which only apply to soft living tissue
+cover constitutive relations which only apply to soft living tissue
 such as the myocardium. 
 
 A complete constitutive model of the mechanical behavior of the
@@ -722,7 +727,7 @@ the overall stiffness in the extracellular matrix while the second
 term accounts for the extra stiffness along the fibers when they are
 elongated. It is also straight forward to prove that the strain-energy
 function is convex, and that the requirements for existence and
-uniqueness discussed in Section \ref{sec:strain_energy_req} is
+uniqueness discussed in Section \ref{sec:strain_energy_req} are
 fulfilled.
 
 In this thesis we have in several occasions used a
@@ -736,8 +741,8 @@ obtained by setting $a_{fs} = b_{fs}= a_s = b_s = 0$, i.e
   \end{split}
 \end{align}
 If we further set $a_f = b_f = b = 0$ so that in $a$ is the
-only nonzero parameter, then the Holzapfel-Ogden model reduces to (after a
-series expansion of the exponential and a limiting argument)
+only nonzero parameter, then the Holzapfel-Ogden model reduces (after a
+series expansion of the exponential and a limiting argument) to
 \begin{align}
   \Psi(I_1)  = \frac{a}{2} \left( I_1 - 3 \right), 
 \end{align}
@@ -746,7 +751,7 @@ analytically from \eqref{eq:holzapel_full}, by using the chain rule and
 \eqref{eq:cauchy_incomp}, 
 \begin{align}
   \begin{split}
-    \Cauchy
+    J\Cauchy
     =& \frac{\partial \Psi(\F)}{\partial \F}\F^{T} + p \I
     = \sum_{i \in \left\{ 1, 4\ef,  4\eS,  8\ef\eS \right\} }
     \psi_i \frac{\partial I_i}{\partial \F}\F^{T} + p \I \\
@@ -764,27 +769,40 @@ $\mathbf{f} = \F \ef$ and $\mathbf{s} = \F \eS$.
 
 One feature that separate the myocardium from other hyperelastic
 materials such as rubber, is its ability to actively generate force
-without external loads. This active 
-
-As discussed 
-in Section \ref{sec:ventricular_pumping_function}, the myocardium
-contracts in a cyclic manner. 
-
-There are basically two main approaches to model the active response
-of the myocardium; the \emph{active stress} and the \emph{active strain}
-formulation.
+without external loads. This active component of the model can be
+incorporated using two fundamentally different approaches known as the
+\emph{active stress} and \emph{active strain} formulation.
 
 
-Based one the classical three element Hill model illustrated in Figure
-\ref{fig:hill_muscle_model}, the active contribution naturally
-decomposes the total stress into a sum of passive and active stresses
+% As discussed 
+% in Section \ref{sec:ventricular_pumping_function}, the myocardium
+% contracts in a cyclic manner. 
+
+% There are basically two main approaches to model the active response
+% of the myocardium; the \emph{active stress} and the \emph{active strain}
+% formulation.
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.5\textwidth]{chapters/introduction/figures/Hill_muscle_model.pdf}
+\caption{The classical three-element Hill muscle model with one
+  contractile element and two non-linear springs, one arranged in
+  series and one parallel. }
+\label{fig:hill_muscle_model}
+\end{figure}
+
+
+
+The active stress approach is based one the classical three element
+Hill model illustrated in Figure \ref{fig:hill_muscle_model}, where the
+active contribution naturally decomposes the total stress into a sum
+of passive and active stresses
 \cite{nash2004electromechanical}. Hence, in the active stress
 formulation \cite{hunter1998modelling} one assumes that the total
 Cauchy stress $\Cauchy$ can be written as an additive sum of one
-passive contribution $\Cauchy_p$ and one active contribution 
-$\Cauchy_a$;
+passive contribution $\Cauchy_p$ and one active contribution $\Cauchy_a$,
 \begin{align}
-  \Cauchy = \Cauchy_p + \Cauchy_a && J \Cauchy_p =  \frac{\partial \Psi(\F)}{\partial \F} \F^{T}
+  \Cauchy = \Cauchy_p + \Cauchy_a && J \Cauchy_p =  \frac{\partial \Psi(\F)}{\partial \F} \F^{T}.
 \end{align}
 The passive contribution is determined by the material model used,
 while the active contribution is given by 
@@ -793,11 +811,14 @@ while the active contribution is given by
   \Cauchy_{ss} \mathbf{s} \otimes \mathbf{s} +
   \Cauchy_{nn} \mathbf{n} \otimes \mathbf{n},
 \end{align}
-and the different constants are typically coupled to the
+and the different constants $\Cauchy_{ff}, \Cauchy_{ss}$, and
+$\Cauchy_{nn}$, which are the active stress in the fiber, sheet and
+sheet-normal direction respectively, are typically coupled to the
 electrophysiology and calcium dynamics.
-There are experimental evidence that the transverse active stresses
-are non-negligible \cite{lin1998multiaxial}. One approach is to assume
-a uniform transverse avtivation in which the total active tension
+There are experimental evidence that the active stresses in the
+transverse direction of the fibers ($\Cauchy_{ss}$, and $\Cauchy_{nn}$),
+are non-negligible \cite{lin1998multiaxial}, and one approach is to assume
+a uniform transverse activation in which the total active tension
 can be written as 
 \begin{align}
   \Cauchy_a = T_a \left[\Fef \otimes \Fef +
@@ -817,25 +838,46 @@ Note that, by observing  that
   = 2 \mathbf{a} \otimes \mathbf{a}_0 \implies  \mathbf{a} \otimes  \mathbf{a}= \frac{1}{2} \frac{\partial I_{4\mathbf{a}_0}}{\partial \F} \F^{T}
 \end{align*}
 and that $I_1 =  I_{4\ef} +  I_{4\eS} +  I_{4\en}$, 
-we can instead decompose the strain-energy into a passive and active
-part \cite{pathmanathan2010cardiac}, $\Psi= \Psi_p + \Psi_a$, with
+we can instead decompose the strain-energy function into a passive and active
+parts \cite{pathmanathan2010cardiac}, $\Psi= \Psi_p + \Psi_a$, with
 \begin{align}
 \Psi_a = \frac{T_a}{2J} \left(( I_{4\ef} - 1)  + \eta \left[ (I_1 - 3) -
     (I_{4\ef} - 1)\right] \right), 
 \end{align}
-so that $J \Cauchy_a  = \frac{\partial \Psi_a}{\partial \F} \F^{T}$.
+so that $J \Cauchy_a  = \frac{\partial \Psi_a}{\partial \F}
+\F^{T}$.
+
 The active strain formulation is a relatively new way of modeling the
 active contraction in the heart and was first introduced in
 \cite{taber2000modeling}. This formulation is based on a
-multiplicative decomposition of the deformation gradient.  
+multiplicative decomposition of the deformation gradient, 
 \begin{equation}
  \F = \F_e \F_a.
 \label{eq:active_strain}
 \end{equation}
-The 
 
-The general form of the active deformation gradient for an orthotropic
-material with active response is given by
+
+The active part $\F_a$, is an inelastic process driven by the
+biochemistry and can be seen as the actual distortion of the
+microstructure. The elastic part $\F_e$ is responsible for preserving
+compatibility of the tissue and stores all the energy in the
+deformations. As a consequence, the strain energy function is a
+function of the elastic deformation gradient only $\F_e$. The
+decoupling can illustrated by considering two sarcomeres connected in
+series as shown in Figure \ref{fig:actstrain}. 
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.7\textwidth]{chapters/introduction/figures/actstrain.pdf}
+\caption{Illustration of the active strain formulation. During the active
+deformation, the sarcomeres shortens as if they were all detached. The
+elastic deformation ensures compatibility of the tissue.}
+\label{fig:actstrain}
+\end{figure}
+
+
+The general form of the active deformation gradient for a
+material with an orthotropic active response is given by
 \begin{equation}
   \F_a =  \I
   - \gamma_f \ef \otimes \ef
@@ -847,8 +889,8 @@ material with active response is given by
 We add the constraint $\det(\F_a) = 1$, meaning that the active
 deformation is volume preserving. Further we assume that the activation is
 transversely isotropic, so that the sheet and sheet-normal axis is
-treated in the same way. Then  we see that $\gamma_n = \gamma_s =1-
-(1-\gamma_f)^{-1/2}$, and we have
+treated in the same way. It is then straight forward to verify that
+$\gamma_n = \gamma_s =1- (1-\gamma_f)^{-1/2}$, and we have
 \begin{equation}
   \F_a = (1 - \gamma) \ef \otimes \ef  + \frac{1}{\sqrt{1 - \gamma}} (\I - \ef \otimes \ef), 
  \label{eq:active_strain_Fa_gjerald}
@@ -861,9 +903,9 @@ physiological and based on the classical Hill model shown in Figure
 \ref{fig:hill_muscle_model}, the motivation behind the active strain
 formulation is more driven by ensuring mathematical robustness. In
 particular it has been shown \cite{ambrosi2012active} that with the
-active strain formaulation properties such as frame invariance and
+active strain formulation, properties such as frame invariance and
 rank-one ellipticity is inherited from the strain energy function. In
-contrast, rank-one elipticity is not guaranteed for the active stress
+contrast, rank-one ellipticity is not guaranteed for the active stress
 formulation.  
 
 % Other types of active models also exists \cite{goktepe2014generalized}
@@ -873,18 +915,30 @@ formulation.
 
 
 \subsection{Implementation details}
-A word about FEniCS and how we can implement this
-Newtons method, good initial guess, increment pressure.
-Relatively small system, dense matrix, plot stiffness matrix, Direct
-solver.
-FEniCS compilation stored in cache.
-Fibers at quadrature points. Symbolic language.
+The cardiac mechanics solver developed during the work of this thesis
+is implemented using the finite element framework FEniCS. Here we
+briefly explain the main components of FEniCS as well as some
+numerical considerations made when implementing the solver.
+For more information about FEniCS, the reader is referred to the
+official web page (\url{https://fenicsproject.org}).
+
+
+
+% A word about FEniCS and how we can implement this
+% Newtons method, good initial guess, increment pressure.
+% Relatively small system, dense matrix, plot stiffness matrix, Direct
+% solver.
+% FEniCS compilation stored in cache.
+% Fibers at quadrature points. Symbolic language.
 
 \subsubsection{FEniCS}
 \label{sec:fenics}
-The FEniCS project started out in 
+
 FEniCS is a framework for solving partial differential
-equations using the finite element method. FEniCS has a python
+equations using the finite element method, and consist of the
+following software components: 
+
+FEniCS has a python
 interface where the user can write code which is close to the
 mathematical notions used in the theory.
 
@@ -914,7 +968,7 @@ instance by a factor of 0.5) until convergence is reached, and
 continue to step up the pressure with the new step-size. This is very
 robust, but definitely a slow approach. Since many of the 
 constitutive models for myocardium consist of an exponential
-relationship between the stress and strain (so call Fung-type
+relationship between the stress and strain (so called Fung-type
 relation), the amount of stress needed to displace a material will be
 higher if the material is a state with high strain compared to a state
 of low strain. Therefore, the Newtons solver might perform less
@@ -923,13 +977,13 @@ result, one could improve the incremental load technique by adapting
 the step since if the number of newton iterations are below a certain
 threshold (for instance $8$ iterations).
 
-An even more clever strategy, uses a technique from bifurcation
+An even more clever strategy, uses a technique from bifurcation and
 chaos theory and is known as numerical continuation
 \cite{allgower2003introduction}.  Suppose we want to
 solve the non-linear problem $F(\uvec, \lambda)=0$ with state variable
 $\uvec$ and parameter $\lambda$. For instance $\uvec$ could be the
 displacement and $\lambda$ could be the endocardial pressure.
-The idea be numerical continuations is that given a solution pair
+The idea behind numerical continuation is that given a solution pair
 $(\uvec_0, \lambda_0)$ there exist (under conditions stated by the
 implicit function theorem) a solution curve $\uvec(\lambda)$ such that
 $F(\uvec(\lambda), \lambda)=0$ and $\uvec(\lambda_0) = \uvec_0$.
@@ -951,7 +1005,8 @@ parameter $\lambda_2$, a possible solution is
 % of intial guess would be $\tilde{w_2} = (1-\delta)w_0 + \delta w_1$.
 Choosing $\uvec_2$ as initial guess for the non-linear solver has been
 successfully performed by others in non-linear cardiac mechanics
-problems \cite{pezzuto2013mechanics}. 
+problems \cite{pezzuto2013mechanics}, and this approach is also used
+in this thesis. 
 
 
 
