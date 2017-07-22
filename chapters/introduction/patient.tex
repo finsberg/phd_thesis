@@ -329,7 +329,7 @@ back the geometry observed in the medical images.
 This is analogous to the problem of finding the geometry of a deflated balloon, given
 that we have an image of and inflated version of the balloon. Having this picture in mind, it is
 intuitive that such a geometry not necessarily is unique.
-Several techniques have been applied in order to obtain the unloaded
+Several techniques have been applied in order to estimate the unloaded
 geometry, such as the inverse design analysis (ID)
 \cite{govindjee1996computational} or the modified updated Lagrangian
 formulation (MULF) \cite{gee2010computational}. Other approaches
@@ -351,18 +351,17 @@ explain the steps in this methods.
 
 
 Suppose you are given geometry $\Omega_{\mathcal{I}}$ taken from some
-medical image, which is loaded with some loads $\mathbf{T}$. We want
-to find the unloaded geometry 
-$\Omega_{\mathcal{U}}$, so that when we load $\Omega_{\mathcal{U}}$ with $\mathbf{T}$,
+medical image, which is loaded with a pressure $p_{\mathcal{I}}^{\mathrm{LV}}$ (assume LV only of
+simplicity). We want to find the unloaded geometry 
+$\Omega_{\mathcal{U}}$, so that when we load $\Omega_{\mathcal{U}}$ with $p_{\mathcal{I}}^{\mathrm{LV}}$,
 you get back the starting geometry $\Omega_{\mathcal{I}}$. Let
 $\Xvec_{\mathcal{I}}$ denote the coordinates in $\Omega_{\mathcal{I}}$, and
 let $\mathbf{d}$ denote the displacement field which is the solution
-of \eqref{eq:intro_variational_form} with $\mathbf{T}$ representing
-the traction on the endocardium, and which depends on the reference
-coordinates. What we want, is to find
+of \eqref{eq:intro_variational_form} after applying the pressure
+$p_{\mathcal{I}}^{\mathrm{LV}}$. What we want, is to find
 $\Xvec_{\mathcal{U}}$ so that $\Xvec_{\mathcal{I}} =
-\Xvec_{\mathcal{U}} + \mathbf{d}(\Xvec_{\mathcal{U}})$. To
-find  $\Xvec_{\mathcal{U}}$ we let
+\Xvec_{\mathcal{U}} + \mathbf{d}(\Xvec_{\mathcal{U}})$. To find
+$\Xvec_{\mathcal{U}}$ we let 
 \begin{align}
   \Xvec_{n+1} = g(\Xvec_n) =  \Xvec_{\mathcal{I}} - \mathbf{d}(\Xvec_n),
   && \Xvec_0 = \Xvec_{\mathcal{I}}.
@@ -370,7 +369,7 @@ find  $\Xvec_{\mathcal{U}}$ we let
 According to Banach Fixed Point Theorem, the mapping $g$ has a
 fixed-point if $\| \nabla g \|_{\infty} = \| \nabla \mathbf{d}
 \|_{\infty} < 1$. This means that as long as the deformation
-resulting from the load $\mathbf{T}$ do not result in a stretch that
+resulting from the applied pressure, do not result in a stretch that
 is more than $100 \%$, this method will converge. Of course the
 question about convergence of the fixed point method is one
 thing. Another thing is the convergence of the nonlinear solver.
@@ -387,12 +386,14 @@ Figure~\ref{fig:unloading_fail}.
     \includegraphics[width=0.5\textwidth]{chapters/introduction/figures/unloading_fail/unloading_fail.png}
 \caption{Backward displacement method might fail for bi-ventricular
   geometries. This can be seen be noticing that the RV free wall is
-  buckling and colliding with the septum.}
+  buckling and colliding with the septum. Here the image-based
+  geometry is shown in black wire-frame, while the estimtated unloaded
+geometry is shown in red.}
 \label{fig:unloading_fail}
 \end{figure}
 
 An alternative to the backward displacement method that do not
-necessary converge towards a fixed point but provides an a more stable
+necessary converge towards a fixed point but provides a more stable
 way of obtaining an unloaded configuration was proposed in Ragahavan
 et. al \cite{raghavan2006non}.
 This algorithm is based on subtracting a factor $k$ times
@@ -420,7 +421,7 @@ is minimized, that is
   \;\;  \mathrm{res} ( \Xvec_{\mathcal{I}}, \Xvec_{\mathcal{U}}(k) + \mathbf{d}_k)
   \label{eq:unloading_Raghavan}
 \end{align}
-with
+with the residual given by the direct Hausdorff distance \cite{huttenlocher1993comparing}
 \begin{align}
   \mathrm{res}(A, B) = \sup_{a \in A} \inf_{b \in B} d(a, b), 
 \end{align}
@@ -486,8 +487,8 @@ have performed a regression analysis in order to identify the
 parameters in the constitutive model. However, this type of data
 typically requires that tissue samples are taken from the myocardium,
 which is not an option when dealing with living humans. In general,
-when dealing with physical systems such as the heart or weather
-forecast, it is not always possible to design an experiment which
+when dealing with physical systems such as the heart or the weather,
+it is not always possible to design an experiment which
 allows to determine all properties of a physical system
 \cite{chapelle2013fundamental}. In such cases we have to take the
 measurement that we have, and do our best to incorporate them into the
@@ -519,8 +520,8 @@ The other approach, called variational data assimilation, also known as
 represents the mismatch between observations and simulations, with
 possibly additional regularization terms added to the objective
 functional. We will focus this approach since this is the approach
-that is taken in this thesis. For a more thorough review of other
-methods we refer to \cite{chapelle2013fundamental}.
+taken in this thesis. For a more thorough review of other
+data assimilation techniques we refer to \cite{chapelle2013fundamental}.
 
 
 % The general setup for a variational data assimilation problem is the
@@ -529,7 +530,7 @@ methods we refer to \cite{chapelle2013fundamental}.
 \label{sec:data_assimilation_pipeline}
 
 We will now explain the general setup and the main steps in variational data
-assimilation. In order to keep consistent notation we will refer to
+assimilation. We will refer to
 the \emph{state variable} as $\mathbf{w}$, which is our case
 represents jointly the displacement and hydrostatic pressure
 $\mathbf{w}=(\mathbf{u}, p)$.
@@ -538,18 +539,22 @@ The state variables are described by some \emph{physical forward
 model} $\mathcal{M}$, which is our case is governed by the force balance
 equation in \eqref{eq:force_balance_strong}. Moreover this model
 typically depends on some parameters $\mu$ that we want to
-adjust based on the observation at hand. For example, the unknown
+adjust based on the observation at hand. We will refer to this
+parameter as the \emph{control parameters}. For example, the control
 parameters could be related to the stiffness of the myocardium which
-which we want to adjust to each individual patient based on some
+we want to adjust to each individual patient based on some
 clinical observations. We can therefore assume that the underlying
-model can be written in the form $\mathcal{M}(\mathbf{w}, \mu) = 0$.
+model can be written in the form $\mathcal{M}(\mathbf{w}, \mu) =
+0$. Note that the state variable $\mathbf{w}$ typically depends on the
+control parameters $\mu$, but we do not write this explicitly to
+ease notation.
 
 We are also given a set of measurements (or observations) that we want
 to assimilate, and we denote a single observation by $y$.
 For example, $y$ might by a volume measurements at some given time
-points in the cardiac cycle, measured using e.g ultrasound and image
+point in the cardiac cycle, measured using e.g ultrasound and image
 processing techniques. The \emph{observation operator} $\mathcal{H}$,
-is approximation of the observation and act as an operator from the
+is approximation of the observation, and act as an operator from the
 state space to the observation space. For a single observation, we
 therefore have the relation
 \begin{align}
@@ -573,17 +578,23 @@ satisfied. This can be done in the following steps
   \item Compute $\mathcal{J}(\state_0, \mu_0)$.
   \item Compute the gradient $D \mathcal{J}(\state_0, \mu_0)$ to find
     the direction of the steepest descent.
-  \item Move along the steepest direction and update the initial guess.
+  \item Move along the steepest direction and update the initial
+    guess.
 \end{enumerate}
 The above steps are continued until we have reached a minimum for the
 cost functional, e.g when the norm of the gradient becomes zero. In
 practice we continue these steps until either the norm of the
-gradient is below a certain tolerance or we have exceeded a maximum
-number of iterations. Such a minimum may not always exists, or there
-may be several local minima. In the latter case, the choice of initial
-guess determines which local minima you will end up in. The data
-assimilation pipeline is summarized in
-Figure~\ref{fig:data_assimilation}.
+gradient is below a prescribed tolerance, or the number of iterations
+exceed a maximum number. Using this gradient descent approach will
+always bring you towards a minimum. However, the minimum you find
+might not be a global minimum. In this case, the choice of initial
+guess determines which local minima you will end up in. If you can
+prove that your cost functional is convex with respect to the control
+parameters, you known that the minimum you find is a global
+one.
+
+The data assimilation pipeline is summarized in
+Figure~\ref{fig:data_assimilation}. 
 
 \begin{remark}
   There exists gradient-free optimization methods that can be used to
@@ -591,7 +602,7 @@ Figure~\ref{fig:data_assimilation}.
   particle swarm algorithms. The drawback with such methods is that
   they typically requires a lot of functional evaluations. In our
   case this is very computationally expensive, because every functional
-  evaluation require us to solve the non-linear forward model. 
+  evaluation requires a solution of the non-linear forward model. 
 \end{remark}
 
 
@@ -619,8 +630,8 @@ problem efficiently using the adjoint method.
 \paragraph{The volume observation operator
   $\mathcal{H}_{\mathrm{volume}}$}
 In some cases, the ventricular cavity volume can easily be computed
-analytically from the displacement field. Denote the inner cavity of
-the left ventricle in the current configuration by
+analytically from the displacement field $\uvec$. Denote the inner
+cavity of the left ventricle in the current configuration by
 $\omega_{\mathrm{endo}}$. Further let $\mathrm{d} v$ and $\xvec$
 denote an infinitesimal volume element and the coordinate in the
 current configuration respectively. Then by the divergence theorem we have
@@ -669,8 +680,8 @@ the material displacement gradient tensor $\F - \I$.
   these cases you have to either recompute the measured strain
   according to the chosen reference for the simulation, or recompute
   the simulated strains according to the correct reference geometry for
-  your measurements. In the latter case, one compute the strain tensor
-  using the modified deformation gradient $\tilde{\F} = \F
+  your measurements. In the latter case, the strain tensor can be
+  computed using the modified deformation gradient $\tilde{\F} = \F
   \F_{\mathrm{ref}}^{-1}$ where $\F_{\mathrm{ref}}$ is the deformation
   gradient from your current reference to the correct reference state. 
 \end{remark}
@@ -728,7 +739,7 @@ refers to the partial derivative with respect to $x$.
 To move along the gradient descent it is required to actually
 compute this functional gradient. The ``naive'' approach would be to
 estimate the gradient using finite difference approximation. However,
-this require one functional evaluation for each degree of freedom in
+this requires one functional evaluation for each degree of freedom in
 the parameter space, so when the number of parameters are large this
 becomes impractical.
 
@@ -740,7 +751,7 @@ By the chain rule we have
 The terms $D_{\state}\mathcal{J}(\state(\mu), \mu)$ and
 $D_{\mu}\mathcal{J}(\state(\mu), \mu)$ are typically straight forward
 to compute. The term $D_{\mu}\state(\mu)$, on the other hand, is more
-involved to compute.  If the take the total derivative of the
+involved to compute.  If we take the total derivative of the
 force balance equation, we obtain
 \begin{align*}
   D \mathcal{M}(\state(\mu), \mu) =
@@ -821,17 +832,65 @@ into \eqref{eq:functional_gradient} to compute the gradient.
 
 \subsubsection{Dolfin-Adjoint}
 
-Dolfin-Adjoint is a software package that based on the FEniCS project
+Dolfin-Adjoint \cite{farrell2013automated} is a software package that
+based on the FEniCS project 
 which aims to derive the discrete adjoint equation and the tangent
 linear models of finite element models implemented within the FEniCS
 framework. While the traditional approach is to derive the adjoint code
 from the forward code using automatic differentiation tools,
 Dolfin-Adjoint utilizes the high level symbolic representation
-\cite{UFL} in FEniCS to derive the discrete adjoint equations from
-the discrete forward equations, and then the FEniCS system derives the
-adjoint code from the discrete adjoint equations. 
+\cite{alnaes2014unified} in FEniCS to derive the discrete adjoint
+equations from the discrete forward equations, and then the FEniCS
+system derives the adjoint code from the discrete adjoint equations. 
+For more information about Dolfin-Adjoint the reader is referred to
+the official web page (\url{http://www.dolfin-adjoint.org/en/latest/}).
 
+\subsubsection{Multiobjetive optimization}
+Parameters in the model are estimated based on minimizing a cost
+functional representing the mismatch between observations and
+simulations. Assume we are given $N$ different observations, then in
+principle we have $N$ different cost functionals to minimize:
+\begin{equation}
+  \begin{aligned}
+    \label{eq:multiobjetive_opt}
+    & \underset{\mu \in P}{\text{minimize}}
+    & &  \left\{ \mathcal{J}_1(\state, \mu), \mathcal{J}_2(\state, \mu), \cdots, \mathcal{J}_N(\state, \mu) \right\} \\
+    & \text{subject to}
+    & &\mathcal{M}(\state, \lambda) = 0
+  \end{aligned}
+\end{equation}
+with
+\begin{align}
+  \mathcal{J}_i(\mu) = \left( \mathbf{y} - \mathcal{H}(\state(\lambda)) \right)^2, \; i = 1,\cdots, N
+\end{align}
+The above observations comes from the same source, and hence it should
+be intuitive that minimizing one of them, would also bring the other
+closer to a minimum. However, with the presence of noise in the data,
+this might not always be the case, and hence we have conflicting
+objectives. Problem \eqref{eq:multiobjetive_opt} is called a
+multiobjetive optimization problem \cite{deb2016multi}. Such problems
+typically do not have a single optimal solution, but a family of
+solutions called \emph{Pareto optimal solutions}. The basic methods for
+solving such problems includes \emph{the weighted method} and \emph{the
+  $\varepsilon$-constraint method}. In this thesis we have only used
+the weighted method, which is based on minimizing a weighted sum of
+the individual cost functionals, i.e:
 
+\begin{equation}
+  \begin{aligned}
+    \label{eq:weighted_method}
+    & \underset{\mu \in P}{\text{minimize}}
+    & &  \sum_{i=1}^N \lambda_i \mathcal{J}_i(\state, \mu) \\
+    & \text{subject to}
+    & &\mathcal{M}(\state, \mu) = 0.
+  \end{aligned}
+\end{equation}
+Here $\lambda_i$ represents a weighting of the different objectives,
+and the choice of $\lambda_i$ should be based on 1) the importance of
+objective $i$ and 2) the relative size of the cost functional
+$\mathcal{J}_i$. It is also common to require $\sum_i \lambda_i = 1$
+so that the weighted sum is a convex combination of the objective
+functionals.
 
 
 
@@ -852,8 +911,8 @@ favor smooth solutions. Then the norm of the gradient $\| \nabla \mu
 \|$ should be small. One way to achieve this is to add a penalty term
 to the objective functional so that in stead of minimizing
 $\mathcal{J}(\state, \mu)$ we minimize $\mathcal{J}(\state, \mu) +
-\lambda \| \nabla \mu\|$, where the constant $\lambda$ controls the
-amount of regularization and is called the regularization parameters.
+\lambda \| \nabla \mu\|$, where the constant $\lambda$, known as the
+regularization parameter, controls the amount of regularization.
 Note that in the limit $\lambda \rightarrow \infty$ we would end up
 with a constant function. This approach is referred to as Tikhonov
 regularization.
@@ -973,21 +1032,25 @@ your problem is not \emph{structurally identifiable}
 \emph{practical identifiable} if the parameters can be determined
 uniquely based on the data at hand. If the test passes you should try
 to add noise to the data, and see if your data assimilation is stable
-with respect to noise in the measurement, and you should quantify the
-model out error versus the model input error. Demonstrating identifiability is
+with respect to noise in the measurement.
+
+Demonstrating identifiability is 
 often difficult, especially when your data is corrupted with noise,
 and when the complexity of the model increases. Balancing the
-complexity of model in terms of \emph{model fidelity}, i.e whether your
+complexity of the model in terms of \emph{model fidelity}, i.e whether
+your 
 model is rich enough to representing the data, and the identifiability
 is often key in order to have robust model. A too simple model will
 often fail to represent your data, while a too complex model, might
 give completely different answers with just a slight perturbation of
 the data, i.e with noise added to the measurement. The same problem is
-encountered in other scientific disciplines, for instance in
+encountered in other scientific disciplines. For example, in
 statistical learning theory, \emph{overfitting} is related to
 overparameterization of the model, in which you can perfectly
 represent your data, but a small perturbation will cause a significant
-error. Another problem, which is also related to identifiability is
+error.
+
+Another problem, which is also related to identifiability is
 the question about uniqueness of the solution. A practical test is to
 start the optimization algorithm from different initial points and see
 if you end up at the same optimum. If this does not happen, it is
@@ -995,105 +1058,62 @@ likely that the objective functional is not convex, which is a
 requirement for uniqueness. Unfortunately, this is the case for many
 problems in PDE-constrained optimization. In these cases, the objective
 functional might have several distinct local minima, in which case
-different techniques for find the best local minima exists
+different techniques for finding the best local minima exists
 \cite{farrell2015multiple}. 
 
-\subsubsection{An example of a non-structurally identifiable problem}
-Split the ventricle in two, and use volume as the only input.
-Show that different parameter sets (with $\gamma$) will generate the
-same volume
 
 
 
-\subsubsection{Material parameter estimation}
-
-\paragraph{One volume measurement only}
-
-\paragraph{Multiple volume measurements}
-
-\paragraph{Volume and strain measurements}
-
-\subsubsection{Coupled unloading and material parameter estimation}
-In Section \ref{sef:reference_geometry} we described a method for
-finding the unloaded configuration using the backward displacement
-method. The problem of using this method when dealing with parameter
-estimation is that the unloaded geometry depends on the material
-properties, which in general is unknown. Hence we need a way of
-estimating both the unloaded geometry and the material parameters at
-the same time. One possible algorithm is the following:
+% \subsubsection{An example of a non-structurally identifiable problem}
+% Split the ventricle in two, and use volume as the only input.
+% Show that different parameter sets (with $\gamma$) will generate the
+% same volume
 
 
 
-\begin{algorithm}
-\caption{Coupled Unloading and material parameters estimation}\label{alg:unloaded_material}
-\begin{algorithmic}[1]
-  \State $i = 0$
-  \State residual = $\infty$
-  \State $\mvec_0 =  \mvec$ \Comment{Initial guess for material parameters}
-  \While{i $<$ N and residual > tolerance }
+% \subsubsection{Material parameter estimation}
 
-  \State $\Omega_{\mathcal{U}}^i$ = Unload($\Omega_{\mathcal{I}}, \mvec_i$) \Comment{unload
-    material}
-  \State $\mvec_{i+1}$ = EstimateMaterial($\Omega_{\mathcal{U}}^i,
-  \mvec_i$) \Comment{estimate material parameters}
-  \State residual = ComputeResidual($\Omega_{\mathcal{U}}^i,
-  \Omega_{\mathcal{U}}^{i-1}$)
-  \State $i = i +1$
+% \paragraph{One volume measurement only}
+
+% \paragraph{Multiple volume measurements}
+
+% \paragraph{Volume and strain measurements}
+
+% \subsubsection{Coupled unloading and material parameter estimation}
+% In Section \ref{sef:reference_geometry} we described a method for
+% finding the unloaded configuration using the backward displacement
+% method. The problem of using this method when dealing with parameter
+% estimation is that the unloaded geometry depends on the material
+% properties, which in general is unknown. Hence we need a way of
+% estimating both the unloaded geometry and the material parameters at
+% the same time. One possible algorithm is the following:
+
+
+
+% \begin{algorithm}
+% \caption{Coupled Unloading and material parameters estimation}\label{alg:unloaded_material}
+% \begin{algorithmic}[1]
+%   \State $i = 0$
+%   \State residual = $\infty$
+%   \State $\mvec_0 =  \mvec$ \Comment{Initial guess for material parameters}
+%   \While{i $<$ N and residual > tolerance }
+
+%   \State $\Omega_{\mathcal{U}}^i$ = Unload($\Omega_{\mathcal{I}}, \mvec_i$) \Comment{unload
+%     material}
+%   \State $\mvec_{i+1}$ = EstimateMaterial($\Omega_{\mathcal{U}}^i,
+%   \mvec_i$) \Comment{estimate material parameters}
+%   \State residual = ComputeResidual($\Omega_{\mathcal{U}}^i,
+%   \Omega_{\mathcal{U}}^{i-1}$)
+%   \State $i = i +1$
  
-  \EndWhile
-\end{algorithmic}
-\end{algorithm}
+%   \EndWhile
+% \end{algorithmic}
+% \end{algorithm}
 
-\subsection{Activation parameter estimation}
+% \subsection{Activation parameter estimation}
 
 
 
-\subsubsection{Multiobjetive optimization}
-Para maters in the model are estimated based on minimizing a cost
-functional representing the mismatch between observations and simulating.
-Assume we are given $N$ different observations, then in principle we
-have $N$ different cost functionals to minimize:
-\begin{equation}
-  \begin{aligned}
-    \label{eq:multiobjetive_opt}
-    & \underset{\mu \in P}{\text{minimize}}
-    & &  \left\{ \mathcal{J}_1(\state, \mu), \mathcal{J}_2(\state, \mu), \cdots, \mathcal{J}_N(\state, \mu) \right\} \\
-    & \text{subject to}
-    & &\mathcal{M}(\state, \lambda) = 0
-  \end{aligned}
-\end{equation}
-with
-\begin{align}
-  \mathcal{J}_i(\mu) = \left( \mathbf{y} - \mathcal{H}(\state(\lambda)) \right)^2, \; i = 1,\cdots, N
-\end{align}
-The above observations comes from the same source, and hence it should
-be intuitive that minimizing one of them, would also bring the other
-closer to a minimum. However, with the presence of noise in the data,
-this might not always be the case, and hence we have conflicting
-objectives. Problem \eqref{eq:multiobjetive_opt} is called a
-multiobjetive optimization problem \cite{deb2016multi}. Such problems
-typically do not have a single optimal solution, but a family of
-solutions called \emph{Pareto optimal solutions}. The basic methods for
-solving such problems includes \emph{the weighted method}, \emph{the
-  $\varepsilon$-constraint method}. In this thesis we have only used
-the weighted method, which is based on minimizing a weighted sum of
-the individual cost functionals, i.e:
-
-\begin{equation}
-  \begin{aligned}
-    \label{eq:multiobjetive_opt}
-    & \underset{\mu \in P}{\text{minimize}}
-    & &  \sum_{i=1}^N \lambda_i \mathcal{J}_i(\state, \mu) \\
-    & \text{subject to}
-    & &\mathcal{M}(\state, \mu) = 0.
-  \end{aligned}
-\end{equation}
-Here $\lambda_i$ represents a weighting of the different objectives,
-and the choice of $\lambda_i$ should be based on 1) the importance of
-objective $i$ and 2) the relative size of the cost functional
-$\mathcal{J}_i$. It is also standard to require $\sum_i \lambda_i = 1$
-so that the weighted sum is a convex combination of the objective
-functionals. 
 
 
 \subsection{Mechanical biomarkers}
