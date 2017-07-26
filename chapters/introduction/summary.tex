@@ -1,16 +1,81 @@
 
 \section{Summary of papers}
+In this final introductory section we summarize the papers that make
+up this thesis, and we also give some final concluding remarks
+and future directions. 
+
+\subsection{Paper 1: High-resolution data assimilation of cardiac mechanics
+  applied to a dyssynchronous ventricle}
+In this paper we develop and test the pipeline for constructing a
+patient specific mechanical simulation of a patient's heart, based on
+clinical measurments and adjoint-based data assimilation
+techniques.
+
+As a model case we consider one patient, diagnosed with
+left bundle branch block and selected for cardiac resynchronization
+therapy (CRT). Prior to the CRT implantation the patient had 4D
+echocardiography taken for which the LV geometry, LV volumes and LV
+regional strains throughout the cardiac cycle are measured. During
+implantation of the CRT device the LV pressure where also measured
+invasively. The LV pressure measurements are used as boundary condition at the
+endocardium, while the LV volume and LV regional strain is incorporated
+into a cost functional that we want to minimize.
+
+The pipeline is divided into two phases, a passive phase where we
+estimate the linear isotropic parameters $a$ in
+\eqref{eq:holzapel_trans} as a global material parameter using the
+measurement points belonging atrial systole, and a active phase where we estimate the
+a spatially varying contraction parameter ($\gamma$ in
+\eqref{eq:intro_active_strain_Fa_gjerald}) at each measurement point
+with active contraction. During the passive phase we only fit the
+volumes, while during the active phase 51 strain measurements in the radial,
+longitudinal and circumferential direction in each AHA segment (Figure
+\ref{fig:echopac_output}) are used in the optimization. 
+
+The results show an excellent fit with measured strain an volume, with
+a average relative error in the volume and strain of less than 0.4 \% and 3 \%
+respectively using a contraction parameter with one degree of freedom
+for each vertex in the geometry (2661 parameters in total). Parameters
+at lower spatial resolution are also tested to show the necessity of
+high spatial resolution to fit the measured strain data.
+A synthetic test is also performed in order to show that that method
+is able to recapitulate the generated data, also with noise added to
+the data. Moreover, a sensitivity analysis to different parameters are
+presented in the appendix.
 
 
-\subsection{Paper 1}
+\subsection{Paper 2: Estimating cardiac contraction through high resolution
+  data assimilation of a personalized mechanical model}
+In this paper we apply the method developed in the previous paper to a
+cohort of patients and estimate indices of cardiac contractility. More
+specifically, a group of seven patients diagnosed with left bundle branch block and
+selected for cardiac resynchronization therapy (CRT) and a group of
+seven healthy control subjects where included in the study.
 
-\subsection{Paper 2}
+The pipeline is similar to the one outlined in paper 1, with the
+exception that we also estimate the unloaded, stress-free
+configuration using the method outlined in Section
+\ref{sec:intro_coupled_material}. 
 
-\subsection{Paper 3}
+The optimized active strain parameter in
+\eqref{eq:intro_active_strain_Fa_gjerald} as well as the optimized
+active stress parameter in \eqref{eq:intro_active_stress} are averaged
+over the ventricle and compared between the two groups. The healthy
+group showed a significant increase in both of these
+parameters. Furthermore, estimation of end-systolic elastance by
+perturbation of the pressure at the end-systolic state while fixing
+the remaining quantities were made. This estimate of end-systolic
+elastance where also significantly higher in the healthy control
+group. 
 
-\subsection{Paper 4}
 
+\subsection{Paper 3: Mechanical Analysis of pulmonary hypertension via
+  adjoint based data assimilation of a finite element model.}
 
+\subsection{Paper 4: Assesment region regional myocardial work using
+  adjoint-based data assimilation}
+
+\newpage
 \section{Other contributions}
 Along with the research articles presented in this thesis, other
 types of contributions in terms of talks, posters and software has
@@ -63,42 +128,110 @@ listed below.
 \end{itemize}
 
 
-
+\newpage
 \section{Closing remarks and future directions}
 
-A couple remarks regarding the limitations of the methods used in this
-thesis shoud be made. Here we start by listing a couple of statements
-which should be taken into considerations. 
+Although we have shown in this thesis that
+adjoint-based data assimilation is a powerful technique that opens new
+possibilities in terms of patient specific mechanical simulations, many questions
+still has to be answered before we can fully embrace the output of
+such simulations.
+
+First of all, is should be clear that \emph{the
+  quality of biomarkers you can extract from a data-driven
+  model cannot be any better than the data used as input to the
+  model}. A typical saying is that garbage in $=$ garbage out,
+meaning that if the data you use to constrain the model is noisy, then
+you will also fit this noise if you allow for enough degree of
+freedom. Regularization techniques (Section
+\ref{sec:intro_regularization}) provides a way to attack this problem,
+but it is not clear what is the best approach. If the noise in the
+data is normally distributed with zero expected value, then adding
+more data to the cost functional will also have a regularizing effect.
+Hence, as the data assimilation techniques developed in this thesis
+can take into account large amount of data, as much data as possible
+should be provided to the assimilator.
+
+A rule of thump is that \emph{the spatial resolution of the parameters should be
+  reflected in the spatial resolution of the observations}. This means
+that if one is trying to fit data that are spatially resolved at some level,
+then choosing parameters that are resolved at a finer level should be
+done with caution. Regarding both paper 1 and 2 we see that the
+spatial resolution chosen was at a much finer level than the input
+data. In this case, regularization techniques was used to restrict the
+parameter space. 
+
+When estimating high dimensional parameters, a natural question
+concerning uniqueness of these estimates arises. It is obvious that if one allows for
+enough degree of freedom in the parameter space, then it is possible
+to fit almost any type of data. Therefore \emph{more work on ensuring
+identifiability} of these estimates (Section
+\ref{sec:intro_identifiability}) should be done. If the output of such
+model should have any clinical utility, then uniqueness of the
+estimated parameters absolutely pivotal. Moreover, \emph{validation} of
+these model is what matter most in terms of translating such computational
+models into the clinic.
+
+Regarding the mechanical modeling of the heart, 
+\emph{choosing appropriate boundary conditions} that reflect the reality has
+been a problem during the work in this thesis, and several different
+choices has been made. Moreover, \emph{accounting for the orthotropic as
+well as the visco-elastic behavior of the myocardium} is something that should
+be investigated in future studies. Accounting for an orthotropic
+behavior would acquire more parameters to be estimated, which would
+thus require more input data.
+
+In this thesis we have also not fully
+explored the \emph{spatial resolution of the material parameters}, and it
+should be investigated whether it is possible to relate locally estimated
+tissue stiffness to e.g myocardial infarction.
+
+The choice of active model for the myocardium is another topic that
+should be addressed in more detail in future studies. In the author's
+opinion, the output of the two fundamentally different approaches may
+vary a lot. In particular, it is evident that the active strain
+formulation do a better job in fitting strain data. One
+hypothesis is that the amount of transverse active stresses should be
+adjusted to each individual. These transverse active stresses are
+naturally embedded in the active strain approach via a volume
+preserving active deformation. 
+
+Finally, coupling the electrophysiology to the mechanical model within
+this adjoint based data assimilation framework is something that
+should also be investigated in the future. 
+
+% Here we start by listing a couple of statements
+% which should be taken into considerations. 
 
 
-\begin{itemize}
-\item \emph{The quality of features/biomarkers you can extract from a data-driven
-model cannot be any better than the data used as input to the
-model}. Most of the results presented in this thesis are based on data
-obtained from clinical measurements of real patients.
-\item \emph{The spatial resolution of the parameters should be
-    reflected in the spatial resolution of the observations.} When
-  trying to fit data that are spatially resolved at some level,
-  choosing parameters that are resolved at a finer level should be
-  done with caution. The continuity in the underlying physics as well
-  as regularization techniques could be used to ...
+% \begin{itemize}
+% \item \emph{The quality of features/biomarkers you can extract from a data-driven
+% model cannot be any better than the data used as input to the
+% model}. Most of the results presented in this thesis are based on data
+% obtained from clinical measurements of real patients.
+% \item \emph{The spatial resolution of the parameters should be
+%     reflected in the spatial resolution of the observations.} When
+%   trying to fit data that are spatially resolved at some level,
+%   choosing parameters that are resolved at a finer level should be
+%   done with caution. The continuity in the underlying physics as well
+%   as regularization techniques could be used to ...
 
-\end{itemize}
+% \end{itemize}
 
-During the work of this thesis, several questions still remains open
-and would require
+% During the work of this thesis, several questions still remains open
+% and would require
 
-\begin{itemize}
-\item The active model for the myocardium is has .. Degree of
-  tranverse activation. Matching of strain data..
-\item Identifiability of parameters... Uniqueness of
-  solutions.. Amount of regularization.. Convexity of the mismatch functional
-\item Appropriate boundary conditions.. In paper three we saw big
-  differences in the choice of boundary conditions. Especially, the
-  magnitude of the stress seems to 
-\item Coupling of electrophysiologigy and mechanics in an
-  ajoint-based. data assimilation framework. 
-\end{itemize}
+% \begin{itemize}
+% \item The active model for the myocardium is has .. Degree of
+%   tranverse activation. Matching of strain data..
+% \item Identifiability of parameters... Uniqueness of
+%   solutions.. Amount of regularization.. Convexity of the mismatch functional
+% \item Appropriate boundary conditions.. In paper three we saw big
+%   differences in the choice of boundary conditions. Especially, the
+%   magnitude of the stress seems to 
+% \item Coupling of electrophysiologigy and mechanics in an
+%   ajoint-based. data assimilation framework. 
+% \end{itemize}
 
 %%% Local Variables:
 %%% mode: latex

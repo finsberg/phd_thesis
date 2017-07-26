@@ -444,6 +444,65 @@ long as the non-linear solver converges, and switch to the Rahavan
 method upon divergence.
 
 
+\subsubsection{Coupled material parameter estimation and unloading
+  algorithm}
+\label{sec:intro_coupled_material}
+One thing to note is that the unloaded configuration depends upon the
+chosen material parameters, which are generally also unknown. For
+example, applying the backward displacement method to a geometry will
+result in a smaller unloaded cavity volume if the material is softer.
+Therefore, the material parameters estimation is coupled to the
+problem of fined the unloaded, zero pressure geometry.
+In \cite{nikou2016effects}, Nikou et al propose a method for estimating
+material parameters as well the unloaded geometry by iterating between
+the two methods, and terminate if the difference in unloaded cavity
+volume is less than $5 \%$. This method is general and could be applied
+using any unloading algorithm and any method to estimate the material
+parameters.
+
+Assume we are given an image-based LV geometry (which is not
+end-diastole) with measured pressure $p_{\mathrm{LV}}$. Further assume
+that we are given the pressure and  volume at end-diastole,
+$p_{\mathrm{LV}}^{\mathrm{ED}}$ and $V_{\mathrm{LV}}^{\mathrm{ED}}$
+respectively. Then we want to find
+\begin{enumerate}
+  \item \emph{the unloaded (zero pressure) geometry} so that when loaded with
+    $p_{\mathrm{LV}}$ gives back the image based geometry, and
+   \item \emph{material parameters}, so that when we load the
+     estimated unloaded geometry with $p_{\mathrm{LV}}^{\mathrm{ED}}$
+     it has a cavity volume equal to $V_{\mathrm{LV}}^{\mathrm{ED}}$.     
+\end{enumerate}
+
+The iterative strategy is presented in Algorithm \ref{alg:intro_unload_mat}.
+\begin{algorithm}
+  \caption{Uloaded material parameter estimation\label{alg:intro_unload_mat}}
+  
+\begin{algorithmic}[1]
+
+  
+  \State Initialize $\mathbf{m}_0$ \Comment{intial guess for material parameters}
+  \State $i = 0$
+    
+  \While{difference in reference cavity volumes $>5 \%$ and $i < 15$}
+
+  \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{Find the
+    unloaded geometry using any of the above methods and using
+    $\mathbf{m}_{i}$ as material parameters.\strut} 
+  \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{Estimate
+    material parameters $\mathbf{m}_{i+1}$ so that when we load the
+    estimated unloaded geometry with $p_{\mathrm{LV}}^{\mathrm{ED}}$
+    it has a cavity volume equal to $V_{\mathrm{LV}}^{\mathrm{ED}}$. \strut}    
+  \State $i = i + 1$
+  \EndWhile
+  
+
+\end{algorithmic}
+\end{algorithm}
+
+Note that this method apply also to bi-ventricular geometries and to
+cases when more measurement points are available for estimating the
+material parameters. 
+
 
 % For a transversely isotropic material (or orthotropic), the change in
 % fiber field when going from one geometry to another, has to be
@@ -644,8 +703,8 @@ where $\mathbf{n}$ and $\mathrm{d} s$ are the unit normal and a surface
 element on the current configuration respectively.
 Note that the boundary $\partial \omega_{\mathrm{endo}}$ includes the
 endocardial basal boundary. However in the case when the base is flat
-and fixed in longitudinal direction, the contribution from this
-boundary integral will be zero. In this case the boundary integral
+and fixed in longitudinal direction and located at the $x=0$ plane,
+the contribution from this boundary integral will be zero. In this case the boundary integral
 will be the same as the integral over the endocardial boundary, with
 the only change being the change of sign on the normal vector. By
 Nansons formula we obtain 
@@ -786,7 +845,7 @@ where
 \end{align*}
 Note that in \eqref{eq:functional_gradient}, the variable $z^*$
 represents a Lagrange multiplier enforcing the PDE constraint.  
-In order to solve this system we need to have on the form $A\xvec =
+In order to solve this system, we need to have it on the form $A\xvec =
 b$, and we take the adjoint (Hermitian transpose) to get
 \begin{align}
   D_{\state} \mathcal{M}(\state(\mu), \mu)^* z = D_{\state}\mathcal{J}(\state(\mu), \mu)^*
@@ -856,12 +915,12 @@ principle we have $N$ different cost functionals to minimize:
     & \underset{\mu \in P}{\text{minimize}}
     & &  \left\{ \mathcal{J}_1(\state, \mu), \mathcal{J}_2(\state, \mu), \cdots, \mathcal{J}_N(\state, \mu) \right\} \\
     & \text{subject to}
-    & &\mathcal{M}(\state, \lambda) = 0
+    & &\mathcal{M}(\state, \mu) = 0
   \end{aligned}
 \end{equation}
 with
 \begin{align}
-  \mathcal{J}_i(\mu) = \left( \mathbf{y} - \mathcal{H}(\state(\lambda)) \right)^2, \; i = 1,\cdots, N
+  \mathcal{J}_i(\mu) = \left( \mathbf{y} - \mathcal{H}(\state(\mu)) \right)^2, \; i = 1,\cdots, N
 \end{align}
 The above observations comes from the same source, and hence it should
 be intuitive that minimizing one of them, would also bring the other
@@ -895,6 +954,7 @@ functionals.
 
 
 \subsubsection{Regularization}
+\label{sec:intro_regularization}
 Regularization is an important concept in many scientific disciplines
 concerned with data fitting. When using data that essentially are
 realizations of a stochastic process, we need to take into account
@@ -912,9 +972,9 @@ favor smooth solutions. Then the norm of the gradient $\| \nabla \mu
 to the objective functional so that in stead of minimizing
 $\mathcal{J}(\state, \mu)$ we minimize $\mathcal{J}(\state, \mu) +
 \lambda \| \nabla \mu\|$, where the constant $\lambda$, known as the
-regularization parameter, controls the amount of regularization.
+regularization parameter, controls the smoothness of $\mu$.
 Note that in the limit $\lambda \rightarrow \infty$ we would end up
-with a constant function. This approach is referred to as Tikhonov
+with a constant value of $\mu$. This approach is referred to as Tikhonov
 regularization.
 
 Another reason for using regularization is to stabilize the solver for
@@ -1016,6 +1076,7 @@ Newton solver.
 
 
 \subsection{Identifiability of parameters}
+\label{sec:intro_identifiability}
 % Try dividing heart mesh is different segment, discuss uniqueness of
 % paraperers
 % Discuss regularization technices
@@ -1119,8 +1180,28 @@ different techniques for finding the best local minima exists
 \subsection{Mechanical biomarkers}
 As can be seen from Figure \ref{fig:cardiac_imaging_model}, data
 assimilation of computational models and medical imaging can be used to
-extract biomarkers which potentially can be used to gain further
-insight into ...
+extract biomarkers. By biomarker, we mean an indicator of some
+biological of physiological process that give insight into the state
+or condition of that process. Examples of biomarkers that can be
+extracted from a computational models are parameters related to tissue
+stiffness, like the parameters in the Holzapfel-Ogden material law
+\eqref{eq:holzapel_trans}, or parameters related to contractility like
+the active stress ($T_a$ in \eqref{eq:intro_active_stress}) or the
+active strain ($\gamma$ in \eqref{eq:intro_active_strain_Fa_gjerald}).
+Computational models opens a new door when it comes to extraction of
+biomarkers. Mechanical features such as stress, contractility and
+elastance can easily be computed using a computational model. Of
+course, validation of these models is what matter most in order to
+make these biomarkers clinically useful. 
+
+% Extracting biomarkers from computational models can be used
+% to gain insight into physiological processes by e.g see how
+% physiology changes when parameters or input are perturbed
+% \cite{remme2011mechanics}. A model allows you to test 
+
+
+% which potentially can be used to gain further
+% insight into 
 
 
 

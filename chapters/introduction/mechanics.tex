@@ -824,6 +824,7 @@ can be written as
   \Cauchy_a = T_a \left[\Fef \otimes \Fef +
    \eta\left( \mathbf{s} \otimes \mathbf{s} +
   \ \mathbf{n} \otimes \mathbf{n} \right)\right],
+  \label{eq:intro_active_stress}
 \end{align}
 where $\eta$ represent the amount of transverse activation and $T_a
 \in \mathbb{R}$ is the magnitude of the active tension.
@@ -893,7 +894,7 @@ treated in the same way. It is then straight forward to verify that
 $\gamma_n = \gamma_s =1- (1-\gamma_f)^{-1/2}$, and we have
 \begin{equation}
   \F_a = (1 - \gamma) \ef \otimes \ef  + \frac{1}{\sqrt{1 - \gamma}} (\I - \ef \otimes \ef), 
- \label{eq:active_strain_Fa_gjerald}
+ \label{eq:intro_active_strain_Fa_gjerald}
 \end{equation}
 where we set $\gamma = \gamma_f$ for convenience. 
 
@@ -919,8 +920,7 @@ The cardiac mechanics solver developed during the work of this thesis
 is implemented using the finite element framework FEniCS. Here we
 briefly explain the main components of FEniCS as well as some
 numerical considerations made when implementing the solver.
-For more information about FEniCS, the reader is referred to the
-official web page (\url{https://fenicsproject.org}).
+
 
 
 
@@ -945,7 +945,11 @@ mathematical notions used in the theory.
 code written in
 FEniCS is close to the mathematical notation, and the handling of
 assembly code happens ``under the hood'', which makes it easy to use
-and intuitive for scientists 
+and intuitive for scientists
+
+
+For more information about FEniCS, the reader is referred to the
+official web page (\url{https://fenicsproject.org}).
 
 \subsubsection{Numerical considerations}
 The solution of non-linear problems such as the one described here is
