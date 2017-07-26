@@ -931,25 +931,36 @@ numerical considerations made when implementing the solver.
 % FEniCS compilation stored in cache.
 % Fibers at quadrature points. Symbolic language.
 
-\subsubsection{FEniCS}
+\subsubsection{The FEniCS Project}
 \label{sec:fenics}
 
-FEniCS is a framework for solving partial differential
-equations using the finite element method, and consist of the
-following software components: 
-
-FEniCS has a python
-interface where the user can write code which is close to the
-mathematical notions used in the theory.
-
-code written in
-FEniCS is close to the mathematical notation, and the handling of
-assembly code happens ``under the hood'', which makes it easy to use
-and intuitive for scientists
-
+The FEniCS project is an open-source computing platform for solving
+partial differential equations (PDEs) using the finite element method (FEM).
+Solving PDEs using FEM involves many implementation details that can
+be tedious to implement yourselves. The idea behind FEniCS is to
+automate code generation so that the user can spend more time on doing
+research and less time on implementation of assembly matrices. At the
+core of FEniCS is DOLFIN \cite{logg2012dolfin}, which is C++/Python
+library, and works as the main interface in FEniCS. In this thesis
+only the Python interface has been used, in which C++ code is
+automatically generated using SWIG. This allows for simplicity through
+the Python scripting language and the speed of the C++ language.
+The domain specific language used to represent weak formulations is
+called the Unified form language (UFL) \cite{alnaes2014unified}, and
+allows for e.g automatic differentiation of forms and expressions. The
+FEniCS form compiler (FFC) \cite{logg2012ffc} compiles code written in
+UFL to Unified Form-assembly Code (UFC) \cite{alnaes2012ufc} which are
+optimized C++ code. The Python interface also makes use of the Instant
+module which allows for just-in-time (JIT) compilation of C++
+code. The compiled code is also stored in a cache so that compilation
+of a form only happens once. Also, the relatively new UFL Analyser and
+Compiler System (UFLACS) allows for fast compilation of complex forms
+such as forms such as variational formulations that include the Holzapfel
+Ogden material model \eqref{eq:holzapel_full}.
 
 For more information about FEniCS, the reader is referred to the
-official web page (\url{https://fenicsproject.org}).
+official web page (\url{https://fenicsproject.org}) or any of the
+cited literature.
 
 \subsubsection{Numerical considerations}
 The solution of non-linear problems such as the one described here is
