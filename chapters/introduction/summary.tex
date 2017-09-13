@@ -1,11 +1,23 @@
 
 \section{Summary of papers}
+\label{sec:summary}
 In this final introductory section we summarize the papers that make
 up this thesis, and we also give some final concluding remarks
 and future directions. 
 
 \subsection{Paper 1: High-resolution data assimilation of cardiac mechanics
   applied to a dyssynchronous ventricle}
+
+
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.8\textwidth]{chapters/introduction/figures/paper1}
+\caption{Summary figure for paper 1}
+\label{fig:paper1}
+\end{figure}
+
+
 In this paper we develop and test the pipeline for constructing a
 patient specific mechanical simulation of a patient's heart, based on
 clinical measurments and adjoint-based data assimilation
@@ -21,10 +33,11 @@ invasively. The LV pressure measurements are used as boundary condition at the
 endocardium, while the LV volume and LV regional strain is incorporated
 into a cost functional that we want to minimize.
 
+
 The pipeline is divided into two phases, a passive phase where we
 estimate the linear isotropic parameters $a$ in
 \eqref{eq:holzapel_trans} as a global material parameter using the
-measurement points belonging atrial systole, and a active phase where we estimate the
+measurement points belonging atrial systole, and an active phase where we estimate the
 a spatially varying contraction parameter ($\gamma$ in
 \eqref{eq:intro_active_strain_Fa_gjerald}) at each measurement point
 with active contraction. During the passive phase we only fit the
@@ -46,6 +59,15 @@ presented in the appendix.
 
 \subsection{Paper 2: Estimating cardiac contraction through high resolution
   data assimilation of a personalized mechanical model}
+
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.8\textwidth]{chapters/introduction/figures/paper2}
+\caption{Summary figure for paper 2}
+\label{fig:paper2}
+\end{figure}
+
 In this paper we apply the method developed in the previous paper to a
 cohort of patients and estimate indices of cardiac contractility. More
 specifically, a group of seven patients diagnosed with left bundle branch block and
@@ -69,8 +91,53 @@ elastance where also significantly higher in the healthy control
 group. 
 
 
-\subsection{Paper 3: Mechanical Analysis of pulmonary hypertension via
-  adjoint based data assimilation of a finite element model.}
+\subsection{Paper 3: Personalized bi-ventricular mechanical analysis
+  using gradient-based optimization..}
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.8\textwidth]{chapters/introduction/figures/paper3}
+\caption{Summary figure for paper 3}
+\label{fig:paper3}
+\end{figure}
+
+In this paper we extend the work in the two previous paper to
+bi-ventricular geomtries, and use it to estimate patient-specific
+myofiber stress and indices of contractility. Furthermore, we investigate
+the senstivtiy of these computed features the helical fiber angle and
+the choice of active modeling framework.
+
+In this work we estimate the linear isotopic material parameter in
+\eqref{eq:holzapel_trans}, spatially resolved on the LV and RV, by
+minimizing the error in end-diastolic LV and RV cavity volumes. We also
+apply a simplified algorithm for estimating in unloaded geometry, in
+order to overcome issues related to estimating an unloaded
+BiV-geometry, which is not well-posed. The amount of active
+contraction is estimated during the active phase, by minimizing
+simulated and meausured volumes and circumferential strain. The active
+control parameter, which are $\gamma$ in
+\eqref{eq:intro_active_strain_Fa_gjerald}  and $T_a$ in
+\eqref{eq:intro_active_stress} for the active strain and active stress
+formulation respectively, are spatially resolved on the
+LV free wall (LVFW), the RV free wall (RVFW) and the septum. With so
+few control parameters, issues related to conflicting objectives, i.e
+that is is not possible to minimize both the strain and volume, is
+evident. However, with a low dimensional parameter space, questions
+regarding identifiability and uniqueness of the estimated parameters
+are easier to answer. In this study we also perform a validation of
+the model, by comparing simulated and measured longitudinal strain
+which is not used in the optimization. 
+
+The results show low variability with respect to choice of fiber angle
+and active modeling framework. Also, the fit of data depends upon the
+choice of fiber angle, and a steeper fiber angle than previously
+suggested, provides the best fit. The work here could potentially be
+used to extract patient-specific maps of ventricular fiber stress and
+contractility which could be useful in diagnostic of several heart
+diseases related to heart failure. 
+
+
+
 
 \subsection{Paper 4: Assesment region regional myocardial work using
   adjoint-based data assimilation}
@@ -156,25 +223,16 @@ A rule of thump is that \emph{the spatial resolution of the parameters should be
   reflected in the spatial resolution of the observations}. This means
 that if one is trying to fit data that are spatially resolved at some level,
 then choosing parameters that are resolved at a finer level should be
-done with caution. Regarding both paper 1 and 2 we see that the
+done with caution. Regarding both paper 1, 2 and 4 we see that the
 spatial resolution chosen was at a much finer level than the input
 data. In this case, regularization techniques was used to restrict the
 parameter space. 
 
-When estimating high dimensional parameters, a natural question
-concerning uniqueness of these estimates arises. It is obvious that if one allows for
-enough degree of freedom in the parameter space, then it is possible
-to fit almost any type of data. Therefore \emph{more work on ensuring
-identifiability} of these estimates (Section
-\ref{sec:intro_identifiability}) should be done. If the output of such
-model should have any clinical utility, then uniqueness of the
-estimated parameters absolutely pivotal. Moreover, \emph{validation} of
-these model is what matter most in terms of translating such computational
-models into the clinic.
+
 
 Regarding the mechanical modeling of the heart, 
 \emph{choosing appropriate boundary conditions} that reflect the reality has
-been a problem during the work in this thesis, and several different
+been an issue during the work of this thesis, and several different
 choices has been made. Moreover, \emph{accounting for the orthotropic as
 well as the visco-elastic behavior of the myocardium} is something that should
 be investigated in future studies. Accounting for an orthotropic
@@ -186,20 +244,27 @@ explored the \emph{spatial resolution of the material parameters}, and it
 should be investigated whether it is possible to relate locally estimated
 tissue stiffness to e.g myocardial infarction.
 
-The choice of active model for the myocardium is another topic that
-should be addressed in more detail in future studies. In the author's
-opinion, the output of the two fundamentally different approaches may
-vary a lot. In particular, it is evident that the active strain
-formulation do a better job in fitting strain data. One
-hypothesis is that the amount of transverse active stresses should be
-adjusted to each individual. These transverse active stresses are
-naturally embedded in the active strain approach via a volume
-preserving active deformation. 
+% The choice of active model for the myocardium is another topic that
+% should be addressed in more detail in future studies. In the author's
+% opinion, the output of the two fundamentally different approaches may
+% vary a lot. In particular, it is evident that the active strain
+% formulation do a better job in fitting strain data. One
+% hypothesis is that the amount of transverse active stresses should be
+% adjusted to each individual. These transverse active stresses are
+% naturally embedded in the active strain approach via a volume
+% preserving active deformation.
 
-Finally, coupling the electrophysiology to the mechanical model within
-this adjoint based data assimilation framework is something that
-should also be investigated in the future. 
 
+Finally, when estimating high dimensional parameters, a natural question
+concerning uniqueness of these estimates arises. It is obvious that if one allows for
+enough degree of freedom in the parameter space, then it is possible
+to fit almost any type of data. Therefore \emph{more work on ensuring
+identifiability} of these estimates (Section
+\ref{sec:intro_identifiability}) should be done. If the output of such
+model should have any clinical utility, then uniqueness of the
+estimated parameters is absolutely pivotal. Moreover, \emph{validation} of
+these model is what matter most in terms of translating such computational
+models into the clinic.
 % Here we start by listing a couple of statements
 % which should be taken into considerations. 
 

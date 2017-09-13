@@ -4,8 +4,8 @@ In this section we will go through the steps needed to personalize the
 mechanical model developed in the previous section. We will start by
 giving a brief overview of the interaction between medical imaging and
 cardiac computational modeling. Then we will explain how the geometries
-are extracted from the medical images and turned into a computational
-meshes which we can use for finite element computations. Finally we
+are extracted from the medical images and turned into computational
+geometries which we can use for finite element computations. Finally we
 will explain how to incorporate additional data into model by means of
 adjoint based data assimilation techniques.
 
@@ -38,7 +38,7 @@ this interaction between medical images and computational models.
   structure. These geometries together with the computational models
   can later be validated against the medical images. Computational
   models can also be used together with the medical images to
-  assimilate additional data in order to extraction clinically useful
+  assimilate additional data in order to extract clinically useful
   biomarkers. }
 \label{fig:cardiac_imaging_model}
 \end{figure}
@@ -100,7 +100,7 @@ together with a structured mesh of the American Heart Association (AHA) segments
   \end{subfigure}
 \caption{Figure \ref{fig:echopac_out_surf} shows triangulated surfaces of the
       endo- and epicardium, and Figure
-      \ref{fig:echopac_out_strain_mesh} shows structured mesh of the
+      \ref{fig:echopac_out_strain_mesh} shows a structured mesh of the
       American Heart Association (AHA) segments. These surfaces are
       exported from the image segmentation tool EchoPac. Figure 
       \ref{fig:bullseye_intro} shows the American Heart Association (AHA)
@@ -128,8 +128,8 @@ midwall, which defines the approximate location of the AHA-segments
 
 
 As discussed in Section \ref{sec:mech_boudary}, we constrain the basal movement in
-the longitudinal direction, which is easiest to accomplished using a flat
-base located at a prescribed location. In order to make the base flat
+the longitudinal direction, which is easiest to accomplish using a flat
+base located at a prescribed location. In order to make the base flat,
 we first orient the surfaces so that the longitudinal axis is aligned
 with the $x$-axis, and the apex pointing in the positive $x$
 direction. To construct the basal plane we first take out the basal
@@ -194,9 +194,9 @@ endocardial and epicardial basal rings.
 
 
 \begin{remark}
-  The cavity volume is computed by generating the whole mesh, and the
-  compute the volume using Equation \eqref{eq:volume_operator}. The cut size is
-  found by using a one dimensional optimization algorithm with
+  The cavity volume is computed by generating the whole mesh, and then
+  computing the volume using Equation \eqref{eq:volume_operator}. The cut size is
+  found by using a one-dimensional optimization algorithm with
   the objective functional representing the squared error between
   computed and measured volume.
 \end{remark}
@@ -209,14 +209,24 @@ endocardial and epicardial basal rings.
 Both the passive and active properties of the myocardium depends on
 the underlying muscle fiber architecture, and it is therefore of high
 relevance to capture this architecture as accurately as
-possible. Unfortunately, imaging technology does not currently provide a
+possible.
+
+
+Unfortunately, imaging technology does not currently provide a
 way of extracting patients-specific fiber orientation \emph{in
-  vivo}. Diffusion Tensor Imaging (DTI) can however be utilized to reconstruct
-the fiber and laminar structure \emph{ex vivo}\cite{rohmer2007reconstruction}.
+  vivo}. Diffusion Tensor MRI (DT-MRI) \cite{basser1994mr} can
+be utilized to reconstruct the fiber and laminar structure \emph{ex
+  vivo}\cite{rohmer2007reconstruction}, and recent studies have shown
+promising results in measuring fiber orientations \emph{in vivo} using
+DT-MRI \cite{toussaint2013vivo}. 
+By using DT-MRI measurements of multiple hearts it is possible to build
+statistical atlases \cite{peyrat2006towards} which could be used to
+generate fiber fields based on transformation between a patient-specific
+geometry and the geometries from the atlas \cite{vadakkumpadan2010modeling}.
 
 An alternative method for assigning myocardial fiber orientation is by
 rule-based methods \cite{potse2006comparison, bayer2012novel}. 
-In this thesis we have used an algorithm called the Laplace–Dirichlet
+In this thesis we have used an algorithm called the Laplace – Dirichlet
 Rule-Based (LDRB) algorithm, proposed by Bayer et al \cite{bayer2012novel}.
 
 
@@ -257,8 +267,8 @@ spheroidal coordinates by
 
 \begin{align}
   \begin{split}
-    x &= a \sinh \mu \sin \nu \cos \theta  \\
-    y &= a \sinh \mu \sin \nu \sin \theta  \\
+    x &= a \sinh \mu \sin \nu \cos \theta,  \\
+    y &= a \sinh \mu \sin \nu \sin \theta,  \\
     z &= a \cosh \mu \cos \nu,
   \end{split}
 \end{align}
@@ -278,13 +288,13 @@ $(\mu, \nu, \theta)$ given the focal point $a$, is a bit more
 intricate, but can be computed as follows 
 \begin{align}
   \begin{split}
-    \nu &= \arccos (\tau) \\
-    \mu &= \arccosh (\sigma) \\
-    \theta &= \arctan \frac{z}{y} \\
+    \nu &= \arccos (\tau), \\
+    \mu &= \arccosh (\sigma), \\
+    \theta &= \arctan \frac{z}{y}, \\
     \tau &= \frac{1}{2a} \big( \sqrt{(x + a)^2 + y^2 + z^2} \\
-    & \quad + \sqrt{(x - a)^2 + y^2 + z^2} \big) \\
+    & \quad + \sqrt{(x - a)^2 + y^2 + z^2} \big), \\
     \sigma &= \frac{1}{2a} \big( \sqrt{(x + a)^2 + y^2 + z^2}\\
-    & \quad - \sqrt{(x - a)^2 + y^2 + z^2}\big) 
+    & \quad - \sqrt{(x - a)^2 + y^2 + z^2}\big). 
   \end{split}
 \end{align}
 It is possible to estimate the focal point by taking $b$ in
@@ -318,25 +328,24 @@ to the AHA segments
 %  choosing the geometry with the smallest
 % volume as the reference geometry (i.e the end-systolic geometry)
 % (references), the mid-diastolic or the end-diastolic ??
-
-
-A general problem in the biomechanics is that the geometry extracted from
+A general problem in biomechanics is that the geometry extracted from
 imaging data is not the stress-free geometry, meaning the the geometry
 that we observe is subjected to a physical load, e.g blood
 pressure. In order for the stress and strain to be correct, we need to
 find a geometry, so that when loaded with the measured loads, gives
 back the geometry observed in the medical images. 
 This is analogous to the problem of finding the geometry of a deflated balloon, given
-that we have an image of and inflated version of the balloon. Having this picture in mind, it is
-intuitive that such a geometry not necessarily is unique.
+that we have an image of and inflated version of the balloon. Having
+this picture in mind, it is intuitive that such a geometry not necessarily is unique.
 Several techniques have been applied in order to estimate the unloaded
 geometry, such as the inverse design analysis (ID)
 \cite{govindjee1996computational} or the modified updated Lagrangian
 formulation (MULF) \cite{gee2010computational}. Other approaches
 includes using the mid-diastolic or end-systolic geometry. Another popular
 technique is a fixed point iteration scheme,  known as the
-backward displacement method \cite{bols2013computational}. We briefly
-explain the steps in this methods.
+backward displacement method \cite{bols2013computational}. Figure
+\ref{fig:unloading_lv} illustrate the backward displacement method applied
+to an LV geometry. We briefly explain the steps in this methods.
 
 \begin{figure}[htbp]
   \centering
@@ -375,7 +384,7 @@ question about convergence of the fixed point method is one
 thing. Another thing is the convergence of the nonlinear solver.
 For bi-ventricular geometries, the backward displacement method might
 fail to converge, especially if the tissue is soft and the pressure in
-the right ventricle is large. In this case the
+the right ventricle is high. In this case the
 right ventricular free wall might collided with the septal wall when
 subtracting the displacement. An example of this is illustrated in
 Figure~\ref{fig:unloading_fail}.
@@ -387,7 +396,7 @@ Figure~\ref{fig:unloading_fail}.
 \caption{Backward displacement method might fail for bi-ventricular
   geometries. This can be seen be noticing that the RV free wall is
   buckling and colliding with the septum. Here the image-based
-  geometry is shown in black wire-frame, while the estimtated unloaded
+  geometry is shown in black wire-frame, while the estimated unloaded
 geometry is shown in red.}
 \label{fig:unloading_fail}
 \end{figure}
@@ -395,37 +404,45 @@ geometry is shown in red.}
 An alternative to the backward displacement method that do not
 necessary converge towards a fixed point but provides a more stable
 way of obtaining an unloaded configuration was proposed in Ragahavan
-et. al \cite{raghavan2006non}.
-This algorithm is based on subtracting a factor $k$ times
-the displacement obtained after inflating the image-based geometry to
-the target pressure. To estimate the
-unloaded configuration $\Xvec_{\mathcal{U}}$, we perform the following steps:
-\begin{enumerate}
-  \item Inflate $\Xvec_{\mathcal{I}}$ to target
-    pressure $(p_{\mathcal{I}}^{\mathrm{LV}},
-    p_{\mathcal{I}}^{\mathrm{RV}})$ to obtain
-    $\mathbf{d} = \mathbf{d}(\Xvec_{\mathcal{I}})$.
-  \item Given $k \in \mathbb{R}$, the unloaded configuration is given by
-    \begin{align}
-      \Xvec_{\mathcal{U}}(k) = \Xvec_{\mathcal{I}} - k \cdot \mathbf{d}(\Xvec_{\mathcal{I}}).
-     \end{align}
-     Further let $\mathbf{d}_k = \mathbf{d}(\Xvec_{\mathcal{U}}(k))$
-     be the displacement obtained after inflating the unloaded
-     configuration to the target pressure.
-   \end{enumerate}
-The uloading algorithm is based on finding $k$ so that the difference
-between the image-based geometry and the inflated, unloaded geometry
-is minimized, that is 
-\begin{align}
-  \underset{k}{\text{minimize}}
-  \;\;  \mathrm{res} ( \Xvec_{\mathcal{I}}, \Xvec_{\mathcal{U}}(k) + \mathbf{d}_k)
-  \label{eq:unloading_Raghavan}
-\end{align}
-with the residual given by the direct Hausdorff distance \cite{huttenlocher1993comparing}
-\begin{align}
-  \mathrm{res}(A, B) = \sup_{a \in A} \inf_{b \in B} d(a, b), 
-\end{align}
-and $d$ being the Euclidean distance. 
+et. al \cite{raghavan2006non}. In this algorithm, only one iteration of the
+backward displacement method is applied but the subtracted
+displacement is multiplied by a scalar $k$, which could be estimated
+to minimizing some residual.
+% \begin{align}
+%   \Xvec_{\mathcal{U}}(k) = \Xvec_{\mathcal{I}} - k \cdot \mathbf{d}(\Xvec_{\mathcal{I}}).
+% \end{align}
+
+
+% This algorithm is based on subtracting a factor $k$ times
+% the displacement obtained after inflating the image-based geometry to
+% the target pressure. To estimate the
+% unloaded configuration $\Xvec_{\mathcal{U}}$, we perform the following steps:
+% \begin{enumerate}
+%   \item Inflate $\Xvec_{\mathcal{I}}$ to target
+%     pressure $(p_{\mathcal{I}}^{\mathrm{LV}},
+%     p_{\mathcal{I}}^{\mathrm{RV}})$ to obtain
+%     $\mathbf{d} = \mathbf{d}(\Xvec_{\mathcal{I}})$.
+%   \item Given $k \in \mathbb{R}$, the unloaded configuration is given by
+%     \begin{align}
+%       \Xvec_{\mathcal{U}}(k) = \Xvec_{\mathcal{I}} - k \cdot \mathbf{d}(\Xvec_{\mathcal{I}}).
+%      \end{align}
+%      Further let $\mathbf{d}_k = \mathbf{d}(\Xvec_{\mathcal{U}}(k))$
+%      be the displacement obtained after inflating the unloaded
+%      configuration to the target pressure.
+%    \end{enumerate}
+% The uloading algorithm is based on finding $k$ so that the difference
+% between the image-based geometry and the inflated, unloaded geometry
+% is minimized, that is 
+% \begin{align}
+%   \underset{k}{\text{minimize}}
+%   \;\;  \mathrm{res} ( \Xvec_{\mathcal{I}}, \Xvec_{\mathcal{U}}(k) + \mathbf{d}_k)
+%   \label{eq:unloading_Raghavan}
+% \end{align}
+% with the residual given by the direct Hausdorff distance \cite{huttenlocher1993comparing}
+% \begin{align}
+%   \mathrm{res}(A, B) = \sup_{a \in A} \inf_{b \in B} d(a, b), 
+% \end{align}
+% and $d$ being the Euclidean distance. 
 
 
 % suppose we can write
@@ -452,56 +469,58 @@ chosen material parameters, which are generally also unknown. For
 example, applying the backward displacement method to a geometry will
 result in a smaller unloaded cavity volume if the material is softer.
 Therefore, the material parameters estimation is coupled to the
-problem of fined the unloaded, zero pressure geometry.
-In \cite{nikou2016effects}, Nikou et al propose a method for estimating
-material parameters as well the unloaded geometry by iterating between
-the two methods, and terminate if the difference in unloaded cavity
+problem of finding the unloaded, zero pressure geometry.
+In Reference \cite{nikou2016effects}, Nikou et al propose a method for estimating
+material parameters and the unloaded geometry by iterating between
+the two methods, and terminating if the difference in unloaded cavity
 volume is less than $5 \%$. This method is general and could be applied
 using any unloading algorithm and any method to estimate the material
-parameters.
+parameters. In the last paper in this thesis, we analyze this method
+and shows that it actually converges to the correct solution are are
+stable to noise in the measurements. 
 
-Assume we are given an image-based LV geometry (which is not
-end-diastole) with measured pressure $p_{\mathrm{LV}}$. Further assume
-that we are given the pressure and  volume at end-diastole,
-$p_{\mathrm{LV}}^{\mathrm{ED}}$ and $V_{\mathrm{LV}}^{\mathrm{ED}}$
-respectively. Then we want to find
-\begin{enumerate}
-  \item \emph{the unloaded (zero pressure) geometry} so that when loaded with
-    $p_{\mathrm{LV}}$ gives back the image based geometry, and
-   \item \emph{material parameters}, so that when we load the
-     estimated unloaded geometry with $p_{\mathrm{LV}}^{\mathrm{ED}}$
-     it has a cavity volume equal to $V_{\mathrm{LV}}^{\mathrm{ED}}$.     
-\end{enumerate}
+% Assume we are given an image-based LV geometry (which is not
+% end-diastole) with measured pressure $p_{\mathrm{LV}}$. Further assume
+% that we are given the pressure and  volume at end-diastole,
+% $p_{\mathrm{LV}}^{\mathrm{ED}}$ and $V_{\mathrm{LV}}^{\mathrm{ED}}$
+% respectively. Then we want to find
+% \begin{enumerate}
+%   \item \emph{the unloaded (zero pressure) geometry} so that when loaded with
+%     $p_{\mathrm{LV}}$ gives back the image based geometry, and
+%    \item \emph{material parameters}, so that when we load the
+%      estimated unloaded geometry with $p_{\mathrm{LV}}^{\mathrm{ED}}$
+%      it has a cavity volume equal to $V_{\mathrm{LV}}^{\mathrm{ED}}$.     
+% \end{enumerate}
 
-The iterative strategy is presented in Algorithm \ref{alg:intro_unload_mat}.
-\begin{algorithm}
-  \caption{Uloaded material parameter estimation\label{alg:intro_unload_mat}}
+% The iterative strategy is presented in Algorithm \ref{alg:intro_unload_mat}.
+% \begin{algorithm}
+%   \caption{Uloaded material parameter estimation\label{alg:intro_unload_mat}}
   
-\begin{algorithmic}[1]
+% \begin{algorithmic}[1]
 
   
-  \State Initialize $\mathbf{m}_0$ \Comment{intial guess for material parameters}
-  \State $i = 0$
+%   \State Initialize $\mathbf{m}_0$ \Comment{intial guess for material parameters}
+%   \State $i = 0$
     
-  \While{difference in reference cavity volumes $>5 \%$ and $i < 15$}
+%   \While{difference in reference cavity volumes $>5 \%$ and $i < 15$}
 
-  \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{Find the
-    unloaded geometry using any of the above methods and using
-    $\mathbf{m}_{i}$ as material parameters.\strut} 
-  \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{Estimate
-    material parameters $\mathbf{m}_{i+1}$ so that when we load the
-    estimated unloaded geometry with $p_{\mathrm{LV}}^{\mathrm{ED}}$
-    it has a cavity volume equal to $V_{\mathrm{LV}}^{\mathrm{ED}}$. \strut}    
-  \State $i = i + 1$
-  \EndWhile
+%   \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{Find the
+%     unloaded geometry using any of the above methods and using
+%     $\mathbf{m}_{i}$ as material parameters.\strut} 
+%   \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{Estimate
+%     material parameters $\mathbf{m}_{i+1}$ so that when we load the
+%     estimated unloaded geometry with $p_{\mathrm{LV}}^{\mathrm{ED}}$
+%     it has a cavity volume equal to $V_{\mathrm{LV}}^{\mathrm{ED}}$. \strut}    
+%   \State $i = i + 1$
+%   \EndWhile
   
 
-\end{algorithmic}
-\end{algorithm}
+% \end{algorithmic}
+% \end{algorithm}
 
-Note that this method apply also to bi-ventricular geometries and to
-cases when more measurement points are available for estimating the
-material parameters. 
+% Note that this method apply also to bi-ventricular geometries and to
+% cases when more measurement points are available for estimating the
+% material parameters. 
 
 
 % For a transversely isotropic material (or orthotropic), the change in
@@ -580,7 +599,8 @@ represents the mismatch between observations and simulations, with
 possibly additional regularization terms added to the objective
 functional. We will focus this approach since this is the approach
 taken in this thesis. For a more thorough review of other
-data assimilation techniques we refer to \cite{chapelle2013fundamental}.
+data assimilation techniques we refer to the paper by Chapelle
+et. al \cite{chapelle2013fundamental}.
 
 
 % The general setup for a variational data assimilation problem is the
@@ -589,24 +609,23 @@ data assimilation techniques we refer to \cite{chapelle2013fundamental}.
 \label{sec:data_assimilation_pipeline}
 
 We will now explain the general setup and the main steps in variational data
-assimilation. We will refer to
-the \emph{state variable} as $\mathbf{w}$, which is our case
-represents jointly the displacement and hydrostatic pressure
-$\mathbf{w}=(\mathbf{u}, p)$.
+assimilation, and will denote the \emph{state variable} by
+$\mathbf{w}$, which is our case represents jointly the displacement
+and hydrostatic pressure $\mathbf{w}=(\mathbf{u}, p)$.
 
 The state variables are described by some \emph{physical forward
 model} $\mathcal{M}$, which is our case is governed by the force balance
 equation in \eqref{eq:force_balance_strong}. Moreover this model
 typically depends on some parameters $\mu$ that we want to
-adjust based on the observation at hand. We will refer to this
-parameter as the \emph{control parameters}. For example, the control
+adjust based on the observations at hand. We will refer to these
+parameters as the \emph{control parameters}. For example, the control
 parameters could be related to the stiffness of the myocardium which
 we want to adjust to each individual patient based on some
 clinical observations. We can therefore assume that the underlying
 model can be written in the form $\mathcal{M}(\mathbf{w}, \mu) =
 0$. Note that the state variable $\mathbf{w}$ typically depends on the
-control parameters $\mu$, but we do not write this explicitly to
-ease notation.
+control parameters $\mu$, but to ease notation, we do not write this
+dependency explicitly
 
 We are also given a set of measurements (or observations) that we want
 to assimilate, and we denote a single observation by $y$.
@@ -657,11 +676,12 @@ Figure~\ref{fig:data_assimilation}.
 
 \begin{remark}
   There exists gradient-free optimization methods that can be used to
-  avoid computing the gradient. Examples include genetic algorithms or
+  avoid gradient computations. Examples include genetic algorithms or
   particle swarm algorithms. The drawback with such methods is that
   they typically requires a lot of functional evaluations. In our
-  case this is very computationally expensive, because every functional
-  evaluation requires a solution of the non-linear forward model. 
+  case functional evaluations are very computationally expensive,
+  because every functional evaluation requires a solution of the
+  non-linear forward model.  
 \end{remark}
 
 
@@ -788,11 +808,10 @@ problem:
   \end{aligned}
 \end{equation}
 
-As discussed in Section \ref{sec:data_assimilation_pipeline}, a
-solution to \eqref{eq:pde_unconstrained} satisfies the optimality
-condition $D  \widehat{\mathcal{J}} = 0$. Here $D$ refers to the
-total derivative with respect to the control $\mu$, while $D_{x}$
-refers to the partial derivative with respect to $x$.
+Note that a solution to \eqref{eq:pde_unconstrained} satisfies the optimality
+condition $D  \widehat{\mathcal{J}} = 0$. In the following, $D$ refers
+to the total derivative with respect to the control $\mu$, while
+$D_{x}$ refers to the partial derivative with respect to $x$.
 
 \subsubsection{Computing the functional gradient} 
 To move along the gradient descent it is required to actually
@@ -810,8 +829,8 @@ By the chain rule we have
 The terms $D_{\state}\mathcal{J}(\state(\mu), \mu)$ and
 $D_{\mu}\mathcal{J}(\state(\mu), \mu)$ are typically straight forward
 to compute. The term $D_{\mu}\state(\mu)$, on the other hand, is more
-involved to compute.  If we take the total derivative of the
-force balance equation, we obtain
+involved.  If we take the total derivative of the force balance
+equation, we obtain 
 \begin{align*}
   D \mathcal{M}(\state(\mu), \mu) =
   D_{\state} \mathcal{M}(\state(\mu), \mu) D_{\mu}\state(\mu)
@@ -892,7 +911,7 @@ into \eqref{eq:functional_gradient} to compute the gradient.
 \subsubsection{Dolfin-Adjoint}
 
 Dolfin-Adjoint \cite{farrell2013automated} is a software package that
-based on the FEniCS project 
+is based on the FEniCS project,
 which aims to derive the discrete adjoint equation and the tangent
 linear models of finite element models implemented within the FEniCS
 framework. While the traditional approach is to derive the adjoint code
@@ -1093,7 +1112,7 @@ your problem is not \emph{structurally identifiable}
 \emph{practical identifiable} if the parameters can be determined
 uniquely based on the data at hand. If the test passes you should try
 to add noise to the data, and see if your data assimilation is stable
-with respect to noise in the measurement.
+with respect to noise in the measurements.
 
 Demonstrating identifiability is 
 often difficult, especially when your data is corrupted with noise,
@@ -1102,7 +1121,7 @@ complexity of the model in terms of \emph{model fidelity}, i.e whether
 your 
 model is rich enough to representing the data, and the identifiability
 is often key in order to have robust model. A too simple model will
-often fail to represent your data, while a too complex model, might
+often fail to represent your data, while a too complex model might
 give completely different answers with just a slight perturbation of
 the data, i.e with noise added to the measurement. The same problem is
 encountered in other scientific disciplines. For example, in
@@ -1177,19 +1196,21 @@ different techniques for finding the best local minima exists
 
 
 
-\subsection{Mechanical biomarkers}
+\subsection{Extraction of biomarkers}
+
 As can be seen from Figure \ref{fig:cardiac_imaging_model}, data
 assimilation of computational models and medical imaging can be used to
 extract biomarkers. By biomarker, we mean an indicator of some
 biological of physiological process that give insight into the state
 or condition of that process. Examples of biomarkers that can be
-extracted from a computational models are parameters related to tissue
+extracted from a computational model are parameters related to tissue
 stiffness, like the parameters in the Holzapfel-Ogden material law
-\eqref{eq:holzapel_trans}, or parameters related to contractility like
+\eqref{eq:holzapel_trans}, parameters related to contractility like
 the active stress ($T_a$ in \eqref{eq:intro_active_stress}) or the
-active strain ($\gamma$ in \eqref{eq:intro_active_strain_Fa_gjerald}).
+active strain ($\gamma$ in \eqref{eq:intro_active_strain_Fa_gjerald}),
+or estimates or myofiber stress.
 Computational models opens a new door when it comes to extraction of
-biomarkers. Mechanical features such as stress, contractility and
+biomarkers, and mechanical features such as stress, contractility and
 elastance can easily be computed using a computational model. Of
 course, validation of these models is what matter most in order to
 make these biomarkers clinically useful \cite{caruel2014dimensional}. 

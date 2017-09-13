@@ -22,14 +22,26 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% THE PAST %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
+Cardiovascular diseases are the leading cause of death in the
+world, responsible for more than 17.3 million deaths annually, a
+number that is expected to reach 23.6 million by 2030
+\cite{writing2016heart}. Advancements in detection and treatment
+have reduced morbidity and mortality, but knowledge of the underlying
+mechanisms for the development of the disease is still very poor.
+While some patients respond very well to a therapy, others suffering
+from the same symptoms might not respond at all.
+Our understanding of these mechanisms has been improved through
+development of advance imaging techniques and through
+computational modeling. While imaging play a central role in
+assessment of cardiac structure and kinematics, biophysical models can
+help us to understand causality in this multiscale environment.  
 
 % \section{Historical note}
 
 One of the earliest examples of modelling applied to cardiac
 physiology dates back to 1892 when Robert Wood approximated the
-ventricle as a thinned-wall spherical shell.
+ventricle as a thinned-wall spherical shell \cite{woods1892few}, and
+formulated the well known \emph{Law of Laplace}.
 % In this way, \emph{wall
 % stress} could be analytically estimated via the famous \emph{Law of Laplace}
 % \cite{woods1892few}. This law relates the wall stress $\sigma$ to the endocardial
@@ -75,7 +87,7 @@ phrase, taken form \cite{heethaar1977computer} illustrates this fact:
   stiffness matrix and the retrieval of its coefficients''}.
 A paradigm shift in the field of cardiac mechanical modeling came in
 the late 1980s at the University of Auckland. Here the first models
-based on continuum description of the heart were developed
+based on a continuum description of the heart were developed
 \cite{hunter1988analysis}, which is still in use today. 
 
 
@@ -98,7 +110,9 @@ heart.
 The need for building adequate patient-specific models that captures
 the geometrical information observed in the images as well as the
 underlying biophysical processes, is recognized as one of the key
-challenges in modern bioengineering \cite{hunter2010vision}.
+challenges in modern bioengineering \cite{hunter2010vision}. This is
+also reflected in the exponential increase in the yearly number of
+publications on the topic \cite{sack2016personalised}.
 In the future, models could be used to as a diagnostic tool to extract
 features from a patients heart that are otherwise impossible to extract from
 images. Eventually, models could potentially predict the outcome of
@@ -122,12 +136,11 @@ ions in and out of the cell, or the electrical transduction through the
 heart, the question of how to couple these levels together is still open
 \cite{noble2002modeling}.
 
-Another question is how to extract data
-observed in medical images and constrain models, in order to make
-models specific to the individual. These questions has to be addressed
-before we can take the next step into personalized simulations for
-\emph{in silico} medicine, and use computer simulations to guide
-treatment, and predict outcome.
+Another question is how to fuse data observed in medical images with
+computational models, in order to make models specific to the
+individual. These questions has to be addressed before we can take the
+next step into personalized simulations for \emph{in silico} medicine,
+and use computer simulations to guide treatment, and predict outcome.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% THIS THESIS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -164,7 +177,7 @@ computationally expensive, and we therefore want to keep the number of
 functional evaluations at a minimum. The best way of doing this is
 traverse the parameter space along the gradient descent, which is
 guaranteed to bring us towards a local minimum. However, this requires
-us to compute the functional gradient, or the derivative of the
+calculation of the functional gradient, or the derivative of the
 mismatch functional with respect to the model parameters. As we will
 see, the functional gradient can be computed efficiently by
 considering the adjoint equation, and recent development in numerical
@@ -173,21 +186,24 @@ also numerically.
 
 
 The remaining introduction in this thesis is organized as follows. In
-Section \ref{sec:intro_physiology} we briefly explain some concepts in of
+Section \ref{sec:intro_physiology} we briefly explain some concepts in
 cardiac anatomy and physiology which is used throughout the
 thesis. This section ends with a description of the different cardiac
 diseases encountered in this thesis. In Section
 \ref{sec:intro_mechanical} we give an introduction to continuum
 mechanics and mechanical modeling of the heart. The basic equations of
 elasticity as well as the constitutive relations for the cardiac
-tissue, and some numerical considerations are covered. Finally, in Section 
+tissue, and some numerical considerations are covered. In Section 
 \ref{sec:intro_personalization} we explain how to personalize a
 mechanical model using clinical data. We start by explaining the
 different imaging modalities used in this thesis, and how finite
 element meshes are created from images. We also explain how to find a
 more realistic reference geometry than the one obtained from medical
 images. At the end we introduce data assimilation, and how to compute
-the functional gradient using the adjoint method. 
+the functional gradient using the adjoint method. Finally in Section
+\ref{sec:summary} we summarize the research papers that make up this
+thesis, and make some closing remarks and suggestions for future
+directions. 
 
 \newpage
 % An even greater challenge 

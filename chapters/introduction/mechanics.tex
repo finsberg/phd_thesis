@@ -145,9 +145,9 @@ where $\mathbf{n}$ is the unit normal in the current configuration.
 Using the divergence theorem we get.
 
 \begin{align*}
-  \int_{\partial \Omega} \mathbf{t} \mathrm{d}s
-  = \int_{\partial \Omega} \sigma \mathbf{n} \mathrm{d}s
-  = \int_{\Omega} \nabla \cdot \sigma \mathrm{d}v,
+  \int_{\partial \omega} \mathbf{t} \mathrm{d}s
+  = \int_{\partial \omega} \sigma \mathbf{n} \mathrm{d}s
+  = \int_{\omega} \nabla \cdot \sigma \mathrm{d}v,
 \end{align*}
 and by collecting the terms from \eqref{eq:cons_lin_mom}. We arrive at
 Cauchys momentum equation
@@ -283,27 +283,45 @@ $\mathbf{a}_0 $. Indeed the \emph{stretch} ratio in the direction
 $\mathbf{a}_0$ is given by $\lambda_{\mathbf{a}_0} = | \F \mathbf{a}_0
 |$ and we see that $I_{4\mathbf{a}_0 }  =  \mathbf{a}_0 \cdot (\C
 \mathbf{a}_0) = \F \mathbf{a}_0 \cdot (\F \mathbf{a}_0) =
-\lambda_{\mathbf{a}_0}^2$. For more details about invariants see
+\lambda_{\mathbf{a}_0}^2$. For more details about invariants see e.g
 \cite{holzapfel2009constitutive,liu1982representations}.
 
 
-The theory of global existence of unique solutions for elastic problem
+The theory of global existence of unique solutions for elastic problems
 was originally based convexity of the free energy function.
-A function $\phi: \Omega \rightarrow \mathbb{R}$ is \emph{convex} if for any
-$\Xvec_1, \Xvec_2 \in \Omega$ we have
+An energy function $\Psi: \mathrm{Lin}^+ \rightarrow
+\mathbb{R}^+$ is strictly \emph{convex} if for each $\F \in
+\mathrm{Lin}^+$ and $\mathbf{H} \neq \mathbf{0}$ with $\det (\F +
+(1-\lambda)\mathbf{H}) > 0$, we have
 \begin{align}
-  \phi(\lambda \Xvec_1+ (1-\lambda) \Xvec_2)
-  \leq \lambda \phi(\Xvec_1)
-  + (1-\lambda) \phi(\Xvec_2).
+  \Psi(\lambda \F + (1-\lambda) \mathbf{H})
+  < \lambda \Psi(\F)
+  + (1-\lambda) \Psi(\F + \mathbf{H}), && \lambda \in (0,1).
+\label{eq:strain_convex}
 \end{align}
+If the response $\FPK$ is differentiable, then condition
+\eqref{eq:strain_convex} is equivalent of saying that the response is
+positive definite, 
+\begin{align}
+  \mathbf{H} : \frac{\partial \FPK}{\partial \F} : \mathbf{H} > 0,
+  && \F \in
+     \mathrm{Lin}^+, \mathbf{H} \neq \mathbf{0}.
+\label{eq:response_posdev}
+\end{align}
+
 However, from a physical point of view this requirement is too strict
-\cite{ball1976convexity}. A slightly weaker requirement is that the
-strain-energy function $\Psi$ is \emph{polyconvex}, meaning that there exist
-a convex function $\phi$ such that
-\begin{align*}
-  \Psi(\F) = \phi(\F, \cof \F, \det \F).
-\end{align*}
-Note however, that if $\Psi$ is convex then it is also polyconvex.
+\cite{ball1976convexity}. A slightly weaker requirement is the strong
+ellipticity conditions which states that \eqref{eq:response_posdev}
+should hold for any $\mathbf{H}$ of rank-one, which is analogous to
+say that the strain energy function is rank-one convex. 
+
+% that the
+% strain-energy function $\Psi$ is \emph{polyconvex}, meaning that there exist
+% a convex function $\phi$ such that
+% \begin{align*}
+%   \Psi(\F) = \phi(\F, \cof \F, \det \F).
+% \end{align*}
+% Note however, that if $\Psi$ is convex then it is also polyconvex.
 
 
 % \subsubsection{Work conjugates}
@@ -470,7 +488,7 @@ type boundary condition at the base
 \end{align}
 or at the epicardium to mimic the pericardium
 \begin{align}
-  \FPK \Nvec + k \uvec = \mathbf{0},  \;  \Xvec \in \lvepi, 
+  \FPK \Nvec + k \uvec = \mathbf{0},  \;  \Xvec \in \lvepi.
 \end{align}
 Here $k$ can be seen as the stiffness of a spring that limit the
 movement. The limiting cases, $k = 0$ and $k \rightarrow
@@ -491,9 +509,9 @@ bi-ventricular geometry is illustrated in Figure \ref{fig:boundaries}.
 
 \subsection{Force-balance equation}
 We will now collect all the terms that makes up to force balance for
-the cardiac mechanics problem. Considering the myocardium as a incompressible,
-hyperelastic material with a Robin type boundary condition at the base
-we obtain the following strong form in the Lagrangian formulation
+the cardiac mechanics problem. Considering the myocardium as an incompressible,
+hyperelastic material we obtain the following strong form in the
+Lagrangian formulation 
 \begin{align}
   \begin{split}
   \nabla \cdot \FPK &= 0 \\
@@ -502,8 +520,8 @@ we obtain the following strong form in the Lagrangian formulation
  \label{eq:force_balance_strong}
 \end{align}
 completed with appropriate boundary conditions. To solve this
-numerically using the finite element method, we need to derrive weak
-variational form of this equaiton.
+numerically using the finite element method, we need to derive weak
+variational form of this equation.
 % \begin{align}
 %   \FPK \Nvec + k \uvec &= \mathbf{0},  \;  \Xvec \in \lvbase\\
 %   u_1 &= 0,  \;  \Xvec \in \lvbase \\
@@ -535,7 +553,7 @@ minimized, and any infinitesimal changes from this state should not add
 any energy to the system.
 In order to make use of this principle we first need to sum up all the
 potential energy in the system. Here we separate between internal and
-external energy. Internal energy, is energy that is stored within the
+external energy. Internal energy is energy that is stored within the
 material, for instance when you stretch a rubber band you increase its
 internal energy. External energy represent the contribution from all
 external forces such as gravity and traction forces.
@@ -544,7 +562,7 @@ external forces such as gravity and traction forces.
 % $\partial \Omega$. For the case of a left ventrcular domain we have
 % $\partial \Omega = \lvendo \cup \lvepi \cup \lvbase$ and for a
 % bi-ventricular domain we include $\rvendo$ in the partition as well. 
-For a hyperelastic and incompressible material, the total potential
+For an incompressible, hyperelastic material the total potential
 energy in the system is given by
 \begin{align}
   \Pi(\uvec, p) &= \Pi_{\mathrm{int}}(\mathbf{u},p) + \Pi_{\mathrm{ext}}(\mathbf{u}). \\
@@ -604,15 +622,15 @@ equations written in a mixed form reads : \emph{Find $(\uvec, p)\in V
 
 Equation \eqref{eq:force_balance_strong} is only possible to solve
 analytically for very simplified problems. Therefore we need to employ
-a numerical approximation method to solve the problem. One such method
+numerical methods to solve the problem. One such method
 is the finite element method (FEM). When using the finite element method, we often refer to such
 approximation as a Galerkin approximation. This is based on
 approximating the solution by linear combinations of  basis functions in a finite dimensional
 subspace of the true solution. If $V$ and $Q$ are two suitable Hilbert
 spaces for the displacement $\uvec$ and the hydrostatic pressure $p$
-respectively (see Section \ref{sec:variational_formulation}), we now
-select some finite dimensional subspaces $V_h \subset V$ and $Q_h
-\subset Q$, which are spanned by a finite number of basis functions.
+respectively, we now select some finite dimensional subspaces $V_h
+\subset V$ and $Q_h \subset Q$, which are spanned by a finite number
+of basis functions. 
 
 
 For incompressible problems such as \eqref{eq:force_balance_strong}, we cannot choose the
@@ -643,7 +661,7 @@ $k = 2$.
   The basis functions that span the Taylor-Hood
   finite element spaces are also known as the
   Lagrangian basis functions. These basis functions, of
-  degree $n$, are a polynomials of degree $n$ on each element, but only
+  degree $n$, are polynomials of degree $n$ on each element, but only
   continuous at the nodes (i.e not continuously
   differentiable). Consequently, differentiating a function that is
   expressed as a linear combination of the Lagrangian basis functions,
@@ -665,7 +683,7 @@ material in general. What differentiate the mechanics of soft
 living tissue, like the myocardium, from other materials is the
 constitutive relations which describes the response of a material to
 applied load. Such constitutive relations often comes from
-experimental observations, both on observation of anatomical structure
+experimental observations, both observations of anatomical structure
 but also from experiments done on tissue slabs.
 
 We have already covered the theory of hyperelasticity and incompressibility in Section
@@ -730,9 +748,9 @@ function is convex, and that the requirements for existence and
 uniqueness discussed in Section \ref{sec:strain_energy_req} are
 fulfilled.
 
-In this thesis we have in several occasions used a
-transversely isotropic version of \eqref{eq:holzapel_full} which is
-obtained by setting $a_{fs} = b_{fs}= a_s = b_s = 0$, i.e
+In this thesis we have in used a transversely isotropic version of
+\eqref{eq:holzapel_full} which is obtained by setting $a_{fs} =
+b_{fs}= a_s = b_s = 0$, i.e 
 \begin{align}
   \label{eq:holzapel_trans}
   \begin{split}
@@ -829,14 +847,16 @@ can be written as
 where $\eta$ represent the amount of transverse activation and $T_a
 \in \mathbb{R}$ is the magnitude of the active tension.
 In the limiting case ($\eta = 0.0$), the active tension acts purely
-along the fibers and is reduced to 
+along the fibers and \eqref{eq:intro_active_stress} reduces to 
 \begin{align}
   \Cauchy_a = T_a \Fef \otimes \Fef.
 \end{align}
 Note that, by observing  that
 \begin{align*}
-  \frac{\partial I_{4\mathbf{a}_0}}{\partial \F} = \frac{\partial (\mathbf{a}_0  \cdot \C \mathbf{a}_0 )}{\partial \F}
-  = 2 \mathbf{a} \otimes \mathbf{a}_0 \implies  \mathbf{a} \otimes  \mathbf{a}= \frac{1}{2} \frac{\partial I_{4\mathbf{a}_0}}{\partial \F} \F^{T}
+  \frac{\partial I_{4\mathbf{a}_0}}{\partial \F}
+  = \frac{\partial (\mathbf{a}_0  \cdot \C \mathbf{a}_0 )}{\partial \F}
+  = 2 \mathbf{a} \otimes \mathbf{a}_0 \implies
+  \mathbf{a} \otimes  \mathbf{a}= \frac{1}{2} \frac{\partial I_{4\mathbf{a}_0}}{\partial \F} \F^{T}
 \end{align*}
 and that $I_1 =  I_{4\ef} +  I_{4\eS} +  I_{4\en}$, 
 we can instead decompose the strain-energy function into a passive and active
@@ -863,7 +883,7 @@ biochemistry and can be seen as the actual distortion of the
 microstructure. The elastic part $\F_e$ is responsible for preserving
 compatibility of the tissue and stores all the energy in the
 deformations. As a consequence, the strain energy function is a
-function of the elastic deformation gradient only $\F_e$. The
+function of the elastic deformation gradient only. The
 decoupling can illustrated by considering two sarcomeres connected in
 series as shown in Figure \ref{fig:actstrain}. 
 
@@ -946,7 +966,7 @@ only the Python interface has been used, in which C++ code is
 automatically generated using SWIG. This allows for simplicity through
 the Python scripting language and the speed of the C++ language.
 The domain specific language used to represent weak formulations is
-called the Unified form language (UFL) \cite{alnaes2014unified}, and
+called the Unified Form Language (UFL) \cite{alnaes2014unified}, and
 allows for e.g automatic differentiation of forms and expressions. The
 FEniCS form compiler (FFC) \cite{logg2012ffc} compiles code written in
 UFL to Unified Form-assembly Code (UFC) \cite{alnaes2012ufc} which are
@@ -963,11 +983,11 @@ official web page (\url{https://fenicsproject.org}) or any of the
 cited literature.
 
 \subsubsection{Numerical considerations}
-The solution of non-linear problems such as the one described here is
+The solution of non-linear problems such as the one described here are
 typically solved using methods like Newton's method. The convergence of
 such methods depends on the initial guess, and if the
-initial guess is too far from the solution, the solver might diverge.
-Moreover, if the initial guess is close to the solution the
+initial guess is too far from the true solution, the solver might diverge.
+Moreover, if the initial guess is close to the true solution the
 convergence rate is in general quadratic.
 
 Let us consider a
