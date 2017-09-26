@@ -927,11 +927,12 @@ particular it has been shown \cite{ambrosi2012active} that with the
 active strain formulation, properties such as frame invariance and
 rank-one ellipticity is inherited from the strain energy function. In
 contrast, rank-one ellipticity is not guaranteed for the active stress
-formulation.  
+formulation.
 
-% Other types of active models also exists \cite{goktepe2014generalized}
-% but will not be discssed f
-
+For a more extensive comparison of the active stress and active strain
+approach we refer to \cite{ambrosi2012active,giantesio2017comparison},
+and for an overview of other methods to model the active contraction
+we refer to \cite{goriely2017five}.
 
 
 
@@ -941,15 +942,6 @@ is implemented using the finite element framework FEniCS. Here we
 briefly explain the main components of FEniCS as well as some
 numerical considerations made when implementing the solver.
 
-
-
-
-% A word about FEniCS and how we can implement this
-% Newtons method, good initial guess, increment pressure.
-% Relatively small system, dense matrix, plot stiffness matrix, Direct
-% solver.
-% FEniCS compilation stored in cache.
-% Fibers at quadrature points. Symbolic language.
 
 \subsubsection{The FEniCS Project}
 \label{sec:fenics}
