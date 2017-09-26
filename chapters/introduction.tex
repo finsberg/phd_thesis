@@ -20,7 +20,7 @@
 % apply the mathematical techniques of Gallileo Galliei to study the
 % movement of animals.
 
-
+\section{Aim of thesis}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% THE PAST %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Cardiovascular diseases are the leading cause of death in the
 world, responsible for more than 17.3 million deaths annually, a
@@ -85,7 +85,8 @@ phrase, taken form \cite{heethaar1977computer} illustrates this fact:
   on computers with capacity not exceeding 32K words of memory
   required special attention to very compact storage of the
   stiffness matrix and the retrieval of its coefficients''}.
-A paradigm shift in the field of cardiac mechanical modeling came in
+
+A paradigm shift in the field of cardiac mechanics modeling came in
 the late 1980s at the University of Auckland. Here the first models
 based on a continuum description of the heart were developed
 \cite{hunter1988analysis}, which is still in use today. 
@@ -174,7 +175,7 @@ refer to such problems as PDE-constrained optimization problems.
 Solving such problems is challenging because evaluation of the
 mismatch functional requires the solution of a nonlinear PDE, which is
 computationally expensive, and we therefore want to keep the number of
-functional evaluations at a minimum. The best way of doing this is
+functional evaluations at a minimum. A good way of doing this is
 traverse the parameter space along the gradient descent, which is
 guaranteed to bring us towards a local minimum. However, this requires
 calculation of the functional gradient, or the derivative of the
@@ -182,8 +183,28 @@ mismatch functional with respect to the model parameters. As we will
 see, the functional gradient can be computed efficiently by
 considering the adjoint equation, and recent development in numerical
 software tools \cite{farrell2013automated} allow us to exploit this
-also numerically. 
+also numerically.
 
+
+The developed framework in this thesis could be applied directly to
+estimate high dimensional model parameters without any manual tuning of
+parameters. The aim has been to develop a framework for automatic
+generation of patient-specific simulations of the heart, by fitting
+model-parameters to potentially ``any'' type of clinical data. In particular,
+incorporating regional motion data to estimate spatially resolved
+parameters has been an essential contribution in this thesis. This
+type of automated simulation pipeline could potentially be integrated
+as a part of a clinical diagnostic toolbox and be used to guide clinicians in the
+decision-making and treatment planning. In particular, such models can
+be used to assess information that is difficult or even impossible to
+measure in the human heart, such as indices of contractility,
+myocardial work and myofiber stress. While the first part of the
+thesis (Paper 1) is concerned with developing a framework for
+constraining a mechanics model to clinical data, the second part
+(Paper 2, 3 and 4) evaluates potentially useful biomarkers extracted from
+the personalized mechanics model. Future work should be geared towards
+validation of such models, in order to unleash its potential in the
+clinic.
 
 The remaining introduction in this thesis is organized as follows. In
 Section \ref{sec:intro_physiology} we briefly explain some concepts in

@@ -20,7 +20,7 @@ and future directions.
 
 In this paper we develop and test the pipeline for constructing a
 patient specific mechanical simulation of a patient's heart, based on
-clinical measurments and adjoint-based data assimilation
+clinical measurements and adjoint-based data assimilation
 techniques.
 
 As a model case we consider one patient, diagnosed with
@@ -102,9 +102,9 @@ group.
 \end{figure}
 
 In this paper we extend the work in the two previous paper to
-bi-ventricular geomtries, and use it to estimate patient-specific
+bi-ventricular geometries, and use it to estimate patient-specific
 myofiber stress and indices of contractility. Furthermore, we investigate
-the senstivtiy of these computed features the helical fiber angle and
+the sensitivity of these computed features the helical fiber angle and
 the choice of active modeling framework.
 
 In this work we estimate the linear isotopic material parameter in
@@ -114,7 +114,7 @@ apply a simplified algorithm for estimating in unloaded geometry, in
 order to overcome issues related to estimating an unloaded
 BiV-geometry, which is not well-posed. The amount of active
 contraction is estimated during the active phase, by minimizing
-simulated and meausured volumes and circumferential strain. The active
+simulated and measured volumes and circumferential strain. The active
 control parameter, which are $\gamma$ in
 \eqref{eq:intro_active_strain_Fa_gjerald}  and $T_a$ in
 \eqref{eq:intro_active_stress} for the active strain and active stress
@@ -139,8 +139,55 @@ diseases related to heart failure.
 
 
 
-\subsection{Paper 4: Assesment region regional myocardial work using
-  adjoint-based data assimilation}
+\subsection{Paper 4: Assessment of regional myocardial work from a
+  patient-specific cardiac mechanics model}
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.7\textwidth]{chapters/introduction/figures/paper4}
+\caption{Summary figure for paper 4}
+\label{fig:paper3}
+\end{figure}
+
+
+In this paper we investigate if it is possible to assess regional
+myocardial work using data assimilation and finite element modeling.
+The amount of work performed by the left ventricle equals to the
+amount to work needed to eject blood against the intraventricular
+pressure. Effectively, a global measure of work is therefore the same
+as the area of the pressure volume (PV) loop which is most commonly refered
+to as stroke work.  However, stroke work is a global measure which
+does not reflect whether some regions in the ventricle work harder than
+others to compensate for regional dysfunction, in order to maintain the
+stroke work needed to meet the body's demand. Therefore a regional
+measure of work would be helpful in assessment of patients with
+regional dysfunction, and preferable we would have a regional meausure
+that summed up to the actual stroke work. The area of the
+pressure-strain loops, where strain here refers to as regional
+longitudinal strain, has been proposed as a meausure regional
+myocardial work, and indices based on these work calculations have
+shown to be a better predictor response to cardiac resynchronization
+therapy, a treatment given to patients with regional dysfunction.
+
+To check the validity of these work calculations we estimate work
+using well known laws from continuum mechanics in a personalized
+cardiac mechanics model, similar to the models in the previous papers.
+These work calculations are compared to estimates using the
+pressure-strain loops approach, and to the ``gold-standard'' PV area.
+Our estimates of global mechanical work are in good agreements with
+estimated PV area, while the pressure-strain loops quantitatively
+underestimates the total mechanical work. However, relative measures
+of regional efficiency seems to be independent of how work is
+computed, and yields the same results in terms of assesment of regional
+dysfunction. Our finding therefore suggest that regional myocardial
+work can be assessed using patient-specific finite element modeling,
+while regional dysfunction in terms of indices of efficiency are
+independent of how work is computed.
+
+In this study we also perform a convergence analysis of the algorithm for
+determining the unloaded, zero-pressure geometry as well as the
+algorithm for joint estimation of material parameters and unloaded
+geometry. 
 
 \newpage
 \section{Other contributions}
@@ -157,7 +204,7 @@ listed below.
     Conference Presentation at MALT 2015,  Lugano, Switzerland (2015).
   \item Henrik Finsberg, Gabriel Balaban, Joakim Sundnes, Marie
     Rognes, and Samuel T. Wall. ``Personalization of a Cardiac
-    Compuational Model using Clinical Measurements'', Conference
+    Computational Model using Clinical Measurements'', Conference
     Presentation at 28th Nordic Seminar on Computational
     Mechanics. Vol. 28. Tallin, Estonia, (2015).
   \item Henrik Finsberg, Gabriel Balaban, Joakim Sundnes, Marie
@@ -196,13 +243,41 @@ listed below.
 
 
 \newpage
+
+% \section{Aim of thesis}
+% Utilizing the power of computational modeling and advanced numerical
+% algorithms to target the problem of personalized cardiac mechanics
+% modeling has been the primary motivation for the work conducted in 
+% this thesis. In particular, we wanted to explore the use of 
+% variational data-assimilation techniques to estimate model parameters
+% based on minimization of mismatch between observed, clinical data and
+% simulated data from a cardiac mechanical model. 
+% The developed framework in this thesis could be applied directly to estimate high
+% dimensional model parameters without any manual tuning of
+% parameters. The aim has been to develop a framework for automatic
+% generation of patient-specific simulations of the heart, by fitting model-parameters to
+% potentially ``any'' type of clinical data. In particular,
+% incorporating regional motion data to estimate spatially resolved
+% parameters has been an essential contribution in this thesis.
+% This type of automated simulation pipeline could potentially be integrated as a part of a
+% clinical diagnostic toolbox and be used to guide clinicians in the
+% decision-making and treatment planning. In particular, such models can
+% be used to assess information that is difficult or even impossible to
+% measure in the human heart, such as indices of contractility,
+% myocardial work and myofiber stress. While the first part of the
+% thesis (Paper 1) is concerned with developing a framework for
+% constraining a mechanics model to clinical data, the second part
+% (Paper 2, 3 and 4) evaluates potentially use biomarkers extracted from
+% the personalized mechanics model. Future work should be geared towards
+% validation of such models, in order to unleash its potential in the
+% clinic.
+
 \section{Closing remarks and future directions}
 
-Although we have shown in this thesis that
-adjoint-based data assimilation is a powerful technique that opens new
-possibilities in terms of patient specific mechanical simulations, many questions
-still has to be answered before we can fully embrace the output of
-such simulations.
+Although we have shown in this thesis that the techniques developed in
+this thesis are powerful, and opens up new possibilities in terms of
+patient specific mechanical simulations, many questions still has to
+be answered before we can fully embrace the output of such simulations.
 
 First of all, is should be clear that \emph{the
   quality of biomarkers you can extract from a data-driven
@@ -226,7 +301,8 @@ then choosing parameters that are resolved at a finer level should be
 done with caution. Regarding both paper 1, 2 and 4 we see that the
 spatial resolution chosen was at a much finer level than the input
 data. In this case, regularization techniques was used to restrict the
-parameter space. 
+parameter space, by assuming that the solution you are seeking has
+some particular properties, e.g smoothness.
 
 
 
