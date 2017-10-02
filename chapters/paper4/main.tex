@@ -38,37 +38,37 @@
  
 
 \subsection*{Abstract}
-  Subject-specific computational models of heart mechanics, calibrated
-  to replicate clinically measured motion data, can be used to
-  estimate regional myocardial work, and thereby provide a measure of
-  regional function and dysfunction.
+Subject-specific computational models of heart mechanics, calibrated
+to replicate clinically measured motion data, can be used to estimate
+regional myocardial work, and thereby provide a measure of regional
+function and dysfunction. 
 
-  Finite element models of human left ventricles (LV) of one healthy
-  case and one patient diagnosed with left bundle branch block (LBBB)
-  were fitted to clinical data consisting of LV volume, regional
-  longitudinal strain, and non-invasive estimates of LV pressure. Excellent
-  fit between measured and simulated observations was obtained by means
-  of gradient-based minimization of model-data mismatch.
-  
-  Regional myocardial work was assessed using several approaches,
-  including the area of pressure-strain loops and the area of fiber stress-strain
-  loops. Qualitative indices of efficiency and quantitative measures of
-  mechanical power density were compared using the different approaches,
-  including the well established pressure-volume area.
+Finite element models of human left ventricles (LV) of one healthy
+case and one patient diagnosed with left bundle branch block (LBBB)
+were fitted to clinical data consisting of LV volume, regional
+longitudinal strain, and non-invasive estimates of LV
+pressure. Model-data mismatch was minimised using a gradient-based
+optimization technique. Regional myocardial work was assessed using
+several approaches, including the area of pressure-strain loops and
+the area of fiber stress-strain loops. Qualitative indices of
+efficiency and quantitative measures of mechanical power density were
+compared using the different approaches, including the well
+established pressure-volume area. 
 
-  Results show that the different approaches for computing regional
-  work are qualitatively similar, and are able to capture regional
-  dysfunction. However, the different approaches are quantitatively
-  very different, and total mechanical work computed using the finite
-  element model are in close agreement with the actual stroke work.
-
-  In conclusion, mechanical work computed using a personalized cardiac
-  mechanics model is quantitatively similar to the actual mechanical
-  work estimated by the area of the pressure-volume loop. This allows
-  for potentially non-invasive quantitative assessment of regional
-  myocardial work, and would greatly improve diagnostics of patients
-  with regional dysfunction, such as dyssynchronous heart failure. 
-
+The results show an excellent fit between measured and simulated
+ventricular volumes and strains. The different methods to calculate
+regional work are shown to be qualitatively similar, and they are all
+able to capture regional dysfunction. However, the different
+approaches are quantitatively very different, and the best agreement
+between the sum of regional work contributions and the actual stroke
+work is obtained using stresses and strains estimated with a finite
+element model. In conclusion, mechanical work computed using a
+personalized cardiac mechanics model is quantitatively similar to the
+actual mechanical work estimated by the area of the pressure-volume
+loop. This allows for potentially non-invasive quantitative assessment
+of regional myocardial work, and would greatly improve diagnostics of
+patients with regional dysfunction, such as dyssynchronous heart
+failure.
 
 \section{Introduction}
 
@@ -96,7 +96,7 @@ contraction of the late-activated lateral wall then results in a
 lengthening of the septal segments during systole, which can be
 identified as wasted work. Recent studies 
 \cite{vecera2016wasted} have shown that wasted septal work due to the
-uncoordinated contraction might be a better predictor for response to
+uncoordinated contraction is a good predictor for response to
 CRT, and that the amount of wasted work reflects the potential for
 recovery. In these calculations, regional work is computed as the area
 of the pressure-strain loops, where regional longitudinal strain is
@@ -131,14 +131,6 @@ directly measure in an intact heart
 \cite{huisman1980measurement}. Consequently, in these calculations all
 segments are assumed to be subjected to the same stress, regardless of
 differences in overall size, curvature or wall thickness.  
-
-% These limitations have been evaluated by Skulstad et al
-% \cite{skulstad2002postsystolic}, who computed regional work
-% based on longitudinal strain and estimated wall stress using the law of
-% Laplace, which accounts for the wall thickness and radius of
-% curvature. They found essentially the same results when compared to
-% estimates using the cavity pressure as surrogate for stress.
-
 These limitations have been evaluated by Delhaas et. al
 \cite{delhaas1994regional} who showed that
 the area of regional fiber stress-strain loops was correlated to
@@ -147,8 +139,6 @@ regional fiber stress was estimated based on assumptions of rotational
 symmetry \cite{arts1991relation}, with each segment scaled according to
 measured fiber strain. Fiber strain was measured at the subepicardial
 layers using a two-dimensional video technique.
-
-
 However, several simplifications, in particular regarding symmetry, is
 made in these simplified models \cite{zhang2011comparison}, and the
 measurement has to be done {\it in situ}.
@@ -178,8 +168,7 @@ canine left ventricles. These parameterized models were used to assess
 regional myocardial work using an approach outlined in
 \cite{niederer2009role}, and they found large regional variations.
 
-
-However, a framework for assessing regional estimates of myocardial
+A framework for assessing regional estimates of myocardial
 work, for which, when all regions are considered, sums up to the total
 stroke work needed to eject blood to the body, is still
 lacking. Furthermore, in order to be clinically useful, the framework
@@ -189,12 +178,12 @@ estimates within a reasonable time frame.
 
 In this study we apply a recently developed framework
 \cite{balaban2017high} for constraining a mechanical model to clinical
-data. This framework employ gradient-based optimization to estimate high
-dimensional parameters in order to minimize the model-data mismatch,
-and therefore offers the needed accuracy. Moreover, the framework
-utilizes state-of-the-art numerical methods which computes the
-gradient efficiently by solving the corresponding adjoint equation,
-and thereby provides these estimates within a reasonable time frame. 
+data. This framework employs gradient-based optimization to estimate high
+dimensional parameters in order to minimize the model-data
+mismatch. Moreover, the framework utilizes state-of-the-art numerical
+methods which computes the gradient efficiently by solving the
+corresponding adjoint equation, and thereby provides these estimates
+within a reasonable time frame.  
 
 The result is a personalized cardiac mechanics model, that can used to quantify
 regional myocardial work. We perform both a qualitative and a
@@ -250,7 +239,7 @@ unit vector field in the direction of the myofibers, $(\cdotp)_{+}
 material stiffness parameters defining the elastic properties of the
 myocardium.
 
-Incompressibility is forced by using a two-field variational approach
+Incompressibility is enforced by using a two-field variational approach
 where the term
 \begin{align}
 \Psi_{\text{vol}} = - p (J-1), 
@@ -287,7 +276,7 @@ external body forces are negligible, the strong formulation yields
   J &= 1, 
 \end{align}
 with $\FPiola = \frac{\partial \Psi}{\partial \F}$ being the first
-Piola-Kirchhoff stress tenors. 
+Piola-Kirchhoff stress tensor. 
 
 To solve the problem we employ the Galerkin finite element method, which is based
 on choosing proper finite dimensional subspaces $V_h \subset [H_0^1(\Omega)]^3$ and
@@ -307,7 +296,7 @@ the Lagrangian form, the weak form reads: {\it find $(\uvec,p)
   \label{eq:force_balance}
 \end{split}
 \end{align}
-Here, the ventricular domain is anchored by constrained the basal
+Here, the ventricular domain is anchored by constraining the basal
 motion by a linear spring-term with stiffness $k$, and the
 endocardial cavity pressure $\plv$ is enforced as a Neumann boundary
 condition on the endocardium.  
@@ -340,12 +329,12 @@ region $\Omega_j$ is given by
 \end{align}
 where $ \dot{\E} $ is the rate of the Green-Lagrange strain tensor.
 By dividing by the volume of the region of interest $| \Omega_j |$,
-we obtain the average work density in that region. Note the sign
-convention used here illustrates that a negative strain-rate
+we obtain the average work density in that region. Note that the sign
+convention used here implies that a negative strain-rate
 represents positive work. To only compute the
-work along a specific direction, e.g along the fibers, the full stress
+work along a specific direction, e.g  work done by normal stress along the fibers, the full stress
 and strain tensors are simply interchanged with their respective
-components in that direction, and the double contraction of the tenors
+components in that direction, and the double contraction of the tensors
 is changed to a scalar multiplication.
 
 The mechanical work needed to eject blood from time $t_1$ to
@@ -356,10 +345,10 @@ $t_2$ is given by
 \end{align}
 where $V(t)$ and $P(t)$ refers respectively to the cavity volume and pressure in
 the left ventricle $\Omega$ at time $t$. If the $t_1$ and $t_2$
-represents respectively the start and end of the cycle, then normalizing with respect to the
-total ventricular wall volume  $| \Omega |$, would yield a measure of
+represent, respectively, the start and end of the cycle, then normalizing with respect to the
+total ventricular wall volume  $| \Omega |$, yields a measure of
 total mechanical work density (TMWD). Diving the TMWD by the total
-cycle time, would yield a measure of total mechanical power
+cycle time, yields a measure of total mechanical power
 density (TMPD). We note that for analysis of performance, TMPD is
 a better measure than total work because it is independent of
 morphology and heart rate.  
@@ -371,45 +360,40 @@ inertial forces are assumed to be so small that the
 equilibrium equation \eqref{eq:force_balance} holds at any discrete
 time point. Therefore, strain rate is estimated using a
 backward difference approximation \cite{wang2011myocardial}.
-Suppose we have $N$ discrete time points $t = 0,1, \cdots N$, where $ t = 0$
+Suppose we have $N+1$ discrete time points $t_i, i = 0,1, \cdots N$, where $ t_0$
 refers to the the reference configuration, and let $\SPiola(t, \Xvec)$
 and $\E(t, \Xvec)$ be respectively the stress and strain tensors at
 time $t$ and position $\Xvec$ in the reference configuration. In the
 following, the full stress and strain tensors are used, but the methodology
 also applies to any component of the stress and strain tensor. We define
 \begin{align}
-  \overline{\SPiola}(t,\Xvec) &= \frac{1}{2}\left( \mathbf{S}(t,\Xvec) + \mathbf{S}(t-1,\Xvec) \right),\\
-  d\E(t,\Xvec) &= \E(t,\Xvec) - \E(t-1,\Xvec),
+  \overline{\SPiola}(t_i,\Xvec) &= \frac{1}{2}\left( \mathbf{S}(t_i,\Xvec) + \mathbf{S}(t_{i-1},\Xvec) \right),\\
+  d\E(t_i,\Xvec) &= \E(t_i,\Xvec) - \E(t_{i-1},\Xvec),
 \end{align}
-for $t = 1,\cdots, N$, and note that $ \mathbf{S}(0) = \mathbf{E}(0) = \mathbf{0}$.
-The mechanical work in a region $\Omega_j$ from time $t=m$ to time $t=n$ can now be approximated
+for $i = 1,\cdots, N$, and note that $ \mathbf{S}(t_0) = \mathbf{E}(t_0) = \mathbf{0}$.
+The mechanical work in a region $\Omega_j$ from time $t_m$ to time $t_n$ can now be approximated
 as 
 \begin{align}
   \begin{split}
-   \mathcal{W}(m, n)[\Omega_j]
-  &= -\int_{t=m}^{t=n} \int_{\Omega_j}\SPiola(t, \Xvec) : \dot{\E}(t, \Xvec) \mathrm{d}\Xvec \mathrm{d}t \\
-  &\approx - \sum_{t = m}^{n}\int_{\Omega_j}\overline{\SPiola}(t, \Xvec) : d\E(t, \Xvec) \mathrm{d}\Xvec
+   \mathcal{W}(t_m, t_n)[\Omega_j]
+  &= -\int_{t_m}^{t_n} \int_{\Omega_j}\SPiola(t, \Xvec) : \dot{\E}(t, \Xvec) \mathrm{d}\Xvec \mathrm{d}t \\
+  &\approx - \sum_{i = m}^{n}\int_{\Omega_j}\overline{\SPiola}(t_i, \Xvec) : d\E(t_i, \Xvec) \mathrm{d}\Xvec
   \end{split}
 \label{eq:total_work}
 \end{align}
 Similarly, the mechanical work computed from the pressure-volume loop area can be estimated as  
 \begin{align}
   \begin{split}
-  \mathcal{W}(m,n)[\Omega]
-  &= - \int_{t=m}^{t=n} \frac{\mathrm{d}V}{\mathrm{d}t} P(t) \mathrm{d}t \\
-  &\approx -\sum_{t = m}^{n}  (V(t) - V(t-1)) \cdot \frac{P(t) + P(t-1)}{2}.
+  \mathcal{W}(t_m,t_n)[\Omega]
+  &= - \int_{t_m}^{t_n} \frac{\mathrm{d}V}{\mathrm{d}t} P(t) \mathrm{d}t \\
+  &\approx -\sum_{i= m}^{n}  (V(t_i) - V(t_{i-1})) \cdot \frac{P(t_i) + P(t_{i-1})}{2}.
   \end{split}
 \end{align}
-
-% Note that calculation of segmental work in Reference
-% \cite{russell2013assessment} is exactly the same but with pressure
-% used as a surrogate for stress and longitudinal strain used in stead of
-% fiber strain. 
 
 \subsubsection{Efficiency and wasted work ratio (WWR)}
 \label{sec:efficiency_wwr}
 
-During systole, most segments shorten and performs positive work
+During systole, most segments shorten and perform positive work
 ($\mathcal{W}_{\mathrm{pos}}$). However some segments might elongate,
 resulting in energy loss, and we say that these segments do negative work
 ($\mathcal{W}_{\mathrm{neg}}$). Positive work is identified as the points with
@@ -429,17 +413,17 @@ work
   \label{eq:efficiency}
 \end{align}
 
-The two indices are related as follows: $\eta = \left( 1 +
+The two indices are related by $\eta = \left( 1 +
   \mathrm{WWR} \right)^{-1}$, and we will therefore only report values
 of the efficiency \eqref{eq:efficiency}, for which a value close to 1.0 indicate that most
 of the performed work is positive. Since we expect work during systole
-to be the main contribution to the overall ejection of blood, this
+to be the main contribution to the overall ejection of blood, the
 index is computed by only including work done from mitral valve closing to
 mitral valve opening \cite{russell2013assessment}. 
 
-Note that with the current sign-convention, negative work is by
-definition negative, which is why we take the absolute value of the
-negative work. 
+% Note that with the current sign-convention, negative work is by
+% definition negative, which is why we take the absolute value of the
+% negative work. 
 
 \subsection{Pre-processing of in vivo data sets}
 
@@ -451,8 +435,8 @@ The analysis of the echocardiographic images was conducted with the
 GE software package EchoPac version 202. Longitudinal strain was
 measured via speckle tracking echocardiography (SPE) in the 17 AHA segments
 \cite{cerqueira2002standardized}. However, the apical segments for both
-subjects as well as the inferior and posterior basal segment for the
-normal case were excluded due to poor quality.
+subjects, as well as the inferior and posterior basal segment for the
+normal case, were excluded due to poor quality.
 
 Using a semi-automatic image segmentation tool, the LV cavity volumes for
 each frame was measured, and the LV endocardial and epicardial
@@ -577,13 +561,13 @@ control by adding the term $\lambda \| \nabla \gamma \|^2$ to the
 objective functional. The regularization parameter $\lambda$
 was chosen based on a previous study to be $\lambda=0.01$ \cite{balaban2017high}.
 
-At each point the optimal value of the previous point is used as
-initial guess, and zero for the first point of active contraction.
-
+The initial guesses for the optimization in this phase were set to
+zero in the first iteration, and in subsequent iterations, the initial
+guesses were set to the optimized values found in the previous iteration.
 
 \section{Results}
-For the normal and LBBB case defined above, we ran the
-full pipeline on two meshes, where one was a refined version of the
+For the normal and LBBB case described above, we ran the
+full data assimilation pipeline on two meshes, where one was a refined version of the
 other. For the normal case, the original and refined mesh had
 respectively 2569 and 5258 elements, while the LBBB case
 had 2572 elements in the original mesh and 5114 elements in the
@@ -603,7 +587,7 @@ choose $k=0.01$ kPa/cm$^2$.
 
 During the estimation of the active and passive parameters outlined in Section
 \ref{sec:active_param_estim} and \ref{sec:passive_param_estim}
-respectively, the optimization was terminated if the value between two
+respectively, the optimization was terminated if the difference between two
 successive iterations was less then $10^{-6}$ or the number of
 iterations exceeded 100. For the material parameter, an upper and lower
 bound was set to $50$ and $0.05$ kPa respectively, while for the active
@@ -730,7 +714,7 @@ to ventricular wall volume, 2) using the full stress and strain tensors,
 3) using the fiber component of the stress and strain tensors, and 4)
 using global longitudinal strain and estimated pressure. Table
 \ref{tab:total_mechanical_power} show these values for the two
-patients, in units kW m$^{-3}$. In the calculations of pressure volume
+subjects, in units kW m$^{-3}$. In the calculations of pressure volume
 area, the simulated volume is used, with the unloaded volume and zero
 pressure included as reference point.
 
@@ -779,8 +763,8 @@ A qualitative comparison of the pressure-strain loops and fiber
 stress-strain loops are illustrated in Figure
 \ref{fig:regional_work_indices}, where we plot the regional efficiency
 \eqref{eq:efficiency} using the two measures of work. We note that the
-efficiency computed using the fiber stress-strain loops are
-lower than for the pressure-strain loops but show the same trend, i.e
+efficiencies computed using the fiber stress-strain loops are
+lower than for the pressure-strain loops, but show the same trend, i.e
 that regions with reduced efficiency coincide.  
 
 \begin{figure}[htbp]
@@ -859,7 +843,7 @@ approximately 60 $\%$ of the
 total mechanical work computed by taking into account the full stress
 and strain tensor (LBBB: 60.5 $\%$, normal:58.7 $\%$). Of course, the
 amount of work performed in transverse direction of the fibers will depend upon the
-particular form of the active deformation gradient in
+chosen form of the active deformation gradient in
 \eqref{eq:active_strain_Fa_gjerald}. In the active stress approach on 
 the other hand, where the total Cauchy stress tensor is additively decomposed into
 active and passive contributions, it is common to add an active stress
@@ -872,7 +856,7 @@ stress approach \cite{sun2009computationally}.
 
 The values of regional TMPD in the mid segments presented
 in Figure \ref{fig:regional_power_density} show that the septal
-segments for the LBBB patient actually consumes energy and yield a
+segments for the LBBB patient actually consume energy and yield a
 negative TMPD. On the other hand, the healthy heart shows positive TMPD
 in all segments and generally higher values than the LBBB heart.
 Since the TMPD computed using stress and strain derived from the
@@ -882,7 +866,7 @@ TMPD reflects the actual regional performance, and future studies should
 investigate how well these values correlate with regional myocardial
 oxygen consumption. 
 
-The TMPD computed using the pressure and global longitudinal strain loop
+The TMPD computed using the pressure and global longitudinal strain
 only accounts for a small fraction of the total mechanical power.
 This indicates that quantitatively this is not a good measure of
 myocardial work. However, the area of the pressure-strain loops have shown to be a good metric
@@ -928,13 +912,13 @@ averaged fiber
 stress ranging from approximately 100 to 160 kPa. For the LBBB
 patients we see a much larger spread in peak fiber stress. In
 particular, we see lower stress in most segments, and high stress
-in e.g the mid anterior segment which is adjacent to a segment with
+in e.g. the mid anterior segment, which is adjacent to a segment with
 low efficiency. In other words, an inefficient segment seems to
 redistribute its load to neighboring segments in order to compensate
 for the diminished efficiency. This leads to high concentration of
 localized stresses which eventually could be responsible for pathological remodeling
 \cite{grossman1975wall}. What is also clear is that fiber stress in the
-early activated segments are not higher than in late activated
+early activated segments is not higher than in late activated
 segments, a finding that is also reported in other studies
 \cite{delhaas1994regional}. 
 
@@ -992,25 +976,25 @@ model-personalization pipeline in future studies.
 The optimization problem during the active phase is highly
 under-constrained, which is why we apply a Tikhonov regularization to
 restrict the parameter space, so that smooth value of the controls are
-favored in the optimization. While the main motivation for this choice
-is numerical stability, whether this is valid assumption from a
-physiological point of view could be debated, especially in the case
-of ventricular dyssynchrony. 
+favored in the optimization. While the motivation for this choice is
+numerical stability, it may be debated whether this is a valid
+assumption from a physiological point of view, especially in the case
+of ventricular dyssynchrony.  
 
 Experiments have shown both a visco-elastic and an orthotropic
 behavior of the myocardium
 \cite{dokos2002shear,sommer2015biomechanical}.
 Visco-elasticity would certainly play a role in myocardial work estimation,
 as the energy is preserved in a hyperelastic material while some energy dissipate when
-taken into account visco-elasticity. However, the effect of
-visco-elasticity and orthotropy is not modeled here, and remains the
+visco-elasticity is taken into account. However, the effect of
+visco-elasticity and orthotropy is not modeled here, and remains a
 subject for future studies. 
 
 Boundary conditions in the cardiac mechanics model is a complicated
 topic, and there is currently no consensus of how to properly define
 these conditions. Here we choose to constrain the basal motion by a
-linear spring, with a stiffness that is as soft as possible to yield
-convergent solutions. Allowing for other than a stress-free epicardial
+linear spring, with a stiffness that is as soft as possible, while
+still giving convergent solutions. Allowing for other than a stress-free epicardial
 boundary condition, and in particular modeling the presence of a right
 ventricle, would influence the regional work calculations, and should
 be investigated in future studies.
@@ -1028,7 +1012,7 @@ be investigated in future studies.
 
 Finally, the choice of fiber orientations in the rule-based algorithm is based
 on early histological studies \cite{streeter1969fiber} of a canine left
-ventricle. Assessment of patients-specific fiber orientations are
+ventricle. Assessment of patient-specific fiber orientations are
 currently not possible \emph{in vivo} with standard imaging techniques,
 and therefore rule-based approaches are still the most
 applicable for assigning myocardial fiber orientations. However,
@@ -1044,21 +1028,17 @@ Gradient-based data assimilation techniques combined with finite
 element modeling, offers a way of computing regional myocardial
 work, that is in broad agreement with actual stroke work.
 
-The same trend in regional efficiency and wasted work ratio can be seen
+The same trends in regional efficiency and wasted work ratios can be seen
 whether myocardial work is estimated based on pressure-strain loops or
 based on fiber stress-strain loops. However the two approaches are
 quantitatively very different. While total mechanical work during one
 heart beat computed using the fiber stress-strain area are in close
 agreement with the stroke work, the pressure-strain loops severely
-underestimates this quantity.
-
-Therefore our findings suggest that estimates of regional myocardial
+underestimates this quantity. These findings suggest that estimates of regional myocardial
 work can be quantitatively assessed using a personalized mechanical
 model, while relative measures such as regional efficiency or wasted
 work ratio can be assessed using simpler methods such as the area of
-the pressure-strain loops.  
-
-Future studies should be geared towards correlating our model-based
+the pressure-strain loops. Future studies should be geared towards correlating our model-based
 estimates of regional myocardial work with measurements of regional
 myocardial oxygen consumption. 
 

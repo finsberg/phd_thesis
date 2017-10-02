@@ -28,15 +28,6 @@ travels through the pulmonary veins to the left atrium (LA), and
 finally to the left ventricle (LV), before is is sent out to the body
 again through the aorta.
 
-The flow from one chamber to another is driven
-by pressure gradients, that is blood flows from regions with higher
-pressure to regions with lower pressure. Consequently, the lowest
-pressure is found in the veins entering the heart, and the highest
-pressure is found in the left ventricle. Between the different
-chambers there are valves that open and close in response to pressure
-gradients as illustrated in Figure \ref{fig:heart_anatomy}.
-
-
 The heart itself is located approximately in the center of the chest
 with the \emph{apex} of heart angled down towards the left of the
 body, and the \emph{base} located just behind the breastbone.
@@ -44,13 +35,21 @@ body, and the \emph{base} located just behind the breastbone.
 
 Starting from the outside of the heart we have the \emph{pericardium},
 the \emph{epicardium}, the \emph{myocardium} and the \emph{endocardium}. 
-The endo- and epicardium are respectively the inner and outer layers of the
-myocardium. The myocardium is made up by individual muscle cells, or
+The pericardium is a fibroserous sac that surrounds that heart, and
+the endo- and epicardium are respectively the inner and outer layers
+of the myocardium. The myocardium is made up by individual muscle cells, or
 myocytes, which branch and join neighboring cells, and form a
 complicated fibrous network which is often referred to as a 
 \emph{functional syncytium} (meaning that the number of active muscle
-fibers cannot be varied from beat to beat). Each myocyte is composed
-of bundles of myofibriles, which again contains
+fibers cannot be varied from beat to beat).
+
+The ventricular muscle fibers orientations varies smoothly through the
+wall, and rotates from the endocardium to the epicardium forming a
+helical structure \cite{streeter1969fiber}. These muscle fiber are
+further organized in laminar sheets, which is separated by gaps called
+cleavage planes \cite{legrice1995laminar}.
+
+Each myocyte is composed of bundles of myofibriles, which again contains
 \emph{myofilaments}. The myofilaments consist of a repeated pattern
 of lines and bands which can be seen as a collection of individual
 contractile units called \emph{sarcomeres}. A simple sketch of a
@@ -67,11 +66,13 @@ back and forth when the muscle contracts or relaxes.
 The thin filaments are made up by a protein called \emph{actin} while
 the thick filaments are made up by a protein called \emph{myosin}.
 
+
+
 \subsection{The cardiac cycle}
 \label{sec:cardiac_cycle}
 
 The heart beats in a cyclic manner, about one beat every second.
-The contraction of the heart is triggered by an electrical signal called an action
+The contraction of the heart is triggered by an action
 potential originating from specialized cells in the right atrium. When an action
 potential is triggered, calcium is released into the cells. These
 calcium ions binds to a complex called troponin C located at the thin
@@ -86,7 +87,7 @@ specialized electrical highways with high conducting cells.
 % (ECG), which is a way of measuring the electrical propagation though
 % the heart. Another
 One way to describe the cardiac cycle is by means of
-the pressure and volume inside the chambers. For example, plotting
+the pressure and volume inside the individual chambers. For example, plotting
 the left ventricular (LV) volume on the $x-$axis and the LV pressure on the $y-$axis
 provides an intuitive representation of the cardiac cycle known as the
 \emph{PV-loop}. In Figure \ref{fig:pv_loop} we show an illustration of
@@ -97,7 +98,7 @@ no blood goes in or out of the ventricle and we call it the
 ventricular pressure exceeds the aortic pressure, the aortic valve
 opens and the heart \emph{ejects} blood into the body. When the ventricular
 pressure drops below the aortic pressure, the aortic valve closes and
-pressure is dropping as the ventricle is relaxing, and we enter the
+pressure drops as the ventricle relaxes, and we enter the
 \emph{isovolumic relaxation} phase. The phase when the ventricle
 contracts, from end diastole until the end of ejection is called
 \emph{systole}, hence this point in the cycle is also know as
@@ -107,15 +108,14 @@ called \emph{diastole}. When the pressure drops below the atrial pressure
 the mitral valve opens and blood is sucked into the ventricle. In the
 final stage of the filling of the ventricle, the atria contracts and
 fills the ventricle before we arrive at end-diastole, and the cycle
-repeats. The phase of atrial contraction is also known as atrial
-systole. 
+repeats. 
 
 
 \begin{figure}[htbp]
   \centering
     \includegraphics[width=0.85\textwidth]{chapters/introduction/figures/cardiac_cycle.png}
 \caption{Showing the relation between pressure and volume in the left
-  ventricle during the cardiac cycle. To the left we show the a reduced version of
+  ventricle during the cardiac cycle. To the left we show a reduced version of
 the classical Wiggers diagram with pressure and volume plotted against
 time. To the right we show the pressure volume loop
 with volume plotted on the $x-$axis and pressure on the $y-$axis. }
@@ -142,7 +142,7 @@ state is called the end diastolic pressure volume relationship
 (\emph{EDPVR}).
 
 Similarly, imagine now that the ventricle is at the end-systolic state,
-when the muscle cells are contracting at its most forcefully. Changing
+when the muscle cells are contracting at their most forcefully. Changing
 the pressure at this state would also result in a change in volume and
 this relationship between pressure and volume  is called the end
 systolic pressure volume relationship (\emph{ESPVR}). The two pressure
@@ -187,7 +187,7 @@ depending upon external regulation.
 
 The slope of any pressure volume relationship is called the \emph{elastance},
 and a famous model known as the  time varying elastance model, relates
-a time varying elastance $E(t)$ to the pressure and volume in the ventricle
+the cavity pressure in the ventricle to the volume and a time varying elastance $E(t)$
 \cite{sagawa1977end},  
 \begin{align}
   P(t) = E(t)( V(t) - V_0 ).
@@ -201,7 +201,7 @@ systole, is considered to be the gold
 standard in terms of quantifying myocardial \emph{contractility}.
 However, it is rarely used because it is difficult to determine
 clinically. What should be noted is that end systolic elastance is
-independent of load, and therefore serve as measure of the ability of
+independent of load, and therefore serves as measure of the ability of
 the ventricle to do work, i.e myocardial contractility.
 
 
@@ -304,7 +304,7 @@ heart's ability to contract efficiently is reduced.
 \subsubsection{Left bundle branch block}
 
 One type of heart failure can result from conduction block in the
-heart. The action potential travels through these electrical highways
+heart. An electrical wave travels through electrical highways
 of high conducting cells. One of these highways known as the Bundle of
 His splits into two parts, the right and left bundle. The right bundle
 activates the right ventricle, while the left bundle activates the
@@ -327,12 +327,10 @@ coxswain to direct the rowers. The CRT’s goal is to try to
 resynchronize the heart so that the left and right ventricles contract
 simultaneously. It involves pacing the heart on both the left and
 right ventricle so that the heart can contract in a synchronous
-way. Therefore CRT are often referred to as biventricular pacing, or
-just BiV pacing.
-
-Experiments show that between 30-40\% of the selected patients do
-not respond to CRT \cite{daubert20122012}, which is why much research
-is put into increasing the responder rate. 
+way. Therefore CRT is often referred to as biventricular pacing, or
+just BiV pacing. However, experiments show that between 30-40\% of the
+selected patients do not respond to CRT \cite{daubert20122012}, which
+is why much research is put into increasing the responder rate. 
 
 
 

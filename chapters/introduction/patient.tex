@@ -5,7 +5,7 @@ mechanical model developed in the previous section. We will start by
 giving a brief overview of the interaction between medical imaging and
 cardiac computational modeling. Then we will explain how the geometries
 are extracted from the medical images and turned into computational
-geometries which we can use for finite element computations. Finally we
+geometries that we can use for finite element computations. Finally we
 will explain how to incorporate additional data into model by means of
 adjoint based data assimilation techniques.
 
@@ -15,12 +15,12 @@ adjoint based data assimilation techniques.
 Since the discovery of X-ray in 1895, medical imaging has played a central
 role in diagnosis, treatment planning and follow-up. Without the huge
 advancements in medical imaging the last decades, computational models
-would not have been as important and promising as it has become.
+would not have been as important and promising as they have become.
 
 
 Cardiac computational modeling often relies on data obtained using
 medical imaging techniques, and the quality of such data is therefore of
-fundamental importance \cite{lamata2014images}. It is clear, that
+fundamental importance \cite{lamata2014images}. It is clear that
 without advancements in medical imaging technology, the role of
 computational models would be limited to simple, idealized cases. With
 access to high quality images, detailed information about cardiac structure
@@ -75,13 +75,13 @@ enhance these 3D volume images, disjoint subvolumes acquired during
 $N$ cardiac cycles ($N$ typically between 2 and
 8)\cite{brekke2007volume} are stitched together.  
 
-The images are later processed using some image segmentation tool.
+The images are further processed using some image segmentation tool.
 One such tool is EchoPac, which is used for analyzing images acquired with
-the echo scanner from GE Vingmed. The 4D Auto LVQ tool in EchoPac, is
-a tool for processing 3D echo images, and traces of volume,
+the echo scanner from GE Vingmed (Horten, Norway). The 4D Auto LVQ tool in EchoPac, is
+a tool for processing 3D echo images, and can be used to extract traces of volume,
 triangulated surfaces and 3D strain traces \cite{heimdal20114d},
 together with a structured mesh of the American Heart Association (AHA) segments
-\cite{cerqueira2002standardized} for each time point can be extracted, see Figure
+\cite{cerqueira2002standardized} for each time point, see Figure
 \ref{fig:echopac_output}. 
 
 \begin{figure}[htbp]
@@ -117,7 +117,7 @@ together with a structured mesh of the American Heart Association (AHA) segments
 In this section we will explain how to generate a left ventricular
 mesh based on segmented surfaces coming from 4D echocardiography.
 Figure \ref{fig:echopac_output} shows an example of how the exported data
-from the image segmentation tool looks like. For each time point we
+from the image segmentation tool look like. For each time point we
 can extract triangulated surfaces of the endocardium and epicardium
 which can be seen in Figure \ref{fig:echopac_out_surf}. Together with
 these surfaces we are also given a so called strain mesh (Figure
@@ -142,7 +142,7 @@ minimizes to sum
 \begin{align}
   \sum_{i = 1}^{N} \left(ax_i + by_i + c  - z_i \right)^2.
 \end{align}
-Once the parameters for the basal plane is found we adjust the size of
+Once the parameters for the basal plane are found we adjust the size of
 the cut, by moving the plane along the longitudinal axis (here
 $x-$axis), until the cavity volume agrees with the measured volume
 given by the image segmentation tool within some specified tolerance. 
@@ -272,9 +272,9 @@ spheroidal coordinates by
     z &= a \cosh \mu \cos \nu,
   \end{split}
 \end{align}
-where $a$ is the focal point, $\nu \in [0, \pi]$ is the longitudinal
-coordinate, $\theta \in [0, 2\pi]$ is the azimuth angle and $\mu$
-is the radial coordinate. For an ellipse given by the equation
+where $a$ is the focal point, $\nu \in [0, \pi]$ is the \emph{longitudinal}
+coordinate, $\theta \in [0, 2\pi]$ is the \emph{circumferential} azimuth angle and $\mu$
+is the \emph{radial} coordinate. For an ellipse given by the equation
 $\frac{x^2}{b^2} +\frac{y^2}{c^2}  = 1$ with $b$ being the semi-major
 axis, and $c$ the semi-minor axis, the focal point is given by
 \begin{align}
@@ -289,11 +289,11 @@ intricate, but can be computed as follows
 \begin{align}
   \begin{split}
     \nu &= \arccos (\tau), \\
-    \mu &= \arccosh (\sigma), \\
+    \mu &= \arccosh (\rho), \\
     \theta &= \arctan \frac{z}{y}, \\
     \tau &= \frac{1}{2a} \big( \sqrt{(x + a)^2 + y^2 + z^2} \\
     & \quad + \sqrt{(x - a)^2 + y^2 + z^2} \big), \\
-    \sigma &= \frac{1}{2a} \big( \sqrt{(x + a)^2 + y^2 + z^2}\\
+    \rho &= \frac{1}{2a} \big( \sqrt{(x + a)^2 + y^2 + z^2}\\
     & \quad - \sqrt{(x - a)^2 + y^2 + z^2}\big). 
   \end{split}
 \end{align}
@@ -320,7 +320,9 @@ ellipsoid, i.e $\nu = \pi / 2$ \cite{land2015verification}.
 \end{figure}
 
 This coordinate system can be used when e.g marking the mesh according
-to the AHA segments
+to the AHA segments and to create vector fields in the longitudinal,
+circumferential and radial direction. These vector fields are useful
+when comparing the simulated results to the image-based measurements.
 
 \subsection{Choosing the reference geometry}
 \label{sef:reference_geometry}
@@ -335,7 +337,7 @@ pressure. In order for the stress and strain to be correct, we need to
 find a geometry, so that when loaded with the measured loads, gives
 back the geometry observed in the medical images. 
 This is analogous to the problem of finding the geometry of a deflated balloon, given
-that we have an image of and inflated version of the balloon. Having
+that we have an image of an inflated version of the balloon. Having
 this picture in mind, it is intuitive that such a geometry not necessarily is unique.
 Several techniques have been applied in order to estimate the unloaded
 geometry, such as the inverse design analysis (ID)
@@ -378,7 +380,7 @@ $\Xvec_{\mathcal{U}}$ we let
 According to Banach Fixed Point Theorem, the mapping $g$ has a
 fixed-point if $\| \nabla g \|_{\infty} = \| \nabla \mathbf{d}
 \|_{\infty} < 1$. This means that as long as the deformation
-resulting from the applied pressure, do not result in a stretch that
+resulting from the applied pressure does not result in a stretch that
 is more than $100 \%$, this method will converge. Of course the
 question about convergence of the fixed point method is one
 thing. Another thing is the convergence of the nonlinear solver.
@@ -401,7 +403,7 @@ geometry is shown in red.}
 \label{fig:unloading_fail}
 \end{figure}
 
-An alternative to the backward displacement method that do not
+An alternative to the backward displacement method that does not
 necessary converge towards a fixed point but provides a more stable
 way of obtaining an unloaded configuration was proposed in Ragahavan
 et. al \cite{raghavan2006non}. In this algorithm, only one iteration of the
@@ -470,13 +472,13 @@ example, applying the backward displacement method to a geometry will
 result in a smaller unloaded cavity volume if the material is softer.
 Therefore, the material parameters estimation is coupled to the
 problem of finding the unloaded, zero pressure geometry.
-In Reference \cite{nikou2016effects}, Nikou et al propose a method for estimating
+In \cite{nikou2016effects}, Nikou et al proposed a method for estimating
 material parameters and the unloaded geometry by iterating between
 the two methods, and terminating if the difference in unloaded cavity
 volume is less than $5 \%$. This method is general and could be applied
 using any unloading algorithm and any method to estimate the material
 parameters. In the last paper in this thesis, we analyze this method
-and shows that it actually converges to the correct solution are are
+and show that it actually converges to the correct solution and is
 stable to noise in the measurements. 
 
 % Assume we are given an image-based LV geometry (which is not
@@ -561,15 +563,15 @@ stable to noise in the measurements.
 The constitutive laws in cardiac mechanics comes from experiments
 done on tissue slabs, and relates stress in the material to strain.
 If we had the same data available for a given patient we could easily
-have performed a regression analysis in order to identify the
+have performed a regression analysis to identify the
 parameters in the constitutive model. However, this type of data
 typically requires that tissue samples are taken from the myocardium,
 which is not an option when dealing with living humans. In general,
 when dealing with physical systems such as the heart or the weather,
 it is not always possible to design an experiment which
-allows to determine all properties of a physical system
+allow us to determine all properties of a physical system
 \cite{chapelle2013fundamental}. In such cases we have to take the
-measurement that we have, and do our best to incorporate them into the
+measurements that we have, and do our best to incorporate them into the
 model. 
 
 For example, the type of data that we usually have available, are data
@@ -593,12 +595,12 @@ estimate based on the new observations. Some examples of sequential
 procedures include Kalman filtering and Luenberger observers
 \cite{chapelle2013fundamental}.
 
-The other approach, called variational data assimilation, also known as
-4D-var, is based on minimizing a cost functional that
-represents the mismatch between observations and simulations, with
-possibly additional regularization terms added to the objective
-functional. We will focus this approach since this is the approach
-taken in this thesis. For a more thorough review of other
+The other approach which is taken in this thesis is called variational
+data assimilation, and also referred as 4D-var. This approach is based
+on minimizing a cost functional that represents the mismatch between
+observations and simulations, with possibly additional regularization
+terms added to the objective functional.
+For a more thorough review of other
 data assimilation techniques we refer to the paper by Chapelle
 et. al \cite{chapelle2013fundamental}.
 
@@ -739,7 +741,7 @@ surface element in the reference configuration.
 
 \paragraph{The strain observation operator
   $\mathcal{H}_{\mathrm{strain}}$}
-Another observation that is encountered in this thesis is strain
+Another observation that is encountered in this thesis are strain
 measurements, or more precisely average regional strain in the
 circumferential, radial or longitudinal direction. Let $\Omega_j$
 denote the volume for which the strain should be averaged over, and
@@ -791,7 +793,7 @@ equation given by \eqref{eq:force_balance_strong}.
 
 
 
-The typical way solving the problem \eqref{eq:pde_constrained} is to
+The typical way of solving the problem \eqref{eq:pde_constrained} is to
 turn the constrained problem into an unconstrained problem. One way
 to do this is to consider the \emph{reduced functional}
 \begin{align}
@@ -988,7 +990,7 @@ parameter we are searching for is smooth. Suppose that $\mu \in
 H^1(\Omega)$ is the parameter we want to find, and that we want to
 favor smooth solutions. Then the norm of the gradient $\| \nabla \mu
 \|$ should be small. One way to achieve this is to add a penalty term
-to the objective functional so that in stead of minimizing
+to the objective functional so that instead of minimizing
 $\mathcal{J}(\state, \mu)$ we minimize $\mathcal{J}(\state, \mu) +
 \lambda \| \nabla \mu\|$, where the constant $\lambda$, known as the
 regularization parameter, controls the smoothness of $\mu$.
@@ -1138,7 +1140,7 @@ likely that the objective functional is not convex, which is a
 requirement for uniqueness. Unfortunately, this is the case for many
 problems in PDE-constrained optimization. In these cases, the objective
 functional might have several distinct local minima, in which case
-different techniques for finding the best local minima exists
+different techniques for finding the best local minima exist
 \cite{farrell2015multiple}. 
 
 
@@ -1201,7 +1203,7 @@ different techniques for finding the best local minima exists
 As can be seen from Figure \ref{fig:cardiac_imaging_model}, data
 assimilation of computational models and medical imaging can be used to
 extract biomarkers. By biomarker, we mean an indicator of some
-biological of physiological process that give insight into the state
+biological of physiological process that gives insight into the state
 or condition of that process. Examples of biomarkers that can be
 extracted from a computational model are parameters related to tissue
 stiffness, like the parameters in the Holzapfel-Ogden material law
@@ -1209,7 +1211,7 @@ stiffness, like the parameters in the Holzapfel-Ogden material law
 the active stress ($T_a$ in \eqref{eq:intro_active_stress}) or the
 active strain ($\gamma$ in \eqref{eq:intro_active_strain_Fa_gjerald}),
 or estimates or myofiber stress.
-Computational models opens a new door when it comes to extraction of
+Computational models open a new door when it comes to extraction of
 biomarkers, and mechanical features such as stress, contractility and
 elastance can easily be computed using a computational model. Of
 course, validation of these models is what matter most in order to

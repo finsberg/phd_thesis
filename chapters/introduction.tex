@@ -27,12 +27,12 @@ world, responsible for more than 17.3 million deaths annually, a
 number that is expected to reach 23.6 million by 2030
 \cite{writing2016heart}. Advancements in detection and treatment
 have reduced morbidity and mortality, but knowledge of the underlying
-mechanisms for the development of the disease is still very poor.
-While some patients respond very well to a therapy, others suffering
+mechanisms for the development of the disease, is still very poor.
+Consequently, while some patients respond very well to a therapy, others suffering
 from the same symptoms might not respond at all.
 Our understanding of these mechanisms has been improved through
 development of advance imaging techniques and through
-computational modeling. While imaging play a central role in
+computational modeling. While imaging plays a central role in
 assessment of cardiac structure and kinematics, biophysical models can
 help us to understand causality in this multiscale environment.  
 
@@ -89,7 +89,7 @@ phrase, taken form \cite{heethaar1977computer} illustrates this fact:
 A paradigm shift in the field of cardiac mechanics modeling came in
 the late 1980s at the University of Auckland. Here the first models
 based on a continuum description of the heart were developed
-\cite{hunter1988analysis}, which is still in use today. 
+\cite{hunter1988analysis}, which is still are use today. 
 
 
 
@@ -100,7 +100,7 @@ based on a continuum description of the heart were developed
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% THE PRESENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Today, advanced imaging techniques allow us to acquire detailed
-mechanical information about the heart of the individual. In addition,
+mechanical information about the heart of an individual. In addition,
 advanced numerical algorithms combined with high performance computing
 power enable us to get more and more detailed simulation of a patients
 heart. 
@@ -109,13 +109,13 @@ heart.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% THE FUTURE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The need for building adequate patient-specific models that captures
-the geometrical information observed in the images as well as the
+the geometrical information observed in the images, as well as the
 underlying biophysical processes, is recognized as one of the key
 challenges in modern bioengineering \cite{hunter2010vision}. This is
 also reflected in the exponential increase in the yearly number of
 publications on the topic \cite{sack2016personalised}.
 In the future, models could be used to as a diagnostic tool to extract
-features from a patients heart that are otherwise impossible to extract from
+features of a patient's heart that are otherwise impossible to extract from
 images. Eventually, models could potentially predict the outcome of
 different treatment strategies and guide clinicians in the decision making.
 
@@ -139,23 +139,23 @@ heart, the question of how to couple these levels together is still open
 
 Another question is how to fuse data observed in medical images with
 computational models, in order to make models specific to the
-individual. These questions has to be addressed before we can take the
+individual. These questions have to be addressed before we can take the
 next step into personalized simulations for \emph{in silico} medicine,
 and use computer simulations to guide treatment, and predict outcome.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% THIS THESIS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Some of these unanswered question serve as motivation for the work
+Some of these unanswered questions serve as motivation for the work
 conducted in this thesis. We focus purely on the mechanical modeling
 of the heart and the aim has been to develop a framework for
 building mechanical models that are personalized at the level of the
 individual.
 
 The mechanics of the heart can be described via equations of nonlinear
-elasticity which is traditionally formulated using a continuum
+elasticity which are traditionally formulated using a continuum
 mechanics approach. This approach has been extensively used in other
-parts of engineering, and numerical solutions to these partial
+parts of engineering, and in this work the numerical solutions to these partial
 differential equations (PDE) are solved using the finite element
 method (FEM) with the open source software package FEniCS \cite{logg2012automated}.
 
@@ -163,12 +163,12 @@ These mechanical models contain model parameters which may vary from
 individual to individual, and patient specificity can be obtained by
 fitting these model parameters to additional clinical data. This
 process is often referred to as data assimilation, a field that has
-its root in meteorology where one want to make a weather forecast based
+its root in meteorology where one wants to make a weather forecast based
 on observations from strategically placed weather stations. The idea
 is to construct a functional which represent the mismatch between the
 model and the observations, and by changing the model parameters we
 also change the value of this mismatch functional. Now, what we want to do is to
-minimize this functional using these model parameters as control. At
+minimize this functional using these model parameters as controls. At
 the same time, the governing PDE, which depend upon these model
 parameters, has to remain true. We therefore often
 refer to such problems as PDE-constrained optimization problems.  
@@ -208,7 +208,7 @@ clinic.
 
 The remaining introduction in this thesis is organized as follows. In
 Section \ref{sec:intro_physiology} we briefly explain some concepts in
-cardiac anatomy and physiology which is used throughout the
+cardiac anatomy and physiology which are used throughout the
 thesis. This section ends with a description of the different cardiac
 diseases encountered in this thesis. In Section
 \ref{sec:intro_mechanical} we give an introduction to continuum
