@@ -1,5 +1,19 @@
 \documentclass{uiophd}
 
+
+
+
+\usepackage{mathptmx}
+% \usepackage{mathpazo} % ugly
+% \usepackage{lmodern}
+
+% \usepackage[euler-digits,small]{eulervm}
+
+% \usepackage{libertine}
+% \usepackage{newtxmath}
+% \usepackage{stix}
+% \usepackage{kpfonts}
+
 \usepackage[utf8]{inputenc}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -15,10 +29,15 @@
 \usepackage[sectionbib]{chapterbib}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
+\usepackage{lipsum}
+\usepackage{rotating}
+\usepackage{enumitem}
 % \usepackage[acronym]{glossaries}
+\usepackage{etoolbox}
 \usepackage{longtable}
 \usepackage[square,numbers,sectionbib]{natbib}
 % \usepackage{cmbright}
+% \usepackage{authblk}
 \urlstyle{rm}
 \input{commands}
 
@@ -36,9 +55,11 @@
 \frontmatter
 \maketitle
 
+% \include{pre_thesis/abstract}
 \include{pre_thesis/dedication}
 \include{pre_thesis/acknowledgements}
 \include{pre_thesis/list_of_papers}
+
 
 
 \tableofcontents
@@ -55,8 +76,9 @@
 \cleardoublepage
 
 \include{chapters/paper1/article}
-% \cleardoublepage
 \include{chapters/paper2/main}
+\include{chapters/paper3/main}
+\include{chapters/paper4/main}
 
 
 

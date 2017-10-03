@@ -8,9 +8,9 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="400"
-   height="275"
-   viewBox="0 0 400 275"
+   width="267.49356"
+   height="186.49576"
+   viewBox="0 0 267.49356 186.49576"
    version="1.1"
    id="s1"
    inkscape:version="0.91 r13725"
@@ -48,8 +48,8 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:zoom="0.58560794"
-     inkscape:cx="547.24204"
-     inkscape:cy="-185.98391"
+     inkscape:cx="251.79924"
+     inkscape:cy="-276.02817"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
@@ -102,141 +102,145 @@
        inkscape:connector-curvature="0"
        style="fill:#000000" />
   </defs>
-  <g
-     id="g1"
-     transform="matrix(-2.9733451e-4,0.99999996,-0.99999996,-2.9733451e-4,392.22244,21.584366)"
-     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt">
-    <path
-       d="m 116,40 0,50 50,0 0,32 m 0,94 0,-34 m 0,95 0,33 -50,0"
-       id="path19"
-       inkscape:connector-curvature="0" />
-    <path
-       d="m 116,90 -50,0 0,74 m 0,59 0,87 50,0 0,50"
-       id="path21"
-       inkscape:connector-curvature="0" />
-    <use
-       xlink:href="#rstr"
-       x="66"
-       y="160"
-       id="use23"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#rstr"
-       x="166"
-       y="215"
-       id="use25"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#ce"
-       x="166"
-       y="115"
-       id="use27"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#atp"
-       transform="translate(116,35)"
-       id="use29"
-       x="0"
-       y="0"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#atp"
-       transform="matrix(-1,0,0,-1,116,360)"
-       id="use31"
-       x="0"
-       y="0"
-       width="100%"
-       height="100%" />
-  </g>
   <!-- vim:nowrap:sw=2:so=2:et:ai -->
   <text
      xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="209.79712"
-     y="229.28474"
-     id="text4177"
-     sodipodi:linespacing="125%"><tspan
-       sodipodi:role="line"
-       id="tspan4179"
-       x="209.79712"
-       y="229.28474">Contractile</tspan><tspan
-       sodipodi:role="line"
-       x="209.79712"
-       y="254.28473"
-       id="tspan4181">element</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="379.39035"
-     y="143.36526"
-     id="text4183"
-     sodipodi:linespacing="125%"><tspan
-       sodipodi:role="line"
-       id="tspan4185"
-       x="379.39035"
-       y="143.36526">F</tspan></text>
-  <text
-     sodipodi:linespacing="125%"
-     id="text4187"
-     y="138.24237"
-     x="5.4200001"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'TeX Gyre Schola Math';-inkscape-font-specification:'TeX Gyre Schola Math';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     xml:space="preserve"><tspan
-       y="138.24237"
-       x="5.4200001"
-       id="tspan4189"
-       sodipodi:role="line">F</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="163.10646"
-     y="19.199991"
-     id="text4191"
-     sodipodi:linespacing="125%"><tspan
-       sodipodi:role="line"
-       x="163.10646"
-       y="19.199991"
-       id="tspan4195">Parallel </tspan><tspan
-       sodipodi:role="line"
-       x="163.10646"
-       y="44.199989"
-       id="tspan4199">elastic</tspan><tspan
-       sodipodi:role="line"
-       x="163.10646"
-       y="69.199989"
-       id="tspan4201">element</tspan></text>
-  <text
-     xml:space="preserve"
      style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="-567.21979"
-     y="351.69577"
+     x="-573.21979"
+     y="353.23578"
      id="text4203"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan4205"
-       x="-567.21979"
-       y="351.69577" /></text>
-  <text
-     sodipodi:linespacing="125%"
-     id="text4207"
-     y="220.7"
-     x="113.58528"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     xml:space="preserve"><tspan
-       id="tspan4209"
+       x="-573.21979"
+       y="353.23578" /></text>
+  <g
+     id="g3387"
+     transform="matrix(0.67718072,0,0,0.67718072,-2.0630844,0.9797991)">
+    <g
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt"
+       transform="matrix(-2.9733451e-4,0.99999996,-0.99999996,-2.9733451e-4,392.22244,21.584366)"
+       id="g1">
+      <path
+         inkscape:connector-curvature="0"
+         id="path19"
+         d="m 116,40 0,50 50,0 0,32 m 0,94 0,-34 m 0,95 0,33 -50,0" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path21"
+         d="m 116,90 -50,0 0,74 m 0,59 0,87 50,0 0,50" />
+      <use
+         height="100%"
+         width="100%"
+         id="use23"
+         y="160"
+         x="66"
+         xlink:href="#rstr" />
+      <use
+         height="100%"
+         width="100%"
+         id="use25"
+         y="215"
+         x="166"
+         xlink:href="#rstr" />
+      <use
+         height="100%"
+         width="100%"
+         id="use27"
+         y="115"
+         x="166"
+         xlink:href="#ce" />
+      <use
+         height="100%"
+         width="100%"
+         y="0"
+         x="0"
+         id="use29"
+         transform="translate(116,35)"
+         xlink:href="#atp" />
+      <use
+         height="100%"
+         width="100%"
+         y="0"
+         x="0"
+         id="use31"
+         transform="matrix(-1,0,0,-1,116,360)"
+         xlink:href="#atp" />
+    </g>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4177"
+       y="229.28474"
+       x="209.79712"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="229.28474"
+         x="209.79712"
+         id="tspan4179"
+         sodipodi:role="line">Contractile</tspan><tspan
+         id="tspan4181"
+         y="254.28474"
+         x="209.79712"
+         sodipodi:role="line">element</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4183"
+       y="143.36526"
+       x="379.39035"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="143.36526"
+         x="379.39035"
+         id="tspan4185"
+         sodipodi:role="line">F</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'TeX Gyre Schola Math';-inkscape-font-specification:'TeX Gyre Schola Math';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="5.4200001"
+       y="138.24237"
+       id="text4187"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4189"
+         x="5.4200001"
+         y="138.24237">F</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4191"
+       y="19.199991"
+       x="163.10646"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         id="tspan4195"
+         y="19.199991"
+         x="163.10646"
+         sodipodi:role="line">Parallel </tspan><tspan
+         id="tspan4199"
+         y="44.199989"
+         x="163.10646"
+         sodipodi:role="line">elastic</tspan><tspan
+         id="tspan4201"
+         y="69.199989"
+         x="163.10646"
+         sodipodi:role="line">element</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="113.58528"
        y="220.7"
-       x="113.58528"
-       sodipodi:role="line">Series </tspan><tspan
-       id="tspan4211"
-       y="245.7"
-       x="113.58528"
-       sodipodi:role="line">elastic</tspan><tspan
-       id="tspan4213"
-       y="270.70001"
-       x="113.58528"
-       sodipodi:role="line">element</tspan></text>
+       id="text4207"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="113.58528"
+         y="220.7"
+         id="tspan4209">Series </tspan><tspan
+         sodipodi:role="line"
+         x="113.58528"
+         y="245.7"
+         id="tspan4211">elastic</tspan><tspan
+         sodipodi:role="line"
+         x="113.58528"
+         y="270.70001"
+         id="tspan4213">element</tspan></text>
+  </g>
 </svg>

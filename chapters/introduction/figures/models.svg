@@ -12,9 +12,9 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="168.16757mm"
-   height="59.468254mm"
-   viewBox="0 0 595.86936 210.71429"
+   width="113.55755mm"
+   height="40.156784mm"
+   viewBox="0 0 402.36927 142.28782"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4.0000001"
-     inkscape:cx="179.31042"
-     inkscape:cy="114.60506"
+     inkscape:zoom="2.0000001"
+     inkscape:cx="136.93542"
+     inkscape:cy="46.178597"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -586,20 +586,6 @@
      id="layer1"
      inkscape:groupmode="layer"
      inkscape:label="Layer 1">
-    <rect
-       y="662.83429"
-       x="-658.44769"
-       height="56.185154"
-       width="151.04231"
-       id="rect4739"
-       style="fill:#aade87;fill-opacity:1;stroke:#050000;stroke-width:1.52912652;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <rect
-       style="fill:#aade87;fill-opacity:1;stroke:#050000;stroke-width:1.52912652;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4737"
-       width="151.04231"
-       height="56.185154"
-       x="-656.44769"
-       y="509.83429" />
     <ellipse
        style="fill:#aade87;fill-opacity:1;stroke:#050000;stroke-width:0.57251859;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="ellipse7865"
@@ -1788,126 +1774,144 @@
        d="m -1349.1674,129.83105 -0.094,-12.16702"
        id="path5705"
        inkscape:connector-curvature="0" />
-    <rect
-       style="fill:#aade87;fill-opacity:1;stroke:#050000;stroke-width:1.18212712;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4603"
-       width="111.38932"
-       height="45.532154"
-       x="-334.62122"
-       y="589.66077" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-651.55103"
-       y="541.16345"
-       id="text4705"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4707"
+    <g
+       id="g3678"
+       transform="matrix(0.67526434,0,0,0.67526434,-265.79944,165.31309)">
+      <rect
+         style="fill:#aade87;fill-opacity:1;stroke:#050000;stroke-width:1.52912652;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4739"
+         width="151.04231"
+         height="56.185154"
+         x="-658.44769"
+         y="662.83429" />
+      <rect
+         y="509.83429"
+         x="-656.44769"
+         height="56.185154"
+         width="151.04231"
+         id="rect4737"
+         style="fill:#aade87;fill-opacity:1;stroke:#050000;stroke-width:1.52912652;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         y="589.66077"
+         x="-334.62122"
+         height="45.532154"
+         width="111.38932"
+         id="rect4603"
+         style="fill:#aade87;fill-opacity:1;stroke:#050000;stroke-width:1.18212712;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4705"
+         y="541.16345"
          x="-651.55103"
-         y="541.16345">Medical imaging</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-759.30328"
-       y="605.12848"
-       id="text4709"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4711"
-         x="-756.87653"
-         y="605.12848">Geometric </tspan><tspan
-         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="541.16345"
+           x="-651.55103"
+           id="tspan4707"
+           sodipodi:role="line">Medical imaging</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4709"
+         y="605.12848"
          x="-759.30328"
-         y="627.00348"
-         id="tspan4717">model creation</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-625.57025"
-       y="618.45471"
-       id="text4713"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4715"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="605.12848"
+           x="-756.87653"
+           id="tspan4711"
+           sodipodi:role="line">Geometric </tspan><tspan
+           id="tspan4717"
+           y="627.00348"
+           x="-759.30328"
+           sodipodi:role="line">model creation</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4713"
+         y="618.45471"
          x="-625.57025"
-         y="618.45471">Validation</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-433.06134"
-       y="604.99725"
-       id="text4719"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4721"
-         x="-430.63458"
-         y="604.99725">Data </tspan><tspan
-         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="618.45471"
+           x="-625.57025"
+           id="tspan4715"
+           sodipodi:role="line">Validation</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4719"
+         y="604.99725"
          x="-433.06134"
-         y="626.87225"
-         id="tspan4723">assimilation</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-584.23779"
-       y="689.16345"
-       id="text4725"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4727"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="604.99725"
+           x="-430.63458"
+           id="tspan4721"
+           sodipodi:role="line">Data </tspan><tspan
+           id="tspan4723"
+           y="626.87225"
+           x="-433.06134"
+           sodipodi:role="line">assimilation</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4725"
+         y="689.16345"
          x="-584.23779"
-         y="689.16345">Computational</tspan><tspan
-         sodipodi:role="line"
-         x="-584.23779"
-         y="711.03845"
-         id="tspan4729">models</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-324.55103"
-       y="616.06598"
-       id="text4731"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4733"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="689.16345"
+           x="-584.23779"
+           id="tspan4727"
+           sodipodi:role="line">Computational</tspan><tspan
+           id="tspan4729"
+           y="711.03845"
+           x="-584.23779"
+           sodipodi:role="line">models</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4731"
+         y="616.06598"
          x="-324.55103"
-         y="616.06598">Biomarkers</tspan></text>
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker5707)"
-       d="m -656.55103,537.16344 -101,0 0,51"
-       id="path4741"
-       inkscape:connector-curvature="0" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path4755"
-       d="m -759.68145,636.8223 -0.27011,52.54469 98.32783,1.17101"
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4758)"
-       sodipodi:nodetypes="ccc" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path5536"
-       d="m -504.53691,536.98301 81.48628,0 0,51.34758"
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5538)" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker6258)"
-       d="m -506.4609,696.00432 83.91656,0 0,-57.88583"
-       id="path6256"
-       inkscape:connector-curvature="0" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker6822)"
-       d="m -580.84606,662.17154 -0.34427,-37.01191"
-       id="path6814"
-       inkscape:connector-curvature="0" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path7024"
-       d="m -580.73211,604.17044 -0.56153,-37.00925"
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker7026)" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path7372"
-       d="m -375.38545,613.50411 37.01144,0.39181"
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker7374)" />
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;line-height:125%;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="616.06598"
+           x="-324.55103"
+           id="tspan4733"
+           sodipodi:role="line">Biomarkers</tspan></text>
+      <path
+         inkscape:connector-curvature="0"
+         id="path4741"
+         d="m -656.55103,537.16344 -101,0 0,51"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker5707)" />
+      <path
+         sodipodi:nodetypes="ccc"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4758)"
+         d="m -759.68145,636.8223 -0.27011,52.54469 98.32783,1.17101"
+         id="path4755"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5538)"
+         d="m -504.53691,536.98301 81.48628,0 0,51.34758"
+         id="path5536"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path6256"
+         d="m -506.4609,696.00432 83.91656,0 0,-57.88583"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker6258)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path6814"
+         d="m -580.84606,662.17154 -0.34427,-37.01191"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker6822)" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker7026)"
+         d="m -580.73211,604.17044 -0.56153,-37.00925"
+         id="path7024"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker7374)"
+         d="m -375.38545,613.50411 37.01144,0.39181"
+         id="path7372"
+         inkscape:connector-curvature="0" />
+    </g>
   </g>
 </svg>
