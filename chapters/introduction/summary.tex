@@ -18,8 +18,8 @@ and future directions.
 \end{figure}
 
 
-In this paper we develop and test the pipeline for constructing a
-patient specific mechanical simulation of a patient's heart, based on
+In this paper we develop and test a pipeline for constructing a
+patient-specific mechanical simulation of a patient's heart, based on
 clinical measurements and adjoint-based data assimilation
 techniques.
 
@@ -28,22 +28,22 @@ left bundle branch block and selected for cardiac resynchronization
 therapy (CRT). Prior to the CRT implantation the patient had 4D
 echocardiography taken for which the LV geometry, LV volumes and LV
 regional strains throughout the cardiac cycle are measured. During
-implantation of the CRT device the LV pressure where also measured
-invasively. The LV pressure measurements are used as boundary condition at the
-endocardium, while the LV volume and LV regional strain is incorporated
-into a cost functional that we want to minimize.
+implantation of the CRT device the LV pressure were also measured
+invasively. The LV pressure measurements were used as boundary condition at the
+endocardium, while the LV volume and LV regional strain were incorporated
+into a cost functional that we wanted to minimize.
 
 
 The pipeline is divided into two phases, a passive phase where we
 estimate the linear isotropic parameters $a$ in
 \eqref{eq:holzapel_trans} as a global material parameter using the
-measurement points belonging atrial systole, and an active phase where we estimate the
+measurement points belonging atrial systole, and an active phase where we estimate
 a spatially varying contraction parameter ($\gamma$ in
 \eqref{eq:intro_active_strain_Fa_gjerald}) at each measurement point
 with active contraction. During the passive phase we only fit the
-volumes, while during the active phase 51 strain measurements in the radial,
+volumes, while during the active phase a total of 51 strain measurements in the radial,
 longitudinal and circumferential direction in each AHA segment (Figure
-\ref{fig:echopac_output}) are used in the optimization. 
+\ref{fig:echopac_output}) were used additionally in the optimization. 
 
 The results show an excellent fit with measured strain an volume, with
 a average relative error in the volume and strain of less than 0.4 \% and 3 \%
@@ -51,7 +51,7 @@ respectively using a contraction parameter with one degree of freedom
 for each vertex in the geometry (2661 parameters in total). Parameters
 at lower spatial resolution are also tested to show the necessity of
 high spatial resolution to fit the measured strain data.
-A synthetic test is also performed in order to show that that method
+A synthetic test is also performed in order to show that the method
 is able to recapitulate the generated data, also with noise added to
 the data. Moreover, a sensitivity analysis to different parameters are
 presented in the appendix.
@@ -71,8 +71,8 @@ presented in the appendix.
 In this paper we apply the method developed in the previous paper to a
 cohort of patients and estimate indices of cardiac contractility. More
 specifically, a group of seven patients diagnosed with left bundle branch block and
-selected for cardiac resynchronization therapy (CRT) and a group of
-seven healthy control subjects where included in the study.
+selected for cardiac resynchronization therapy (CRT), and a group of
+seven healthy control subjects were included in the study.
 
 The pipeline is similar to the one outlined in paper 1, with the
 exception that we also estimate the unloaded, stress-free
@@ -84,19 +84,19 @@ The optimized active strain parameter in
 active stress parameter in \eqref{eq:intro_active_stress} are averaged
 over the ventricle and compared between the two groups. The healthy
 group showed a significant increase in both of these
-parameters. Furthermore, estimation of end-systolic elastance by
-perturbation of the pressure at the end-systolic state while fixing
-the remaining quantities were made. This estimate of end-systolic
-elastance where also significantly higher in the healthy control
+parameters. Furthermore, an estimation of the end-systolic elastance by
+perturbation of the model at the end-systolic state, while fixing
+the remaining quantities, was also conducted. This estimate of end-systolic
+elastance were also significantly higher in the healthy control
 group. 
 
 
-\subsection{Paper 3: Personalized bi-ventricular mechanical analysis
-  using gradient-based optimization..}
+\subsection{Paper 3: Efficient estimation of personalized biventricular mechanical
+  function employing gradient-based optimizatio}
 
 \begin{figure}[htbp]
   \centering
-    \includegraphics[width=0.8\textwidth]{chapters/introduction/figures/paper3}
+    \includegraphics[width=0.75\textwidth]{chapters/introduction/figures/paper3}
 \caption{Summary figure for paper 3}
 \label{fig:paper3}
 \end{figure}
@@ -109,10 +109,10 @@ the choice of active modeling framework.
 
 In this work we estimate the linear isotopic material parameter in
 \eqref{eq:holzapel_trans}, spatially resolved on the LV and RV, by
-minimizing the error in end-diastolic LV and RV cavity volumes. We also
-apply a simplified algorithm for estimating in unloaded geometry, in
-order to overcome issues related to estimating an unloaded
-BiV-geometry, which is not well-posed. The amount of active
+minimizing the error in end-diastolic LV and RV cavity volumes.
+We use a simplified algorithm to estimate the unloaded geometry, since
+the problem of estimating an unloaded BiV-geometry is not well-posed
+because buckling of the RV free wall might occur. The amount of active
 contraction is estimated during the active phase, by minimizing
 simulated and measured volumes and circumferential strain. The active
 control parameter, which are $\gamma$ in
@@ -166,7 +166,7 @@ that summed up to the actual stroke work. The area of the
 pressure-strain loops, where strain here refers to as regional
 longitudinal strain, has been proposed as a meausure regional
 myocardial work, and indices based on these work calculations have
-shown to be a better predictor response to cardiac resynchronization
+shown to be a good predictor of response to cardiac resynchronization
 therapy, a treatment given to patients with regional dysfunction.
 
 To check the validity of these work calculations we estimate work
@@ -211,11 +211,17 @@ listed below.
     Rognes, and Samuel T. Wall. ``Optimization of a Spatially Varying
     Cardiac Contraction parameter using the Adjoint Method'',
     Conference Presentation at FEniCS 16, Oslo, Norway,(2016).
-  \item Finsberg, Henrik N., Gabriel Balaban, Joakim Sundnes, Hans
+  \item Henrik Finsberg, Gabriel Balaban, Joakim Sundnes, Hans
     Henrik Odland, Marie Rognes, and Samuel T. Wall. ``Personalized
     Cardiac Mechanical Model using a High Resolution Contraction Field
     '',  Conference Presentation at VPH16 Translating VPH to the
     Clinic,  Amsterdam, Netherlands (2016).
+  \item Henrik Finsberg, John Aalen,Camilla K.
+    Larsen, Espen Remme, Joakim Sundnes, Otto A. Smiseth, and 
+    Samuel T. Wall. ``Assessment of regional myocardial work via through
+    adjoint-based data assimilation. '',  Conference Presentation at
+    the International Conference on Computational Science and
+    Enfineering, Oslo, Norway (2016).
 \end{itemize}
 
 
@@ -274,9 +280,9 @@ listed below.
 
 \section{Closing remarks and future directions}
 
-Although we have shown in this thesis that the techniques developed in
+Although we have shown that the techniques developed in
 this thesis are powerful, and opens up new possibilities in terms of
-patient specific mechanical simulations, many questions still has to
+patient-specific mechanical simulations, many questions still have to
 be answered before we can fully embrace the output of such simulations.
 
 First of all, is should be clear that \emph{the
@@ -287,12 +293,7 @@ meaning that if the data you use to constrain the model is noisy, then
 you will also fit this noise if you allow for enough degree of
 freedom. Regularization techniques (Section
 \ref{sec:intro_regularization}) provides a way to attack this problem,
-but it is not clear what is the best approach. If the noise in the
-data is normally distributed with zero expected value, then adding
-more data to the cost functional will also have a regularizing effect.
-Hence, as the data assimilation techniques developed in this thesis
-can take into account large amount of data, as much data as possible
-should be provided to the assimilator.
+but it is not clear what is the best approach.
 
 A rule of thump is that \emph{the spatial resolution of the parameters should be
   reflected in the spatial resolution of the observations}. This means
@@ -300,11 +301,9 @@ that if one is trying to fit data that are spatially resolved at some level,
 then choosing parameters that are resolved at a finer level should be
 done with caution. Regarding both paper 1, 2 and 4 we see that the
 spatial resolution chosen was at a much finer level than the input
-data. In this case, regularization techniques was used to restrict the
-parameter space, by assuming that the solution you are seeking has
-some particular properties, e.g smoothness.
-
-
+data. In this case, regularization techniques were used to restrict the
+parameter space, by assuming that the solution we seek had specific
+properties, e.g smoothness.
 
 Regarding the mechanical modeling of the heart, 
 \emph{choosing appropriate boundary conditions} that reflect the reality has
@@ -314,12 +313,10 @@ well as the visco-elastic behavior of the myocardium} is something that should
 be investigated in future studies. Accounting for an orthotropic
 behavior would acquire more parameters to be estimated, which would
 thus require more input data.
-
 In this thesis we have also not fully
 explored the \emph{spatial resolution of the material parameters}, and it
 should be investigated whether it is possible to relate locally estimated
 tissue stiffness to e.g myocardial infarction.
-
 % The choice of active model for the myocardium is another topic that
 % should be addressed in more detail in future studies. In the author's
 % opinion, the output of the two fundamentally different approaches may
@@ -330,14 +327,12 @@ tissue stiffness to e.g myocardial infarction.
 % naturally embedded in the active strain approach via a volume
 % preserving active deformation.
 
-
 Finally, when estimating high dimensional parameters, a natural question
 concerning uniqueness of these estimates arises. It is obvious that if one allows for
 enough degree of freedom in the parameter space, then it is possible
 to fit almost any type of data. Therefore \emph{more work on ensuring
-identifiability} of these estimates (Section
-\ref{sec:intro_identifiability}) should be done. If the output of such
-model should have any clinical utility, then uniqueness of the
+identifiability} of these estimates should be done. If the output of such
+models should have any clinical utility, then uniqueness of the
 estimated parameters is absolutely pivotal. Moreover, \emph{validation} of
 these model is what matter most in terms of translating such computational
 models into the clinic.

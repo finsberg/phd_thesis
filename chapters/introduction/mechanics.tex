@@ -5,7 +5,7 @@ In this section we will cover the necessary theory of continuum
 mechanics in order to model the mechanics of the heart. The theory of
 continuum mechanics is extensive, and we will not be able to cover
 everything. For a complete review of continuum mechanics the reader is
-therefore referred the textbook of Gerard Holzapfel
+therefore referred the textbook of Gerhard Holzapfel
 \cite{holzapfel2000nonlinear} from which most of the theory in this
 section is taken. For the even more mathematically oriented reader we
 refer to \cite{marsden1994mathematical}.
@@ -27,9 +27,8 @@ are related through the mapping $\varphi$, by $\xvec = \varphi(\Xvec)$.
 For time-dependent problems it is common to make  the time-dependence
 explicitly by writing $\xvec = \varphi(\Xvec, t)$. In the following
 we will only focus on the mapping between two configurations and
-therefore no time-dependence is needed. The mapping $\varphi$ will be
-referred to as the \emph{motion}. The \emph{deformation gradient} is a
-rank-2 tensor, defined as the partial derivative of the motion with
+therefore no time-dependence is needed. The \emph{deformation gradient} is a
+rank-2 tensor, defined as the partial derivative of $\varphi$  with
 respect to the material coordinates:
 \begin{align}
   \F = \nabla_{\Xvec} \varphi= \Grad \xvec.
@@ -94,7 +93,7 @@ derive the fore-balance equations for the mechanics of the heart.
 \subsubsection{Transformations between reference and current
   configuration}
 By definition, the reference configuration $\Omega$, and current
-configuration $\omega$, are related via the motion $\varphi$ in the
+configuration $\omega$, are related via the deformation map $\varphi$ in the
 sense that a point $\mathfrak{p} \in \mathfrak{B}$ with reference
 coordinates $\Xvec$ and current coordinates $\xvec$ satisfies $\xvec =
 \varphi(\Xvec)$. Likewise a vector in the reference configuration is
@@ -170,7 +169,12 @@ the reference configuration
   \nabla \cdot \FPK = \mathbf{0}, 
   \label{eq:momentum_simple_reference}
 \end{align}
-where $\FPK$ is the first Piola-Kirchhoff stress tensor.
+where $\FPK$ is the first Piola-Kirchhoff stress tensor. Note that the
+operator $\nabla \cdot$ acting on the Cauchy stress tensor represents
+differentiation with respect to coordinates in the current
+configuration, while when acting on the first Piola-Kirchhoff stress
+tensor represent differentiation with respect to coordinates in the
+referece configuration. 
 
 \subsubsection{Conservation of angular momentum}
 Just like linear momentum, the angular momentum is also a conserved
@@ -275,7 +279,7 @@ transversely isotropic invariants are given by
 \begin{align*}
   I_{4\mathbf{a}_0 } = \mathbf{a}_0 \cdot (\C \mathbf{a}_0) && \text{and} && I_5 = \mathbf{a}_0 \cdot (\C^2 \mathbf{a}_0).
 \end{align*}
-The invariants do have a physical interpretation. For instance, $I_3$
+Some of the invariants do have a physical interpretation. For instance, $I_3$
 is related to the volume ratio of material during deformation, while
 $I_{4\mathbf{a}_0 } $ is related to the stretch along the direction
 $\mathbf{a}_0 $. Indeed the \emph{stretch} ratio in the direction
