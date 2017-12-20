@@ -17,9 +17,9 @@
 % \begin{center}
 Gabriel Balaban$^{1,2,5}$\footnotemark[\value{footnote}],
 Henrik Finsberg$^{1,2,5}$\footnotemark,
-Hans Henrik Odland$^{4,7}$,
+Hans Henrik Odland$^{4,5,7}$,
 M. E. Rognes$^{1,3}$,
-Stian Ross$^{4,4}$,
+Stian Ross$^{4,5}$,
 Joakim Sundnes$^{1,2,5}$, and
 Samuel Wall$^{1,5,6}$
 
@@ -132,22 +132,22 @@ These are important considerations as better understanding of myocardial propert
 emerges and the collection of high resolution clinical data continues to expand.
 
 The rest of this paper is organized as follows: In
-Section~\ref{sec:methods} we present a mathematical model that
+Section~\ref{paper1:sec:methods} we present a mathematical model that
 accounts for the three main drivers of ventricular mechanics; blood
 pressure, tissue elasticity and muscle contraction.  
 We also describe clinical measurements of a patient suffering from dyssynchrony, and our data assimilation procedure
 for fitting the model to these measurements.
-Numerical results are presented in Section~\ref{sec:num_results}, and discussed in
-Section~\ref{sec:discussion}. Finally, we provide some concluding
-remarks in Section~\ref{sec:conclusion}.
+Numerical results are presented in Section~\ref{paper1:sec:num_results}, and discussed in
+Section~\ref{paper1:sec:discussion}. Finally, we provide some concluding
+remarks in Section~\ref{paper1:sec:conclusion}.
 
 
 \section{Materials and Methods}
-\label{sec:methods}
+\label{paper1:sec:methods}
 
 \subsection{Wall motion modelling}
 
-\label{sec:wall_motion}
+\label{paper1:sec:wall_motion}
 In order to estimate the position of the myocardial walls through
 the cardiac cycle we adopt a continuum mechanics description of
 cardiac wall motion. In this description we consider a fixed left
@@ -166,7 +166,7 @@ Assuming that the cardiac walls are in equilibrium,
 it is possible to determine the value of $\uvec$ from the principle of
 virtual work
 \begin{equation}
-  \label{eq:work-balance}
+  \label{paper1:eq:work-balance}
   \delta W(\uvec) = 0,
 \end{equation}
 which states that the virtual work, $\delta W(\uvec)$, of all forces
@@ -174,7 +174,7 @@ applied to a mechanical system vanishes in equilibrium. For our ventricular wall
 model, the virtual work $\delta W(\uvec)$, is given by
 \begin{equation}
 \begin{aligned}
-\label{eq:workdef}
+\label{paper1:eq:workdef}
  \delta W(\uvec, p) &= \int_{\Omega} \FPK : \Grad \ \du \ dV 
 		  + \int_{\Omega} (J - 1) \dpre + p J \F^{-T} : \Grad \ \du \ dV  \\
 		 &+ \plv \int_{\lvendo} J \F^{-T} \Nvec \cdotp \du \ dS 
@@ -187,13 +187,13 @@ and $\mathbf{I}$ being the second order identity tensor.
 Furthermore, $\Nvec$ denotes the unit outward normal vector, $k$ 
 the constant of a spring that we introduce at the basal boundary, and $\plv$ the intra-ventricular 
 blood pressure. The virtual variables $\du$ and $\dpre$ are test functions whose values
-are arbitrary when the system \eqref{eq:work-balance} is in mechanical
+are arbitrary when the system \eqref{paper1:eq:work-balance} is in mechanical
 equilibrium.
 
 In order to anchor the computational geometry, we fix $\uvec$ in the longitudinal direction 
 at the base by using a Dirichlet boundary condition. At the epicardial boundary normal
 forces are set to 0, and so there is no term for this boundary in
-\eqref{eq:workdef}.
+\eqref{paper1:eq:workdef}.
 
 The internal stresses of our model are given by $\FPK$, the first Piola-Kirchhoff tensor,
 which can be calculated as a derivative of a strain energy functional
@@ -202,7 +202,7 @@ In our model we employ a reduced version~\cite{Krishnamurthy2013, gjerald2015pat
   asner2015estimation, hadjicharalambous2015analysis} of the
 Holzapfel-Ogden strain energy law~\cite{Holzapfel2009}, 
 \begin{equation}
-\label{eq:hoa}
+\label{paper1:eq:hoa}
  \psi(\C) = \frac{a}{2 b} \left( e^{ b (I_1(\C)
  - 3)}  -1 \right)
  + \frac{a_f}{2b_f} \left( e^{ b_f (I_{4f}(\C)
@@ -223,12 +223,12 @@ elastic properties of a myocardial tissue model to a specific patient.
 
 The Lagrange multiplier formulation of incompressibility that we 
  employ enforces its constraint only weakly. This can cause
- convergence issues in the numerical solution of the work balance equation~\eqref{eq:work-balance}. We therefore
- eliminate volumetric strains from the energy function \eqref{eq:hoa}
+ convergence issues in the numerical solution of the work balance equation~\eqref{paper1:eq:work-balance}. We therefore
+ eliminate volumetric strains from the energy function \eqref{paper1:eq:hoa}
  by a simple modification
  \begin{equation}
   \tilde{\psi}(\C) = \psi(J^{-\frac{2}{3}}\C).
- \label{eq:strain_energy}
+ \label{paper1:eq:strain_energy}
  \end{equation}
  This modification has been shown to improve the robustness of
  Newton-Raphson methods applied to incompressible hyperelastic
@@ -239,7 +239,7 @@ active strain framework~\cite{nardinocchi2007active}.  In this framework the amo
 of muscle fiber shortening is specified by a field $\gamma$ via
 a split of the deformation gradient
 \begin{equation}
-  \label{eq:fsplit}
+  \label{paper1:eq:fsplit}
   \F = \F_e \F_a(\gamma),
 \end{equation}
 where $\F_e$ is the elastic part and $\F_a(\gamma)$ the active
@@ -249,7 +249,7 @@ the incompressibility constraint by design and directly relates the
 amount of active fiber shortening to the value of $\gamma$
 \begin{equation}
   \F_a = (1 - \gamma) \ef \otimes \ef  + \frac{1}{\sqrt{1 - \gamma}} (\I- \ef \otimes \ef).
- \label{eq:active_strain}
+ \label{paper1:eq:active_strain}
 \end{equation}
 In the case $\gamma = 0$ there is no muscle shortening at all, and the
 amount of shortening increases with increased $\gamma$ up to the
@@ -263,7 +263,7 @@ that the strain energy only depends on the elastic part of the
 deformation
 \begin{equation}
  \FPK = \frac{\partial \tilde{\psi}}{\partial \F} = \frac{\partial \tilde{\psi} (\C_e)}{\partial \F}
-\label{eq:active_strain_energy}
+\label{paper1:eq:active_strain_energy}
 \end{equation}
 with $\C_e = \F_e^T\F_e$.
 
@@ -271,10 +271,10 @@ Given an amount of fiber shortening $\gamma$, the value of the elastic
  parameters $a, b, a_f, b_f$, the intraventricular blood pressure
  $\plv$ and the spring constant $k$, the myocardial wall displacement
  $\uvec$ and hydrostatic pressure $p$ can be obtained by solving the
- principle of virtual work \eqref{eq:work-balance}. 
+ principle of virtual work \eqref{paper1:eq:work-balance}. 
 
  \subsection{Clinical measurements}
-\label{sec:clinical_measurements}
+\label{paper1:sec:clinical_measurements}
 Clinical data were obtained at the Oslo
 University Hospital in the context of the Impact study \cite{ImpactStudy2016}. Specifically,
 we consider the case of an 82 year old man in NYHA functional 
@@ -317,7 +317,7 @@ valve closure (AVC) was chosen just before the pressure had its largest
 decrease after AVO, and the mitral valve opening
 before the pressure dropped down to baseline after AVC. 
 A pressure-volume loop based on the synchronization is displayed in
-Figure~\ref{fig:pv_loop_phases}.
+Figure~\ref{paper1:fig:pv_loop_phases}.
 
 Finally a linear correction of the strain curves was performed in order to 
 eliminate drift; with drift being defined as the value of the strain obtained at
@@ -325,9 +325,9 @@ the end of the cardiac cycle. Theoretically drift should be zero for a stable cy
 The linear correction enforces the cyclical property.
 
 \subsection{Ventricular geometry generation}
-\label{sec:compgeo}
+\label{paper1:sec:compgeo}
 The computational mechanics framework used for our wall motion model,
-described in Section~\ref{sec:wall_motion}, requires a reference stress-free geometry from
+described in Section~\ref{paper1:sec:wall_motion}, requires a reference stress-free geometry from
 which to define displacements. Such a geometry typically does not exist in-vivo due to the 
 presence of blood pressure on the endocardial walls. Algorithms exist for calculating
 stress free geometries given a loaded state \cite{bols2013computational, gee2010computational}.
@@ -352,58 +352,58 @@ and endocardial surfaces that lay above the cutting plane were removed.
 
 We employed Gmsh \cite{geuzaine2009gmsh} to create a 
 linear tetrahedral volumetric mesh between the endocardial and epicardial surfaces. 
-This mesh had 1262 elements, and is shown in Figure~\ref{fig:compgeo_mesh}.
+This mesh had 1262 elements, and is shown in Figure~\ref{paper1:fig:compgeo_mesh}.
 Myocardial fiber orientations were assigned using a rule based method,
 with a fiber helix angle of $40$ degrees on the 
 endocardium rotated clockwise throughout the ventricular wall 
 to $-50$ degrees on the epicardium \cite{bayer2012novel}. 
 A streamline representation of the local myocardial fibers is displayed
-in Figure \ref{fig:compgeo_fibers}.
+in Figure \ref{paper1:fig:compgeo_fibers}.
 
 Finally, the AHA-segments from the strain mesh were transferred onto the volumetric mesh.
 This was accomplished by computing prolate spherical coordinates for
 the barycenter of each tetrahedron,
 and then assigning an AHA-zone to the tetrahedron 
 based on the corresponding prolate spherical coordinate in the strain mesh. 
-AHA-segments on the volumetric mesh are shown in Figure~\ref{fig:compgeo_regions}.
+AHA-segments on the volumetric mesh are shown in Figure~\ref{paper1:fig:compgeo_regions}.
 
 \begin{figure}[htbp]
 \centering
 \begin{subfigure}[t]{0.25\textwidth}
      \centering
      \raisebox{2mm}{\includegraphics[width=0.9\textwidth]{LV_systole_volume_trace}}
-     \caption{\label{fig:ultrasound_image}}
+     \caption{\label{paper1:fig:ultrasound_image}}
 \end{subfigure}
 \qquad
 \begin{subfigure}[t]{0.25\textwidth}
     \includegraphics[width=\textwidth, trim={15cm 4cm 21cm 3cm}, clip]{mesh}
-    \caption{\label{fig:compgeo_mesh}}    
+    \caption{\label{paper1:fig:compgeo_mesh}}    
 \end{subfigure}
 \qquad
 \begin{subfigure}[t]{0.25\textwidth}
     \includegraphics[width=\textwidth, trim={15cm 4cm 21cm 3cm}, clip]{fibers}
-    \caption{\label{fig:compgeo_fibers}}
+    \caption{\label{paper1:fig:compgeo_fibers}}
 \end{subfigure}
 \qquad
 \begin{subfigure}[t]{0.25\textwidth}
     \includegraphics[width=\textwidth, trim={15cm 4cm 21cm 3cm}, clip]{sfun}
-    \caption{\label{fig:compgeo_regions}}
+    \caption{\label{paper1:fig:compgeo_regions}}
 \end{subfigure}
 \begin{subfigure}[t]{0.35\textwidth}
     \includegraphics[width=\textwidth]{bullseye}
-    \caption{\label{fig:bullseye}}
+    \caption{\label{paper1:fig:bullseye}}
   \end{subfigure}
 \caption{Ventricular geometry generation. Endo and epi-cardial surfaces 
-are marked on 3-D ultrasound images. Figure (\ref{fig:ultrasound_image}) shows the endocardial 
+are marked on 3-D ultrasound images. Figure (\ref{paper1:fig:ultrasound_image}) shows the endocardial 
 marking for a 2-D slice of one such image. Next a computational geometry is generated
-from epi and endo-cardial surfaces (\ref{fig:compgeo_mesh}), and rule based
-fibers are assigned (\ref{fig:compgeo_fibers}). Finally AHA segments are assigned
-to the geometry (\ref{fig:compgeo_regions}), according to the standardized scheme
-(\ref{fig:bullseye}).}
+from epi and endo-cardial surfaces (\ref{paper1:fig:compgeo_mesh}), and rule based
+fibers are assigned (\ref{paper1:fig:compgeo_fibers}). Finally AHA segments are assigned
+to the geometry (\ref{paper1:fig:compgeo_regions}), according to the standardized scheme
+(\ref{paper1:fig:bullseye}).}
 \end{figure}
 
 \subsection{Parameter Estimation}
-\label{sec:paramest}
+\label{paper1:sec:paramest}
 Now that we have a mathematical description of cardiac motion, along
 with a personalized computational geometry and target data, we next turn to the
 problem of personalizing the motion model via the estimation of the
@@ -431,7 +431,7 @@ muscle contraction in the ventricle, and so we set $\gamma = 0$ for
 this phase. This allows us to estimate elastic properties
 independently of contraction during atrial systole, and then estimate
 contraction at each point in the rest of the cardiac cycle with the
-material parameters fixed. In Figure~\ref{fig:pv_loop_phases} we show
+material parameters fixed. In Figure~\ref{paper1:fig:pv_loop_phases} we show
 the pressure-volume loop of the patient under consideration, and
 highlight the phases where we estimate the contraction and elastic
 parameters.
@@ -443,17 +443,17 @@ parameters.
   ventricle. Measurements in the blue solid line are used to estimate
   contraction, whereas measurements in the red dashed line are used
   to estimate elasticity. }
-\label{fig:pv_loop_phases}
+\label{paper1:fig:pv_loop_phases}
 \end{figure}
 
 
 \subsection{Definition of functionals}
-\label{sec:data_func}
-As described in Section~\ref{sec:clinical_measurements}, the data
+\label{paper1:sec:data_func}
+As described in Section~\ref{paper1:sec:clinical_measurements}, the data
 available for our personalization of the wall motion model are
 pressure, volume and strain measurements throughout the cardiac
 cycle. The pressure measurements are included in the model as a boundary condition 
-via the virtual work~\eqref{eq:work-balance},
+via the virtual work~\eqref{paper1:eq:work-balance},
 and thus our data assimilation only needs to fit the model to
 the volume and strain measurements. This requires that
 we define a suitable set of functionals that quantify the
@@ -469,7 +469,7 @@ longitudinal, respectively. Given a measurement point $i$, we define
 the model-strain mismatch
 \begin{equation}
  \Istrain^i =  \sum_{j= 1}^{17} \sum_{k \in \{c,r,l\}}  \left( \varepsilon_{kj}^i -  \tilde{\varepsilon}_{kj}^i \right)^2,
-\label{eq:strain_functional}
+\label{paper1:eq:strain_functional}
  \end{equation}
 for model strain $\tilde{\varepsilon}_{kj}^i$ and measured strain
 $\varepsilon_{kj}^i$. The speckle tracking software we use provides the measured strain $\varepsilon_{kj}^i$. 
@@ -477,7 +477,7 @@ This strain is regionally averaged and of Lagrangian type. In order to mimic thi
 define the model strain as
 \begin{equation}
 \varepsilon_{kj} =  \frac{1}{|\Omega_j|}\int_{\Omega_j}  \mathbf{e}_k^T \nabla \uvec \, \mathbf{e}_k \ dx,
-\label{eq:g_futhese nctional}
+\label{paper1:eq:g_futhese nctional}
 \end{equation}
 where $\ek$ denotes a unit direction field and
 $|\Omega_j|$ the volume of segment $j$.
@@ -489,7 +489,7 @@ Furthermore we also define the model-volume mismatch
 where the model volume is calculated by the formula
 \begin{equation}
   \tilde{V}^i = -\frac{1}{3} \int_{\lvendo} (\Xvec + \uvec) \cdotp J \F^{-T} \Nvec  \ dS.
-  \label{eq:vol_functional}
+  \label{paper1:eq:vol_functional}
  \end{equation}
 We note that this method of calculating the model volume depends upon
 $(\Xvec + \uvec)\cdotp \Nvec = 0$ at the basal plane. These conditions hold in 
@@ -497,11 +497,11 @@ our model as the basal plane is defined with 0 longitudinal coordinate and
 longitudinal displacements are also set to 0 in this plane.
 
 In order to have a single optimization target to describe the fit to data 
-we combine the strain \eqref{eq:strain_functional} and volume
-\eqref{eq:vol_functional} mismatches into one single functional
+we combine the strain \eqref{paper1:eq:strain_functional} and volume
+\eqref{paper1:eq:vol_functional} mismatches into one single functional
 \begin{equation}
   \Idata^i(\alpha) = \alpha \Ivol^i + (1 - \alpha) \Istrain^i.
-\label{eq:total_functional}
+\label{paper1:eq:total_functional}
 \end{equation}
 Here the parameter $\alpha$ controls the relative emphasis of the parameter
 estimation on volume or strain matching.
@@ -513,7 +513,7 @@ functional values. In order to further constrain the optimization we introduce
 a 1st order Tikohonov regularization functional
 \begin{equation}
  \Ismooth^i(\lambda) = \lambda \| \nabla \gamma^i \|^2, 
- \label{eq:I_smooth}
+ \label{paper1:eq:I_smooth}
 \end{equation}
 where $\|\cdotp \|$ represents the standard $L^2$ norm.
 This functional discriminates between $\gamma$ parameter sets based on their smoothness.
@@ -521,22 +521,22 @@ The parameter $\lambda$ can be adjusted to control the size of the functional an
 the relative emphasis on smoothing.
 
 \subsection{Parameter estimation as an optimization problem}
-\label{sec:param_est}
+\label{paper1:sec:param_est}
 The elastic parameters of the reduced
-Holzapfel-Ogden law \eqref{eq:hoa} represent the passive elastic
+Holzapfel-Ogden law \eqref{paper1:eq:hoa} represent the passive elastic
 properties of the myocardium. We personalize these properties by
 adjusting the parameter $a$ to match measured left ventricular volumes.
 Mathematically this problem is formulated as
 \begin{equation}
 \begin{aligned}
-\label{eq:opt_matparam}
+\label{paper1:eq:opt_matparam}
 & \underset{a}{\text{minimize}}
 & &  \sum_{i = 1}^{\Nas} \Ivol^i \\
 & \text{subject to}
 & & \delta W(\plv^i, a) = 0 \quad \forall \,  i \ \in \{1,...N_{AS} \},
 \end{aligned}
 \end{equation}
-where $\delta W$ is given by \eqref{eq:workdef}, and $\Nas =
+where $\delta W$ is given by \eqref{paper1:eq:workdef}, and $\Nas =
 3$ indicates the total number of measurements available in atrial
 systole.
 
@@ -545,7 +545,7 @@ also being as smooth as possible. In order to achieve this we minimize both the
 data and smoothness functionals as follows:
 \begin{equation}
 \begin{aligned}
-\label{eq:opt_gamma}
+\label{paper1:eq:opt_gamma}
 & \underset{\gamma}{\text{minimize}}
 & & \Idata^i(\alpha) + \Ismooth^i(\lambda) \\
 & \text{subject to}
@@ -555,13 +555,13 @@ data and smoothness functionals as follows:
 \end{equation}
 This problem is solved for every measurement point $i$ not in atrial systole.
 
-The optimization problems \eqref{eq:opt_matparam} and \eqref{eq:opt_gamma} have two
+The optimization problems \eqref{paper1:eq:opt_matparam} and \eqref{paper1:eq:opt_gamma} have two
 free parameters whose values must be chosen, namely the strain-volume
 weighing $\alpha$ and the regularization $\lambda$. The value of $\lambda$ can be expected to influence the trade-off
 between the optimized values of the data functional $\Idata^i$ and the regularization functional
 $\Ismooth^i$. Similarly $\alpha$ can be expected to influence the trade-off between $\Istrain^i$
 and $\Ivol^i$. In our study we choose the values of $\alpha$ and $\lambda$ by examining their effects on the functionals
-that they weigh. The choices we made are further described in Section~\ref{sec:a_l_choice}
+that they weigh. The choices we made are further described in Section~\ref{paper1:sec:a_l_choice}
 
 The spatial resolution of the parameter $\gamma$ affects the amount of detail
 that can be captured by the model and simultaneously
@@ -573,7 +573,7 @@ with a linear interpolation between vertices. Using our ventricular mesh, a P1 r
 
 
 \subsection{Implementation of mechanics and optimization solvers}
-For the numerical solution of the work balance equation~\eqref{eq:work-balance} we employ a
+For the numerical solution of the work balance equation~\eqref{paper1:eq:work-balance} we employ a
 Galerkin finite element method with Taylor-Hood tetrahedral
 elements~\cite{hood1974navier}; that is, a continuous piecewise
 quadratic representation of the displacement field and a continuous
@@ -582,18 +582,18 @@ piecewise linear representation of the pressure field.
 The software implementation of our finite element method is based on
 the package FEniCS~\cite{LoggMardalEtAl2011a}, which automatically
 generates matrix and vector assembly code from a symbolic
-representation of the work balance equation~\eqref{eq:work-balance}.
+representation of the work balance equation~\eqref{paper1:eq:work-balance}.
 The resulting nonlinear systems were solved using the PETSc
 implementation of a Newton trust region algorithm~\cite{PETScPackage},
 while the inner linear solves were handled by a distributed memory
 parallel LU solver~\cite{lidemmel03}.
 
-To solve the optimization problems \eqref{eq:opt_matparam} and
-\eqref{eq:opt_gamma}, we apply a sequential quadratic programming
+To solve the optimization problems \eqref{paper1:eq:opt_matparam} and
+\eqref{paper1:eq:opt_gamma}, we apply a sequential quadratic programming
 algorithm (SQP)~\cite{kraft1988software}. This algorithm requires the
 derivatives of the function to be optimized, which in our case are the
 gradients of the mismatch functionals in
-problems~\eqref{eq:opt_matparam} and \eqref{eq:opt_gamma} with respect
+problems~\eqref{paper1:eq:opt_matparam} and \eqref{paper1:eq:opt_gamma} with respect
 to $a$ and $\gamma$ respectively. These gradients are
 automatically computed by solving a machine derived adjoint equation via the
 software framework dolfin-adjoint~\cite{farrell2013automated}.
@@ -601,20 +601,20 @@ software framework dolfin-adjoint~\cite{farrell2013automated}.
 In addition to gradients, the SQP algorithm requires evaluations of
 the mismatch functionals for given values of the control variables,
 which again relies on the solution of the work balance
-equation~\eqref{eq:work-balance}. In the case of
-problem~\eqref{eq:opt_gamma}, the control variable is $\gamma$, which
-has a large influence on the solution of \eqref{eq:work-balance}.
-Numerical solution of \eqref{eq:work-balance} by Newton's method
+equation~\eqref{paper1:eq:work-balance}. In the case of
+problem~\eqref{paper1:eq:opt_gamma}, the control variable is $\gamma$, which
+has a large influence on the solution of \eqref{paper1:eq:work-balance}.
+Numerical solution of \eqref{paper1:eq:work-balance} by Newton's method
 depends upon having a good initial guess, which in our case are the
 values of the mechanical state variables, $\uvec, p$, resulting from
-the previous solve of \eqref{eq:work-balance}. If the value of
+the previous solve of \eqref{paper1:eq:work-balance}. If the value of
 $\gamma$ differs too greatly from one solve to the next the Newton
 algorithm might fail due to the root of the system being too far away
 from the initial guess. To avoid this problem we make use of a
 homotopy procedure that moves from one value of $\gamma$ to the next
-in small increments, and solves \eqref{eq:work-balance} each time the
+in small increments, and solves \eqref{paper1:eq:work-balance} each time the
 value of $\gamma$ is changed.  This procedure is presented as
-Algorithm~\ref{alg:homotopy-newton} and is similar to the one found
+Algorithm~\ref{paper1:alg:homotopy-newton} and is similar to the one found
 in~\cite{pezzuto2014orthotropic}. 
 
 All algorithms, solvers and relevant data are
@@ -622,7 +622,7 @@ publicly available online \cite{OurPackage}.
 
 \begin{algorithm}
 \caption{Max Increment Homotopy Newton Solver}
-\label{alg:homotopy-newton}
+\label{paper1:alg:homotopy-newton}
   \begin{algorithmic}
    \State \emph{Initial Variables}
    \State $\begin{array}{ll}
@@ -652,7 +652,7 @@ publicly available online \cite{OurPackage}.
 
 \subsection{Error Estimation}
 
-The optimization functionals introduced in Section~\ref{sec:data_func} are defined 
+The optimization functionals introduced in Section~\ref{paper1:sec:data_func} are defined 
 separately for each measurement
 point. For the purposes of evaluating goodness of fit over the entire cardiac cycle
 we consider metrics that are averaged over measurement points. Furthermore we 
@@ -660,7 +660,7 @@ relate errors to the sizes of the data
 for ease of interpretation. In the case of the model-volume error we introduce the volume metric
 \begin{equation}
 \overline{I}_{\text{vol}} = \frac{ \| V^i - \tilde{V}^i \|_{\ell^1}}{ \| V^i \|_{\ell^1}}
-\label{eq:average_volume}
+\label{paper1:eq:average_volume}
  \end{equation}
 where the $\ell^1$ norm is taken with respect to the measurement point index $i$.
 Furthermore we consider two average strain metrics
@@ -671,7 +671,7 @@ Furthermore we consider two average strain metrics
 \Istrainrelmax &=  \frac{1}{51} \sum_{k \in \{c,r,l\}}
  \frac{\sum_{j= 1}^{17} \| \varepsilon^i_{k,j} 
  -  \tilde{\varepsilon}^i_{k,j} \|_{\ell^1}}{ \max_j \| \varepsilon^i_{k,j} \|_{\ell^1}}.
-\label{eq:average_strain}
+\label{paper1:eq:average_strain}
 \end{align}
 Here $N$ specifies the number of measurement points used in the
 optimization, and the factor $51$ is $17 \times 3$,
@@ -690,11 +690,11 @@ metric that is averaged across measurement points
 and a combined data metric based on the strain and volume metrics
 \begin{equation}
   \Idataavg = \Ivolavg + \Istrainavg.
-\label{eq:total_functional}
+\label{paper1:eq:total_functional}
 \end{equation}
 
 Finally we also define an error metric for a synthetic
-data test of the contraction optimization \eqref{eq:opt_gamma}. In this
+data test of the contraction optimization \eqref{paper1:eq:opt_gamma}. In this
 test a contraction field $\gamma_{\text{ground}}$ is chosen and 
 synthetic data is generated from the 
 mechanics model. This data is then used to calculate a
@@ -704,11 +704,11 @@ fields we employ a relative $L^2$ norm
 \begin{equation}
   \| \epsilon_{\gamma} \|_{\text{avg}} = \frac{1}{N} \sum_{i = 1}^{N}  \frac{\| \gamma_{\text{repr}}^{i} -
   \gamma_{\text{ground}}^{i} \|_{L^2}}{ \| \gamma_{\text{ground}}^{i} \|_{L^2}}.
-\label{eq:error_gamma}
+\label{paper1:eq:error_gamma}
 \end{equation}
 
 \section{Numerical Experiments}
-\label{sec:num_results}
+\label{paper1:sec:num_results}
 In this section we present the results of our numerical experiments.
 We first estimate the parameter $a$ using volume measurements in atrial systole.
 We then test the estimation of contraction $\gamma$ using synthetic data generated
@@ -729,9 +729,9 @@ algorithm was initialized with the value of $\gamma$ from the previous
 measurement point in the cardiac cycle. 
 
 In order to obtain convergence of Newton's method for the solution of
-the virtual work equation~\eqref{eq:work-balance}, we set $\delta
+the virtual work equation~\eqref{paper1:eq:work-balance}, we set $\delta
 \gamma_{max} = 0.02$ in the homotopy Newton solver
-(Algorithm~\ref{alg:homotopy-newton}), and 
+(Algorithm~\ref{paper1:alg:homotopy-newton}), and 
 limit $\gamma$ to the interval $[0, 0.9]$. In the cases that Newton's
 method did not converge, $\delta \gamma_{max}$ was halved until convergence was obtained. 
 
@@ -745,15 +745,15 @@ therefore compatible with the stress free assumption.
 
 The value of the basal spring-constant was set to $k = 1.0$ kPa. This allowed for some
 motion in the basal plane,
-and was shown in a sensitivity analysis (see Appendix~\ref{sec:k_sense})
+and was shown in a sensitivity analysis (see Appendix~\ref{paper1:sec:k_sense})
 to give optimal $\gamma$ values
 whose spatial average is close to that obtained with a completely fixed boundary.
 
 \subsection{Estimation of elastic parameter $a$}
-\label{sec:elasticparam}
+\label{paper1:sec:elasticparam}
 An estimate of the parameter $a$ was obtained by minimizing the mismatch between
 model derived and clinically measured volumes in atrial systole,
-as described in \eqref{eq:opt_matparam}. The optimal $a$ value obtained was $0.435$, 
+as described in \eqref{paper1:eq:opt_matparam}. The optimal $a$ value obtained was $0.435$, 
 with goodness of fit $\overline{I}_{\text{vol}} = 0.0035$.
 The same optimal $a$ value was obtained from 8 randomly chosen starting points
 between 0 and 45.
@@ -761,16 +761,16 @@ between 0 and 45.
 
 \subsection{Synthetic dataset creation}
 
-\label{sec:data_synthetic}
+\label{paper1:sec:data_synthetic}
 In order to evaluate the performance of our contraction estimation
-method \eqref{eq:opt_gamma} under idealized conditions we  
+method \eqref{paper1:eq:opt_gamma} under idealized conditions we  
 have performed synthetic data tests. The data for these tests was
 constructed by solving the virtual work 
-equation~\eqref{eq:work-balance} for a given set of elastic parameters
+equation~\eqref{paper1:eq:work-balance} for a given set of elastic parameters
  $(a, a_f, b, b_f)$, contraction $\gamma$, and cavity pressures.
 The $a$ parameter was set to $0.435$, as obtained previously by
 fitting the model to the patient atrial systolic volume data. The
-other three elastic parameters were fixed to the values mentioned in Section~\ref{sec:paramest}.
+other three elastic parameters were fixed to the values mentioned in Section~\ref{paper1:sec:paramest}.
 The contraction $\gamma$ was chosen to be a wave 
 with Gaussian shape and P1 resolution traveling along the longitudinal axis.
 
@@ -779,7 +779,7 @@ fewer than the number of in-vivo
 measurement points, which allowed for faster computations. The
 pressure values that were chosen  
 for the synthetic measurement points
-can be seen in Figure~\ref{fig:synthetic_gammafields}. These pressures start at 0, 
+can be seen in Figure~\ref{paper1:fig:synthetic_gammafields}. These pressures start at 0, 
 increase to the maximum atrial systole pressure 
 that was measured in-vivo and then decrease linearly back to 0. 
 
@@ -793,11 +793,11 @@ strain curves generated by the speckle tracking software.
 Finally we consider 30 noisy realizations of the regional strain
 curves. The noise that was added to these curves was estimated 
 from the drift values of the in-vivo strain and is described in
-Appendix~\ref{sec:strain_noise_est}.
+Appendix~\ref{paper1:sec:strain_noise_est}.
 
 
 \subsection{Choice of functional weights $\alpha$ and $\lambda$}
-\label{sec:a_l_choice}
+\label{paper1:sec:a_l_choice}
 The optimization functional weights $\alpha$ and $\lambda$ were chosen based on
 trial optimizations using the synthetic and in-vivo datasets. The strains in the synthetic
 data were regionally averaged and noisy.
@@ -807,13 +807,13 @@ ranging from 0 to 1.0 in increments of 0.1, in addition to the values
 For each level of $\alpha$ we recorded the values of the
 fit metrics, $\Ivolavg$ 
 and $\Istrainavg$, and plotted them against each
-other (Figure~\ref{fig:lcurves}). Based on the plot 
+other (Figure~\ref{paper1:fig:lcurves}). Based on the plot 
 we chose $\alpha = 0.95$ as this value gave a good balance between
 volume and strain matching.  
 With the value of $\alpha$ fixed to $0.95$ we tested $\lambda$
 from $10^{-6}$ to $100.0$ in increasing powers of 10.
 The effect of the choice of $\lambda$ on the smoothness and data functionals
-is shown in Figure~\ref{fig:lcurves}. Based on this plot we selected points
+is shown in Figure~\ref{paper1:fig:lcurves}. Based on this plot we selected points
 that gave near optimal fit values with a high level of smoothness. 
 These points were $\lambda = 1.0$ for the synthetic case
 and $\lambda = 0.01$ for the patient case.
@@ -821,8 +821,8 @@ and $\lambda = 0.01$ for the patient case.
 
 
 \subsection{Contraction estimation with synthetic data}
-\label{sec:results_synthetic}
-Using the synthetic datasets described in Section \ref{sec:data_synthetic} as a target we 
+\label{paper1:sec:results_synthetic}
+Using the synthetic datasets described in Section \ref{paper1:sec:data_synthetic} as a target we 
 calculated optimized contraction fields. All elastic parameters 
 were kept fixed throughout the optimization so that the test was restricted to
 the contraction field.
@@ -844,7 +844,7 @@ respectively.
 
 For the case of the full clean strains we have plotted the 
 reconstructed contraction field alongside the ground truth in
-Figure~\ref{fig:synthetic_gammafields}. 
+Figure~\ref{paper1:fig:synthetic_gammafields}. 
 We note that the ground truth and reproduction appear very similar. In
 order to visualize the effect of the  
 noise in strain on the optimized contraction field we
@@ -852,7 +852,7 @@ plotted the mean and standard deviation of the 30 synthetic strain curves,
 and mean and standard deviation of the average of the contraction field 
 resulting from the 30 strain curves. Both of these plots are
 restricted to the anterior basal segment and are shown in Figure
-\ref{fig:noisy_strain_curve}. We note that the effect of the noise on
+\ref{paper1:fig:noisy_strain_curve}. We note that the effect of the noise on
 the average contraction field is minimal.
 
 
@@ -877,11 +877,11 @@ the average contraction field is minimal.
   The synthetic strains are noisy and regionally averaged. The contraction parameter is represented 
   at P1 resolution.
   Top:
-  optimal strain mismatch \eqref{eq:average_strain} versus average volume mismatch \eqref{eq:average_volume} 
+  optimal strain mismatch \eqref{paper1:eq:average_strain} versus average volume mismatch \eqref{paper1:eq:average_volume} 
   for a range of $\alpha$ values and $\lambda = 0.0$.  Bottom: Total data mismatch
   versus contraction gradient size for a range of $\lambda$ values
   and $\alpha = 0.95$.}
-\label{fig:lcurves}
+\label{paper1:fig:lcurves}
 \end{figure}
 % 
 \begin{figure}[htbp]
@@ -896,7 +896,7 @@ On the left are the mean (solid line) and standard deviation (highlighted area) 
 synthetic longitudinal strain curves in the anterior basal segment corrupted by Gaussian noise.
 On the right are the mean and standard deviations of
 $\gamma$ averaged over the same segment.}
-\label{fig:noisy_strain_curve}
+\label{paper1:fig:noisy_strain_curve}
 \end{figure}
 
 
@@ -905,18 +905,18 @@ $\gamma$ averaged over the same segment.}
  \caption{Lateral view of the ground truth and reconstructed contraction fields at 7 measurement points during
   the synthetic data test. The target for the optimization is the full strain field with no noise.
  At each pressure the reconstruction is displayed on the left and the ground truth on the right.}
-\label{fig:synthetic_gammafields}
+\label{paper1:fig:synthetic_gammafields}
  \end{figure}
 
 \subsection{Contraction estimation with in-vivo data}
-\label{sec:results_clinical}
+\label{paper1:sec:results_clinical}
 
 Using the in-vivo data described in
-Section~\ref{sec:clinical_measurements} as a target, we calculated optimized contraction 
+Section~\ref{paper1:sec:clinical_measurements} as a target, we calculated optimized contraction 
 fields at P1 resolution. These contraction fields are shown in
-Figure~\ref{fig:snap_shots}. We note that the value of the contraction varies significantly in space and time.
-A comparison of the estimated to the measured PV loop is shown in Figure~\ref{fig:pv_match}. Optimized
-and measured strains are compared in Figure~\ref{fig:strain_match}.
+Figure~\ref{paper1:fig:snap_shots}. We note that the value of the contraction varies significantly in space and time.
+A comparison of the estimated to the measured PV loop is shown in Figure~\ref{paper1:fig:pv_match}. Optimized
+and measured strains are compared in Figure~\ref{paper1:fig:strain_match}.
 
 \begin{figure}[htbp]
 \centering
@@ -926,7 +926,7 @@ and measured strains are compared in Figure~\ref{fig:strain_match}.
   echocardiography. In each plot the $y$-axis represents strain while
   the $x$-axis shows the progression in time of the cardiac cycle as a
   percentage.}
-  \label{fig:strain_match}
+  \label{paper1:fig:strain_match}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -934,7 +934,7 @@ and measured strains are compared in Figure~\ref{fig:strain_match}.
     \includegraphics[width=0.7\textwidth]{simulated_pv_loop}
 \caption{Clinically measured (red) versus optimized wall motion model
   (blue) left ventricular cavity volumes.}
-\label{fig:pv_match}
+\label{paper1:fig:pv_match}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -942,20 +942,20 @@ and measured strains are compared in Figure~\ref{fig:strain_match}.
     \includegraphics[width=\textwidth]{patient_gamma_snapshots}
 \caption{Posterior view of the contraction field $\gamma$ optimized to in-vivo data 
 at P1 resolution. A snapshot is shown for every third in-vivo measurement point.}
-\label{fig:snap_shots}
+\label{paper1:fig:snap_shots}
 \end{figure}
 
 
 \subsection{Effect of contraction parameter resolution}
 In order to quantify the effects of the resolution of the contraction field $\gamma$
 we have repeated the contraction estimation from in-vivo data using regional and scalar resolutions.
-The fit values obtained for these resolutions are compared to the fit value of the P1 resolution in Table~\ref{tab:gamma_space_opt_misfit}.
+The fit values obtained for these resolutions are compared to the fit value of the P1 resolution in Table~\ref{paper1:tab:gamma_space_opt_misfit}.
 The results show that the P1 resolution of $\gamma$ gives an order of magnitude better strain and volume
 matches than the scalar and regional resolutions, and that $\Istrainrelmax$
 is about an order of magnitude lower than $\overline{I}_{\mathrm{strain}}$ in all three cases.
 
 The computational cost of the data assimilation using the three resolutions of $\gamma$ is compared in 
-Table~\ref{tab:patient_opt_details}. We note that the number of forward and adjoint solves 
+Table~\ref{paper1:tab:patient_opt_details}. We note that the number of forward and adjoint solves 
 increases with the resolution and that the average runtime of an adjoint solve in the scalar and P1 resolutions
 are almost the same.
 
@@ -976,7 +976,7 @@ the final column the average run time of an adjoint solve. }
  P1                    &                   46   &                   46  &    1100  & 7.9 \\ %(0.11)
 \hline
 \end{tabular}
-\label{tab:patient_opt_details}
+\label{paper1:tab:patient_opt_details}
 \end{table}
 
 
@@ -992,13 +992,13 @@ the final column the average run time of an adjoint solve. }
  P1               &                          0.0037 &                                              0.17 &                                             0.029 \\
 \hline
 \end{tabular}
-\label{tab:gamma_space_opt_misfit}
+\label{paper1:tab:gamma_space_opt_misfit}
 \end{table}
 
 
 
 \section{Discussion}
-\label{sec:discussion}
+\label{paper1:sec:discussion}
 In our study we have created a personalized model of whole cycle ventricular mechanics
 based on strain, volume and pressure measurements of a dyssynchronous left ventricle. 
 The contraction parameter in our study was resolved at a high P1 level of resolution.
@@ -1006,7 +1006,7 @@ Previous studies \cite{wong2015velocity, chabiniok2012estimation} have considere
 contraction parameters that were resolved up to the regional level of AHA zones. By comparing
 our P1 results to those generated with a regional resolution we have shown that it is possible
 to greatly increase the fitting ability of a data assimilation method by increasing the 
-parameter resolution. Indeed Table~\ref{tab:gamma_space_opt_misfit} shows 
+parameter resolution. Indeed Table~\ref{paper1:tab:gamma_space_opt_misfit} shows 
 that the fits $\Ivolavg$, $\Istrainavg$, and  $\Istrainrelmax$ are an order of magnitude better for
 the P1 resolution as compared to the regional or scalar resolutions. 
 
@@ -1014,7 +1014,7 @@ Errors in strain fitting were significant at the P1 resolution when compared
 to the sizes of the strain curves ($\Istrainavg = 0.17$). These errors can 
 stem from a fundamental model-data 
 mismatch, and or an inability of the data assimilation to fit the model to the data. 
-In the case of a model-data mismatch the limitations of the model may play a role (see Section \ref{sec:limitations}).
+In the case of a model-data mismatch the limitations of the model may play a role (see Section \ref{paper1:sec:limitations}).
 Another cause of model-data mismatch
 is inaccuracy or noise in measurements, in which case the model can be used to improve 
 the measurements. This is the case when models are used to regularize image based motion
@@ -1023,11 +1023,11 @@ the measurements. This is the case when models are used to regularize image base
 The SQP optimization algorithm that we employed is a local search only, so that is possible that
 our fitting was suboptimal, possibly contributing to the mismatch in strain. Adding regularization
 has been shown to prevent such suboptimal results in fluid control problems [\cite{gunzburger2003perspectives}~page 123].
-This partially motivated our use of regularization in the contraction optimization \eqref{eq:opt_gamma}.
+This partially motivated our use of regularization in the contraction optimization \eqref{paper1:eq:opt_gamma}.
 
 The discrepancies between our model based and measured strains are very small however when compared to
 the sizes of the largest strain curves of a given strain type, longitudinal, 
-circumferential or radial. This can clearly be seen in Figure~\ref{fig:strain_match}
+circumferential or radial. This can clearly be seen in Figure~\ref{paper1:fig:strain_match}
 and in the low value of the metric $\Istrainrelmax$. This shows that our method was able
 to accurately capture the larger amplitude features of the heterogeneity in contraction. 
 Such features are less prone to distortion by noise then those with smaller strain values, and are
@@ -1055,15 +1055,15 @@ a greater number of Newton iterations
 required per forward solve in the scalar case.
 
 In order to test the effects of mesh resolution on the contraction estimation we have considered
-alternative mesh resolutions in Appendix~\ref{sec:mesh_res}. The analysis shows that 
+alternative mesh resolutions in Appendix~\ref{paper1:sec:mesh_res}. The analysis shows that 
 the tested increase and decrease
 in the resolution of the mesh did not significantly change the 
-fit quality of the contraction estimation (Table \ref{tab:mesh_conv_opt_misfit}).
+fit quality of the contraction estimation (Table \ref{paper1:tab:mesh_conv_opt_misfit}).
 There were however slight differences in the spatial average of the contraction field 
 between the three cases tested
-(Figure \ref{fig:mesh_conv_gamma}). This was most likely due to differences 
+(Figure \ref{paper1:fig:mesh_conv_gamma}). This was most likely due to differences 
 in the quality of the discrete approximation of 
-the work balance equation \eqref{eq:work-balance}.
+the work balance equation \eqref{paper1:eq:work-balance}.
 
 
 In the current study the 
@@ -1102,7 +1102,7 @@ This is an issue for the estimation of the elastic parameter $a$, which we condu
 Experiments with gel phantoms have quantified this inaccuracy for assessments of a single image \cite{aurich2014assessment}. 
 However for the estimation of the elastic parameter $a$ relative differences in errors between images are more relevant.
 These have to the best of our knowledge not been studied, and so we have conducted estimations of $a$ 
-with volume curves perturbed by a range of errors (see Appendix \ref{sec:elasticparam}). 
+with volume curves perturbed by a range of errors (see Appendix \ref{paper1:sec:elasticparam}). 
 These experiments show that the estimated stiffness parameter is indeed sensitive to volume errors. The effect on
 the average of the contraction field is however quite minimal. 
 An alternative to the current stiffness estimation procedure would be to allow
@@ -1133,23 +1133,23 @@ Several data assimilation studies \cite{mojsejenko2014estimating,
 consisting of strain and volume components with equal weighing given
 to both. We have shown that it may be possible to improve such data
 assimilation procedures by tuning the relative weight of strain and
-volume components. Indeed in the top right plot of Figure~\ref{fig:lcurves} there is 
+volume components. Indeed in the top right plot of Figure~\ref{paper1:fig:lcurves} there is 
 a definite corner in the strain-volume fitting space consisting of 4 points
 beneath $\alpha = 0.95$. Choosing $\alpha$ among these points gives
 a fair trade-off between strain and volume matching whereas any choice outside this
 corner simply worsens the fit of strain or volume without much improving the other.
 
-In Figure~\ref{fig:lcurves} we have shown how the parameters $\alpha$
+In Figure~\ref{paper1:fig:lcurves} we have shown how the parameters $\alpha$
 and $\lambda$ effect the fitting and smoothness 
  metrics related to the contraction field $\gamma$. Additionally, we have
 tested the effects of variations in $\alpha$ and $\lambda$ on the spatial
-average of the contraction field. These experiments are presented in Appendix~\ref{sec:sense_alpha_lambda}.
-Figure~\ref{fig:gamma_sense_alpha_lambda} shows that varying $\alpha$ in the region $[0, 0.5]$ had little to no effect on the spatial average of
+average of the contraction field. These experiments are presented in Appendix~\ref{paper1:sec:sense_alpha_lambda}.
+Figure~\ref{paper1:fig:gamma_sense_alpha_lambda} shows that varying $\alpha$ in the region $[0, 0.5]$ had little to no effect on the spatial average of
 $\gamma$, whereas increases in $\alpha$ outside of this region tended to increase the amount of 
-contraction. This behaviour correlates with the value of $\Istrainavg$ in (Figure~\ref{fig:lcurves}
+contraction. This behaviour correlates with the value of $\Istrainavg$ in (Figure~\ref{paper1:fig:lcurves}
 top right). Similarly, increasing $\lambda$ beyond $0.001$ tended to increase the misfit in the data 
-functional (Figure~\ref{fig:lcurves} bottom right), and also increase the average amount of
-contraction (Figure~\ref{fig:gamma_sense_alpha_lambda} right).
+functional (Figure~\ref{paper1:fig:lcurves} bottom right), and also increase the average amount of
+contraction (Figure~\ref{paper1:fig:gamma_sense_alpha_lambda} right).
 We hypothesize that additional levels of misfit in strain introduced by increasing
 $\alpha$ beyond $0.5$ and or $\lambda$ beyond $0.001$ lead to overestimating 
 the amount of contraction in our patient's LV. However we lack knowledge of the
@@ -1158,7 +1158,7 @@ Further validation of the model and data assimilation are needed.
 
 
 \subsection{Limitations}
-\label{sec:limitations}
+\label{paper1:sec:limitations}
 The results obtained in this article were limited by issues pertaining
 to the choice of mathematical model, quality of clinical data,
 numerical stability, and the design of the data assimilation
@@ -1198,7 +1198,7 @@ which are related to echocardiographic image quality,
 image sample rate, and speckle tracking algorithm accuracy. 
 Pressure and volume measurements had to be synchronized, which might
 have lead to a potentially unphysiological loss of volume in the iso-volumic relaxation phase of
-the in-vivo PV loop (Figure~\ref{fig:pv_loop_phases}).
+the in-vivo PV loop (Figure~\ref{paper1:fig:pv_loop_phases}).
 
 Finally there were several algorithmic limitations. 
 Firstly, the optimized $\gamma$ fields we computed may or may not have been unique.
@@ -1217,7 +1217,7 @@ one minimum of the objective is calculated. Better parameter fits may be possibl
 with global optimization methods that explore multiple minima.
 
 \section{Conclusion and Future Outlook}
-\label{sec:conclusion}
+\label{paper1:sec:conclusion}
 By employing high resolution data assimilation we
 were able to capture the detailed motion of a dyssynchronous left
 ventricle in a computational model with an excellent fit of model observations
@@ -1247,7 +1247,7 @@ We generated clean volume data using the computational model using $a = 0.435$ k
 the optimal value obtained from the clinical data. Perturbations in volume increases
 of sizes $\pm 5,15, 25 \%$ were added to this data,
 which were then used as target for optimization. The resulting $a$ values and perturbations
-are shown in Table~\ref{tab:passive_synth_opt}. The largest perturbations resulted
+are shown in Table~\ref{paper1:tab:passive_synth_opt}. The largest perturbations resulted
 in the $a$ values 0.494 kPa and 0.384 kPa, representing circa $\pm \%13$ change from the original $a$ value.
 
 
@@ -1278,25 +1278,25 @@ the volume fit $\overline{I}_{\mathrm{vol}}$ was less than $4 \times 10^{-6}$.}
                     25 &               1.2   &               1.06  &    0.384 \\
 \hline
 \end{tabular}
-\label{tab:passive_synth_opt}
+\label{paper1:tab:passive_synth_opt}
 \end{table}
 
 The resulting average value of $\gamma$ is shown in
-Figure~\ref{fig:gamma_sense_mat} for the extreme cases
+Figure~\ref{paper1:fig:gamma_sense_mat} for the extreme cases
 with $\alpha = 0.494$ and $\alpha = 0.384$ . For reference we also include the
 average value of $\gamma$ using $\alpha = 0.435$.
  
 \begin{figure}[t]
 \includegraphics[width=0.7\textwidth]{mean_gamma_material_parameters_fixed}
 \caption{Sensitivity of the optimal average contraction $\overline{\gamma}$ to changes in the parameter $a$. The upper and lower $a$
-values are based on estimating $a$ with volume perturbations of $\pm 25 \% $ (Tabel~\ref{tab:passive_synth_opt}). The middle
+values are based on estimating $a$ with volume perturbations of $\pm 25 \% $ (Tabel~\ref{paper1:tab:passive_synth_opt}). The middle
  value was obtained by estimating $a$ from in-vivo volumes.}
-\label{fig:gamma_sense_mat}
+\label{paper1:fig:gamma_sense_mat}
 \end{figure}
 
 
 \subsection{Sensitivity of estimated parameters to spring constant $k$.}
-\label{sec:k_sense}
+\label{paper1:sec:k_sense}
 The spring boundary condition that we used at the ventricular base has a significant
 effect on the simulated cavity volumes calculated by the model. This is due to the 
 cross-sectional area of the cavity being large at the ventricular base. Therefore 
@@ -1305,16 +1305,16 @@ by our data assimilation.
 
 In order to quantify this effect we have
 carried out a sensitivity analysis, starting with the effect of $k$ on the optimized elastic parameter $a$.
-We repeated the elastic parameter fitting decribed in Section~\ref{sec:elasticparam} and varied the $k$-value from 0.001 to 100.0.
+We repeated the elastic parameter fitting decribed in Section~\ref{paper1:sec:elasticparam} and varied the $k$-value from 0.001 to 100.0.
 We also considered the case $k = \infty$, denoting a completely rigid boundary held by
 Dirichlet boundary conditions. The effect of the choice of $k$ on the
-optimal value of $a$ is shown in Table~\ref{tab:elast_sense}. The
+optimal value of $a$ is shown in Table~\ref{paper1:tab:elast_sense}. The
 table shows that the optimal $a$ varies from 0.365 kPa to 0.875 kPa depending upon how the $k$ parameter is set. 
 
 We also tested the sensitivity of the contraction $\gamma$ at P1 resolution to $k$ by
 repeating the estimation of $\gamma$ with the various $k$ and $a$ pairs obtained in the
 previous experiment. For each $k, a$ pair we have plotted the spatial average of contraction $\overline{\gamma}$
-at each measurement point in Figure~\ref{fig:gamma_sense}. The results
+at each measurement point in Figure~\ref{paper1:fig:gamma_sense}. The results
 show up to a $20 \%$ variation in $\overline{\gamma}$ and
 very little variation for the choices of $k$ greater than or equal to
 1.0. For some of the values of $k < 1.0$ our homotopy Newton solver was unable to 
@@ -1333,28 +1333,28 @@ these cases are drawn only to the point before the non-convergence occurred.
       $a$ & 0.875   & 0.875  & 0.875  & 0.875 & 0.873& 0.873 & 0.849 & 0.684 & 0.435 & 0.375& 0.366 & 0.365 \\
 \hline
 \end{tabular}}
-\label{tab:elast_sense}
+\label{paper1:tab:elast_sense}
 \end{table}
 
 \begin{figure}[t]
 \includegraphics[width=0.7\textwidth]{gamma_mean}
 \caption{Sensitivity of the spatially averaged 
 contraction $\overline{\gamma}$ to the choice of spring constant $k$.}
-\label{fig:gamma_sense}
+\label{paper1:fig:gamma_sense}
 \end{figure}
 
 
 \subsection{Effect of mesh resolution on estimated contraction
   $\gamma$ at P1 resolution} 
-\label{sec:mesh_res}
+\label{paper1:sec:mesh_res}
 Ventricular meshes were generated by Gmsh
 \cite{geuzaine2009gmsh} with three different resolutions controlled by the parameter
 'Mesh.CharacteristicLengthFactor'.  This parameter
 was given the values $1.0$, $0.65$ and $0.45$ which resulted in meshes with
 $549$, $1262$ and $2261$ vertices respectively. Using the three meshes
 we estimated contraction fields from the in-vivo data. The average value of
-$\gamma$ is shown for these three cases in Figure~\ref{fig:mesh_conv_gamma}. 
-Fit quality is compared in Table~\ref{tab:mesh_conv_opt_misfit}.
+$\gamma$ is shown for these three cases in Figure~\ref{paper1:fig:mesh_conv_gamma}. 
+Fit quality is compared in Table~\ref{paper1:tab:mesh_conv_opt_misfit}.
 
 \begin{table}
 \caption{Relative misfit for different mesh resolutions}
@@ -1367,20 +1367,20 @@ Number of elements & $\Ivolavg$ & $\Istrainavg$ & $\Istrainrelmax$ \\
 2661 & 0.0043 & 0.18 & 0.031 \\
 \bottomrule	
 \end{tabular}
-\label{tab:mesh_conv_opt_misfit}
+\label{paper1:tab:mesh_conv_opt_misfit}
 \end{table}
 
 \begin{figure}[]
 \includegraphics[width=0.6\textwidth]{mesh_conv_gamma}
 \caption{Spatial average of contraction $\overline{\gamma}$ for 3 different mesh
   resolutions.}
-\label{fig:mesh_conv_gamma}
+\label{paper1:fig:mesh_conv_gamma}
 \end{figure}
 
 
 \subsection{Sensitivity of Contraction Size to choices of $\alpha$ and $\lambda$}
-\label{sec:sense_alpha_lambda}
-Based on the trade-off curves in Figure~\ref{fig:lcurves} we chose 
+\label{paper1:sec:sense_alpha_lambda}
+Based on the trade-off curves in Figure~\ref{paper1:fig:lcurves} we chose 
 the optimization weights $\alpha = 0.95$ and $\lambda = 0.01$ for the personalization
 of our wall motion model to the in-vivo data. In order to show the effect of these 
 choices on the optimized contraction field $\gamma$ we have varied
@@ -1393,21 +1393,21 @@ $\lambda = 0.001$.
 \centering
 \begin{subfigure}[t]{0.49\textwidth}
      {\includegraphics[width=\textwidth]{mean_gamma_varying_alpha}}
-     \caption*{\label{fig:gamma_sense_alpha}}
+     \caption*{\label{paper1:fig:gamma_sense_alpha}}
 \end{subfigure}
 \begin{subfigure}[t]{0.49\textwidth}
     {\includegraphics[width=\textwidth]{mean_gamma_varying_lambda}}
-    \caption*{\label{fig:gamma_sense_lmbda}}
+    \caption*{\label{paper1:fig:gamma_sense_lmbda}}
 \end{subfigure}
 \caption{Sensitivity of the spatially averaged contraction $\overline{\gamma}$ 
 to variations in optimization weights $\alpha$ and $\lambda$. Left: $\lambda = 0$ and 
 $\alpha$ is varied. Right: $\alpha = 0.95$ and $\lambda$ is varied.}
-\label{fig:gamma_sense_alpha_lambda}
+\label{paper1:fig:gamma_sense_alpha_lambda}
 \end{figure}
 
 
 \subsection{Estimation of noise in echo speckle tracking strain measurements}
-\label{sec:strain_noise_est}
+\label{paper1:sec:strain_noise_est}
 In order to increase the relevance of the synthetic tests we
 considered a set of regional strains that contained noise. This
 noise was modelled as an additive Gaussian process in order to imitate
@@ -1417,7 +1417,7 @@ process were estimated from our in-vivo strain data of a single patient. From th
 the sample means and variances of
 the drift values were divided by the number of measurement points in order to approximate the noise in 
 a single measurement. The mean and covariance of this single measurement point noise are given in
-Table~\ref{tab:noise_covar_mean}.Theoretically, error free strain
+Table~\ref{paper1:tab:noise_covar_mean}.Theoretically, error free strain
 curves would have no drift given stable conditions in the heart.
 This motivates the use of the drift values in order to approximate 
 the tracking error.
@@ -1437,7 +1437,7 @@ the tracking error.
       L &  -   &  -   & 7.26 & 0.01  \\
       \hline
     \end{tabular}
-    \label{tab:noise_covar_mean}
+    \label{paper1:tab:noise_covar_mean}
   \end{center}
 \end{table}
 

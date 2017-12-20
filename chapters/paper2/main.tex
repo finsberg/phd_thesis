@@ -58,7 +58,7 @@ two groups.
 \newpage
 %% main text
 \section{Introduction}
-\label{sec:introduction}
+\label{paper2:sec:introduction}
 
 Patient-specific cardiac modeling has emerged as a potential tool
 for clinical diagnosis as well as treatment
@@ -96,10 +96,10 @@ useful to clinicians for diagnoses of problems with cardiac function,
 and to better plan therapies.    
 
 \section{Materials and methods}
-\label{sec:methods}
+\label{paper2:sec:methods}
 
 \subsection{Data acquisition}
-\label{sec:clinical_data}
+\label{paper2:sec:clinical_data}
 
 Clinical measurements of cardiac function for seven LBBB patients were
 obtained from the Impact study \cite{ImpactStudy2016}.
@@ -130,7 +130,7 @@ left ventricular pressure [Table 30-1 in \cite{klingensmith2008washington}].
 For each patient, a 3D tetrahedral mesh of the LV was
 constructed from triangulated segmented surfaces of the endo- and
 epicardium corresponding to the frame at the beginning of
-atrial systole, Figure \ref{fig:pipeline}. A cut was made at the
+atrial systole, Figure \ref{paper2:fig:pipeline}. A cut was made at the
 ventricular base of the segmentation, so that the mesh cavity volume
 and the ultrasound measured volume differed by less than  $1$ ml. Mesh
 cells were marked into the 17 AHA regions through the regionally
@@ -151,7 +151,7 @@ and, the right Cauchy-Green deformation tensor given by $\F= \I+\nabla
 To model the passive behavior of the myocardium, the transversely 
 isotropic strain energy function proposed in  \cite{holzapfel2009constitutive} is adopted:
 \begin{align}
-\label{eq:hoa}
+\label{paper2:eq:hoa}
   \mathcal{W}(I_1, I_{4\ef}) = \frac{a}{2 b} \left( \exp\left\{ b (I_1 
   - 3)\right\}  -1 \right)
   + \frac{a_f}{2 b_f} \left( \exp\left\{ b_f (I_{4\ef} 
@@ -186,7 +186,7 @@ For both approaches, the resulting displacement field $\uvec$ and hydrostatic pr
 are determined by using the principle of stationary potential energy
 \cite{holzapfel2000nonlinear}, which is based on minimizing the total
 energy  $\Pi(\uvec, p)$, which includes internal energy derived from
-\eqref{eq:hoa} and external energy. The external energy includes
+\eqref{paper2:eq:hoa} and external energy. The external energy includes
 contributions from the measured cavity pressure $p_{\text{LV}}$, and a
 linear spring term at the basal boundary, with spring constant
 $k$ = 10.0 kPa. The equilibrium solution is found by solving for the minimum
@@ -200,7 +200,7 @@ simulated and measured strain and volume along with a first order Tikhonov regul
 model parameters.
 \begin{equation}
   \begin{aligned}
-    \label{eq:pde_opt}
+    \label{paper2:eq:pde_opt}
     & \underset{m}{\text{minimize}}
     & &  \alpha \left( \frac{V^i - \tilde{V}^i}{V^i} \right)^2
     + (1-\alpha)  \sum_{j= 1}^{17} \sum_{k \in \{c,r,l\}}  \left( \varepsilon_{kj}^i
@@ -221,13 +221,13 @@ segment $j$ in direction $k$ respectively, and $\tilde{V}^i =
 The parameters $\alpha$ and $\lambda$
 control the weights on the different terms, and the sum in the second
 term is taken over the seventeen AHA
-segments, and the three different strain components (Section \ref{sec:clinical_data}).
+segments, and the three different strain components (Section \ref{paper2:sec:clinical_data}).
 
 
 The data assimilation procedure is divided into two phases; a passive
 and an active phase. For the passive phase we iteratively
   estimate the unloaded configuration and the linear isotropic parameter, $a$ in
-\eqref{eq:hoa}, using an algorithm similar to the one described in
+\eqref{paper2:eq:hoa}, using an algorithm similar to the one described in
 \cite{nikou2016effects}, and we set $\alpha= 1.0$,  with $\lambda = 0$ and
 $\gamma = 0$, minimizing only the misfit with the measured volumes. The
 remaining material parameters are fixed according to [Table 1 row 3 of
@@ -237,7 +237,7 @@ $T_a$ for the active strain and active stress model respectively, and
 set $\alpha = 0.95$ and $\lambda = 0.01$. This choice of $\alpha$ and
 $\lambda$ was based on the analysis done in \cite{balaban}. A summary
 of our optimization pipeline is provided to the right in
-Figure~\ref{fig:pipeline}.
+Figure~\ref{paper2:fig:pipeline}.
 
 
 
@@ -250,7 +250,7 @@ Figure~\ref{fig:pipeline}.
   marked simulation meshes with applied fiber orientations from 3D
   echocardiographic segmentations. Right: Optimization
   pipeline. 1. Unloaded geometry and the linear isotropic
-  material parameter $a$ in \eqref{eq:hoa} are estimated iteratively. The unloaded geometry is
+  material parameter $a$ in \eqref{paper2:eq:hoa} are estimated iteratively. The unloaded geometry is
   estimated based on the backward displacement method (1a)
   \cite{nikou2016effects} and $a$ is estimated by minimizing the
   difference between simulated and measured volumes (1b). 2. The unloaded
@@ -259,7 +259,7 @@ Figure~\ref{fig:pipeline}.
   is estimated by minimizing the mismatch between simulated and
   measured strain and volume. The active optimization continues to the
   next measurement point until all measurement points in the cycle are covered.}
-\label{fig:pipeline}
+\label{paper2:fig:pipeline}
 \end{figure}
 
 \subsection{Implementation details}
@@ -270,7 +270,7 @@ polynomials of degree $n$.
 The solver is implemented in the finite element framework FEniCS
 \cite{logg2012automated}, and uses a Newton trust region algorithm
 \cite{PETScPackage} to solve nonlinear systems. The minimization of the
-model-data misfit functional~\eqref{eq:pde_opt} is accomplished by a sequential
+model-data misfit functional~\eqref{paper2:eq:pde_opt} is accomplished by a sequential
 quadratic programming algorithm (SQP)~\cite{kraft1988software}, where
 the functional gradient is computed by solving an automatically derived adjoint
 equation \cite{farrell2013automated}. In these minimizations an upper
@@ -312,18 +312,18 @@ $V^{\text{ES} +\Delta} = V^{\text{ES}} + \Delta V$. The estimate of end-systolic
 elastance can then be calculated by 
 \begin{align}
   \tilde{E}\es = \frac{\Delta \plv}{\Delta V}.
-  \label{eq:estimate_elastance}
+  \label{paper2:eq:estimate_elastance}
 \end{align}
 
 
 
 \section{Results and discussion}
-\label{sec:results}
+\label{paper2:sec:results}
 
 
 \subsection{Matching of strain and volume}
 We show the results from two representative simulations in
-Figure~\ref{fig:generic_result}, one from the LBBB group and one from
+Figure~\ref{paper2:fig:generic_result}, one from the LBBB group and one from
 the healthy control group. Snapshots from the calculated unloaded and
 end-systolic configurations are depicted. For the unloaded
 geometry, we also show the image-based geometry at beginning of atrial
@@ -343,7 +343,7 @@ approach. We also show the agreement with the corresponding PV-loops.
     Color-map shows the end-systolic longitudinal strain.
     Right: Simulated and measured pressure-volume loops for
     these hearts using the active strain and active stress approach.}  
-  \label{fig:generic_result}
+  \label{paper2:fig:generic_result}
 \end{figure}
 
 
@@ -355,7 +355,7 @@ control parameters being 985.
 
 In order to visualize the overall match of simulated to measured data,
 we show linear regression plots in
-Figure~\ref{fig:data_matching}. These results are all based on the
+Figure~\ref{paper2:fig:data_matching}. These results are all based on the
 active strain formulation. For
 the strain, we separately consider the diastolic and systolic points,
 as different types of data were used to  constrain the model in these
@@ -380,7 +380,7 @@ matched ($R^2=0.31$).
     where both the strain and volume were optimized. For diastole, the slope of
     the best linear fit was $0.31$, while the best linear fit for the
     systolic points had a slope of $0.95$.}
-  \label{fig:data_matching}
+  \label{paper2:fig:data_matching}
 \end{figure}
 
 
@@ -391,13 +391,13 @@ Global contraction time courses, $\overline{\gamma}$ and
 events to normalize for differing cycle lengths. The average 
 and standard deviation of these normalized traces for the
 LBBB vs the healthy controls are shown in left of
-Figure~\ref{fig:contractility}. The healthy patients had a much higher
+Figure~\ref{paper2:fig:contractility}. The healthy patients had a much higher
 level of contraction through the cardiac cycle, and the peak values
 were compared using one-way ANOVA, yielding a $P-$value less than
 $0.001$ for both the active strain and the active stress approach. 
 
 The values of calculated $\tilde{E}\es$ for the healthy and LBBB patients are
-shown to the right in Figure~\ref{fig:contractility}. The calculated
+shown to the right in Figure~\ref{paper2:fig:contractility}. The calculated
 elastances of the LBBB group were significantly lower than for the healthy
 group, with the comparison between the groups using one-way ANOVA
 giving a $P-$value of $0.009$ and $0.003$ for the active strain and
@@ -418,10 +418,10 @@ active stress respectively.
     Middle:  Mean value of $\gamma$ for the two groups
     synchronized with respect to the same valvular events.
     Right: Estimated values of $\tilde{E}\es$, given by
-    \eqref{eq:estimate_elastance} using the active stress and the
+    \eqref{paper2:eq:estimate_elastance} using the active stress and the
     active strain approach. The mean value is depicted for each
     group as a bar, and individual points are also displayed.} 
-  \label{fig:contractility}
+  \label{paper2:fig:contractility}
 \end{figure}
 
 

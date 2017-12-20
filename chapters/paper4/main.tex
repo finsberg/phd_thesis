@@ -200,7 +200,7 @@ pressure-volume loop.
 
 
 \subsection{Mechanical modeling}
-\label{sec:mechanical_modeling}
+\label{paper4:sec:mechanical_modeling}
 We represent the heart as a continuum body with a reference configuration 
 $\Omega \subset \mathbb{R}^3$, and let $\Xvec$ denote the
 corresponding reference coordinate. Further let $ \Omega_t
@@ -227,7 +227,7 @@ The myocardium is modeled as a hyperelastic material, and we adapt a
 transversely isotropic law from \cite{holzapfel2009constitutive},
 where the strain-energy function $\Psi$ is given by  
 \begin{align}
-  \label{eq:hoa}
+  \label{paper4:eq:hoa}
   \Psi(\Cbar) = \frac{a}{2 b} \left( e^{ b (\bar{I}_1  - 3)}  -1 \right)
   + \frac{a_f}{2 b_f} \left( e^{ b_f (\bar{I}_{4\ef} - 1)_+^2} -1 \right). 
 \end{align}
@@ -253,7 +253,7 @@ decomposition of the deformation gradient into an elastic
 and an active component \cite{ambrosi2011electromechanical}:
 \begin{equation}
  \F = \F_e \F_a.
-\label{eq:active_strain}
+\label{paper4:eq:active_strain}
 \end{equation}
 The active part, $\F_a$ represents the active shortening of the cells,
 while the elastic part $\F_e$ ensures compatibility of the tissue.
@@ -261,7 +261,7 @@ Similar to \cite{balaban2017high} we choose the following form of the active
 deformation gradient,
 \begin{equation}
   \F_a = (1 - \gamma) \ef \otimes \ef  + \frac{1}{\sqrt{1 - \gamma}} (\I - \ef \otimes \ef).
- \label{eq:active_strain_Fa_gjerald}
+ \label{paper4:eq:active_strain_Fa_gjerald}
 \end{equation}
 The active deformation gradient $\F_a$ does not contribute to any
 stored energy within the material, so that the modified
@@ -293,7 +293,7 @@ the Lagrangian form, the weak form reads: {\it find $(\uvec,p)
   +\int_{\Omega} (J - 1) \delta p \mathrm{d} V \\
   &+\int_{\partial \Omega_{\text{base}}} k \uvec \cdot \N \mathrm{d}S
   - \int_{\partial \Omega_{\text{endo}}} \plv J \F^{-T} \N \cdot \delta \uvec \mathrm{d}S= 0.
-  \label{eq:force_balance}
+  \label{paper4:eq:force_balance}
 \end{split}
 \end{align}
 Here, the ventricular domain is anchored by constraining the basal
@@ -310,7 +310,7 @@ the hydrostatic pressure.
 
 
 \subsection{Calculation of work}
-\label{sec:regional_work}
+\label{paper4:sec:regional_work}
 
 Work can be computed by considering any of the
 work conjugate stress-strain pairs \cite{holzapfel2000nonlinear}. In
@@ -355,9 +355,9 @@ morphology and heart rate.
 
 \subsubsection{Quasi-static approximation}
 The mechanical model described in Section
-\ref{sec:mechanical_modeling} is quasi-static, meaning that the
+\ref{paper4:sec:mechanical_modeling} is quasi-static, meaning that the
 inertial forces are assumed to be so small that the
-equilibrium equation \eqref{eq:force_balance} holds at any discrete
+equilibrium equation \eqref{paper4:eq:force_balance} holds at any discrete
 time point. Therefore, strain rate is estimated using a
 backward difference approximation \cite{wang2011myocardial}.
 Suppose we have $N+1$ discrete time points $t_i, i = 0,1, \cdots N$, where $ t_0$
@@ -379,7 +379,7 @@ as
   &= -\int_{t_m}^{t_n} \int_{\Omega_j}\SPiola(t, \Xvec) : \dot{\E}(t, \Xvec) \mathrm{d}\Xvec \mathrm{d}t \\
   &\approx - \sum_{i = m}^{n}\int_{\Omega_j}\overline{\SPiola}(t_i, \Xvec) : d\E(t_i, \Xvec) \mathrm{d}\Xvec
   \end{split}
-\label{eq:total_work}
+\label{paper4:eq:total_work}
 \end{align}
 Similarly, the mechanical work computed from the pressure-volume loop area can be estimated as  
 \begin{align}
@@ -391,7 +391,7 @@ Similarly, the mechanical work computed from the pressure-volume loop area can b
 \end{align}
 
 \subsubsection{Efficiency and wasted work ratio (WWR)}
-\label{sec:efficiency_wwr}
+\label{paper4:sec:efficiency_wwr}
 
 During systole, most segments shorten and perform positive work
 ($\mathcal{W}_{\mathrm{pos}}$). However some segments might elongate,
@@ -410,12 +410,12 @@ Another measure of efficiency, formulated by Niederer et al
 work
 \begin{align}
   \eta = \frac{\mathcal{W}_{\mathrm{pos}}}{\mathcal{W}_{\mathrm{pos}} + |\mathcal{W}_{\mathrm{neg}}|}.
-  \label{eq:efficiency}
+  \label{paper4:eq:efficiency}
 \end{align}
 
 The two indices are related by $\eta = \left( 1 +
   \mathrm{WWR} \right)^{-1}$, and we will therefore only report values
-of the efficiency \eqref{eq:efficiency}, for which a value close to 1.0 indicate that most
+of the efficiency \eqref{paper4:eq:efficiency}, for which a value close to 1.0 indicate that most
 of the performed work is positive. Since we expect work during systole
 to be the main contribution to the overall ejection of blood, the
 index is computed by only including work done from mitral valve closing to
@@ -465,7 +465,7 @@ cavity volume can be approximated as
 \begin{align}
   \mathcal{H}_{\mathrm{volume}}(\mathbf{w})= -\frac{1}{3}\int_{\lvendo}
   \left( \Xvec + \uvec \right) J \F^{-T} \Nvec \mathrm{d}S, 
-  \label{eq:volume_operator}
+  \label{paper4:eq:volume_operator}
 \end{align}
 where $\N$ denotes the unit facet normal. Furthermore, the average regional
 longitudinal strain can be approximated in region number $j$ as
@@ -486,7 +486,7 @@ by $\mu$. This can be formulated as a PDE-constrained optimization
 problem of the form
 \begin{equation}
   \begin{aligned}
-    \label{eq:pde_opt}
+    \label{paper4:eq:pde_opt}
     & \underset{\mu}{\text{minimize}}
     & &  \mathcal{J}(\mathbf{w}(\mu), \mu) \\
     & \text{subject to}
@@ -494,11 +494,11 @@ problem of the form
   \end{aligned}
 \end{equation}
 where $F=0$ represents the PDE-constraint given by
-\eqref{eq:force_balance}, and $\mathcal{J}$ is a possibly
+\eqref{paper4:eq:force_balance}, and $\mathcal{J}$ is a possibly
 multiobjective function  
 \begin{align}
   \mathcal{J}(\mathbf{w}(\mu), \mu) = \sum_{k = 1}^{N} w_k j_k (\mathbf{w}(\mu), \mu),
-  \label{eq:cost_functional}
+  \label{paper4:eq:cost_functional}
 \end{align}
 with $w_k$ being scalar weights, and $j_k = d( y_k,
   \mathcal{H}_k(\mathbf{w}) ) $ for some suitable metric $d$.
@@ -507,7 +507,7 @@ with $w_k$ being scalar weights, and $j_k = d( y_k,
 
 \subsubsection{Joint estimation of unloaded configuration and passive
   material parameters}
-\label{sec:passive_param_estim}
+\label{paper4:sec:passive_param_estim}
 
 One challenge when using image-based geometries is that the geometry
 observed in a medical image is subjected to loads, e.g blood
@@ -523,18 +523,18 @@ Here we apply a simple fixed-point iteration scheme known as the backward
 displacement method \cite{bols2013computational}.
 The estimated unloaded configuration will depend upon the choice of material
 parameters, which is not know  \emph{a priori}. In Appendix
-\ref{sec:unloading} we explain the main steps in the backward
+\ref{paper4:sec:unloading} we explain the main steps in the backward
 displacement method and a proposed method for joint estimation of material
 parameters unloaded configuration. Additionally, an analysis of
 the convergence properties of this method is also provided.
 
 
 \subsubsection{Active parameter estimation}
-\label{sec:active_param_estim}
+\label{paper4:sec:active_param_estim}
 From the first measurement point after end-diastole and throughout the
 remaining cardiac cycle, that parameter $\gamma$ in
-\eqref{eq:active_strain_Fa_gjerald} is used as control in
-\eqref{eq:pde_opt}, and the cost functional \eqref{eq:cost_functional}
+\eqref{paper4:eq:active_strain_Fa_gjerald} is used as control in
+\eqref{paper4:eq:pde_opt}, and the cost functional \eqref{paper4:eq:cost_functional}
 at time point $i$ is given by 
 \begin{align}
   \mathcal{J} =
@@ -580,13 +580,13 @@ package\footnote{Source code is publicly available at
   \url{https://bitbucket.org/finsberg/pulse_adjoint}} 
 based on FEniCS \cite{logg2012automated} and Dolfin-Adjoint \cite{farrell2013automated}.
 In these simulations the value of the linear spring $k$ in
-\eqref{eq:force_balance} was determined by testing a range of values,
+\eqref{paper4:eq:force_balance} was determined by testing a range of values,
 and choosing the softest spring that allowed for a convergent
 estimation of the unloaded configuration. Based on this experiment we
 choose $k=0.01$ kPa/cm$^2$.
 
 During the estimation of the active and passive parameters outlined in Section
-\ref{sec:active_param_estim} and \ref{sec:passive_param_estim}
+\ref{paper4:sec:active_param_estim} and \ref{paper4:sec:passive_param_estim}
 respectively, the optimization was terminated if the difference between two
 successive iterations was less then $10^{-6}$ or the number of
 iterations exceeded 100. For the material parameter, an upper and lower
@@ -599,10 +599,10 @@ parameter these bounds were set to $0.4$ and $0.0$, allowing for up to
 % \subsection{Estimation of unloaded configuration and passive material
 %   parameters}
 
-% The linear isotropic material parameter $a$ in \eqref{eq:hoa}, along
+% The linear isotropic material parameter $a$ in \eqref{paper4:eq:hoa}, along
 % with an unloaded configuration was estimated by means of Algorithm
-% \ref{alg:unload_mat_bdm} for both the normal and the LBBB case.
-% Figure \ref{fig:unloaded_simulation} shows the value of the material
+% \ref{paper4:alg:unload_mat_bdm} for both the normal and the LBBB case.
+% Figure \ref{paper4:fig:unloaded_simulation} shows the value of the material
 % parameters, and the residual representing the relative difference
 % between the unloaded cavity volumes of two successive iterations.
 % The LBBB and normal case used respectively
@@ -612,23 +612,23 @@ parameter these bounds were set to $0.4$ and $0.0$, allowing for up to
 % \begin{figure}[htbp]
 %   \centering
 %   \includegraphics{figures/unloaded_simulation}
-%   \caption{\label{fig:unloaded_simulation}Estimation of material
+%   \caption{\label{paper4:fig:unloaded_simulation}Estimation of material
 %     parameters for normal (blue) and LBBB (red) case. Solid lines
 %     show the value of the material parameter at each iteration with
 %   initial guess in both cases being $a=1.291$ kPa (iteration -1). Then
 % the offset of the pressure in the image-based geometry was subtracted
 % and new material parameters was estimated (iteration 0), and Algorithm
-% \ref{alg:unload_mat_bdm} was applied using this estimate as initial
+% \ref{paper4:alg:unload_mat_bdm} was applied using this estimate as initial
 % guess. Dashed lines are the residuals, representing the relative
 % difference in unloaded cavity volume. The algorithm terminated when
 % the residual was below 1 \%. }
 % \end{figure}
-% Figure \ref{fig:unloaded_geo} shows the resulting
+% Figure \ref{paper4:fig:unloaded_geo} shows the resulting
 % unloaded configurations on top of the original geometries. 
 % \begin{figure}[htbp]
 %   \centering
 %   \includegraphics{figures/unloading}
-%   \caption{\label{fig:unloaded_geo}Estimated unloaded
+%   \caption{\label{paper4:fig:unloaded_geo}Estimated unloaded
 %     configuration for normal (right) and LBBB (left) case in red, and
 %     the original image-based geometry in transparent. }
 % \end{figure}
@@ -637,8 +637,8 @@ parameter these bounds were set to $0.4$ and $0.0$, allowing for up to
 \subsection{Data assimilation}
 
 The simulated and measured PV loops and the regional
-pressure-strain loops are shown in Figure \ref{fig:pv_loops} and
-\ref{fig:regional_strain_pressure_loops} respectively. 
+pressure-strain loops are shown in Figure \ref{paper4:fig:pv_loops} and
+\ref{paper4:fig:regional_strain_pressure_loops} respectively. 
 For the normal case, the longitudinal strain curves in the basal
 inferior and posterior segments were missing, and so only the
 simulated results are shown in these segments.
@@ -646,7 +646,7 @@ simulated results are shown in these segments.
 \begin{figure}[htbp]
   \centering
   \includegraphics{figures/pv_loop}
-  \caption{\label{fig:pv_loops}Simulated and measured PV loops
+  \caption{\label{paper4:fig:pv_loops}Simulated and measured PV loops
     for the LBBB (left) and normal (right) case. }
 \end{figure}
 
@@ -659,7 +659,7 @@ respectively at most 1.0 and 6.0 ml lower than the measured volumes.
 \begin{figure}[htbp]
   \centering
   \includegraphics{figures/pressure_strain_loop}
-\caption{\label{fig:regional_strain_pressure_loops}Measured and
+\caption{\label{paper4:fig:regional_strain_pressure_loops}Measured and
 simulated pressure-strain loops for LBBB (top) and normal (bottom)
 case. Strain measurement in basal inferior and posterior segments for
 the normal subject were discarded in the optimization due to poor
@@ -672,9 +672,9 @@ segments.}
 \subsection{Estimation of regional myocardial work}
 
 Analogous to the regional pressure-strain loops in Figure
-\ref{fig:regional_strain_pressure_loops}, the resulting regional fiber
+\ref{paper4:fig:regional_strain_pressure_loops}, the resulting regional fiber
 stress-strain loops are depicted in Figure
-\ref{fig:regional_fiber_stress_strain_loops}. Here we show Cauchy
+\ref{paper4:fig:regional_fiber_stress_strain_loops}. Here we show Cauchy
 fiber stress on the $y-$axis and for the sake of correct illustration
 of regional work in terms of loop area, we show the Almansi fiber
 strain on the $x-$axis. 
@@ -682,21 +682,21 @@ strain on the $x-$axis.
 \begin{figure}[htbp]
   \centering
   \includegraphics{figures/fiber_stress_strain_loop}
-  \caption{\label{fig:regional_fiber_stress_strain_loops}Simulated
+  \caption{\label{paper4:fig:regional_fiber_stress_strain_loops}Simulated
     regional fiber stress-strain loops in the mid and basal segments
     for normal (blue) and LBBB (red). } 
 \end{figure}
 
 The Cauchy fiber stress visualized at the deformed configurations at
 the different valvular events for the normal and LBBB case are shown
-in Figure \ref{fig:snap_shots}. The LBBB case shows clear signs of
+in Figure \ref{paper4:fig:snap_shots}. The LBBB case shows clear signs of
 dyssynchrony and more uneven distribution of stress compared to the
 normal case. 
 
 \begin{figure}[htbp]
   \centering
   \includegraphics{figures/snap_shots}
-  \caption{\label{fig:snap_shots}Cauchy fiber stress for the normal and LBBB case at
+  \caption{\label{paper4:fig:snap_shots}Cauchy fiber stress for the normal and LBBB case at
     different valvular events (MVC: mitral valve closing, AVO: aortic
     valve opening, AVC: aortic valve closing, MVO: mitral valve
     opening), visualized on the deformed configurations. For reference
@@ -713,7 +713,7 @@ different approaches: 1) area of the pressure-volume loop normalized
 to ventricular wall volume, 2) using the full stress and strain tensors,
 3) using the fiber component of the stress and strain tensors, and 4)
 using global longitudinal strain and estimated pressure. Table
-\ref{tab:total_mechanical_power} show these values for the two
+\ref{paper4:tab:total_mechanical_power} show these values for the two
 subjects, in units kW m$^{-3}$. In the calculations of pressure volume
 area, the simulated volume is used, with the unloaded volume and zero
 pressure included as reference point.
@@ -732,15 +732,15 @@ pressure included as reference point.
  Normal &                   15.79 &                16.35 &                  9.59 &                         1.59 \\
 \hline
 \end{tabular}
-\label{tab:total_mechanical_power}
+\label{paper4:tab:total_mechanical_power}
 \end{table}
 
 The regional TMPD, computed using the fiber
 component of the stress and strain tensor, is illustrated for the mid
 segments for the two subjects in Figure
-\ref{fig:regional_power_density}. These regional values are
+\ref{paper4:fig:regional_power_density}. These regional values are
 effectively the area of the fiber stress-strain loops in Figure
-\ref{fig:regional_fiber_stress_strain_loops} normalized to cycle
+\ref{paper4:fig:regional_fiber_stress_strain_loops} normalized to cycle
 time, in which the area is positive when the loop follows an
 anti-clockwise orientation and negative if the loop has a clockwise
 orientation. Regional TMPD using the full stress and strain tensor are
@@ -751,7 +751,7 @@ only the fiber component.
 \begin{figure}[htbp]
   \centering
   \includegraphics{figures/regional_power_density}
-  \caption{\label{fig:regional_power_density} Regional TMPD in the mid
+  \caption{\label{paper4:fig:regional_power_density} Regional TMPD in the mid
     segments for LBBB (left) and normal (right), computed using the
     fiber component of stress and strain tensors. Height of each bar
     indicate the area of the respective fiber stress-strain loop
@@ -761,8 +761,8 @@ only the fiber component.
 
 A qualitative comparison of the pressure-strain loops and fiber
 stress-strain loops are illustrated in Figure
-\ref{fig:regional_work_indices}, where we plot the regional efficiency
-\eqref{eq:efficiency} using the two measures of work. We note that the
+\ref{paper4:fig:regional_work_indices}, where we plot the regional efficiency
+\eqref{paper4:eq:efficiency} using the two measures of work. We note that the
 efficiencies computed using the fiber stress-strain loops are
 lower than for the pressure-strain loops, but show the same trend, i.e
 that regions with reduced efficiency coincide.  
@@ -770,8 +770,8 @@ that regions with reduced efficiency coincide.
 \begin{figure}[htbp]
   \centering
   \includegraphics{figures/regional_work_indices}
-  \caption{\label{fig:regional_work_indices} Regional efficiency in
-    the mid segments computed according to \eqref{eq:efficiency} for LBBB (left) and normal (right)
+  \caption{\label{paper4:fig:regional_work_indices} Regional efficiency in
+    the mid segments computed according to \eqref{paper4:eq:efficiency} for LBBB (left) and normal (right)
     case. Red bars show efficiency based on areas of the pressure
     strain loops while blue bars show efficiency based on areas of the
     fiber stress-strain loops.}
@@ -791,12 +791,12 @@ longitudinal strain and volume were quantitatively similar to the
 measured values.
 
 % In both cases an excellent fit of the PV loops was
-% obtained, as can be seen in Figure \ref{fig:pv_loops}. The deviation
+% obtained, as can be seen in Figure \ref{paper4:fig:pv_loops}. The deviation
 % between simulated and measured volume during late isovolumic
 % relaxation shows that there is a trade-off between fitting both the
 % strain and volume data. This can also be seen from the matching of the
 % pressure-strain loops in Figure
-% \ref{fig:regional_strain_pressure_loops}, where it is clear the some
+% \ref{paper4:fig:regional_strain_pressure_loops}, where it is clear the some
 % segments (e.g mid posterior and basal lateral) for the LBBB patient
 % does not match exactly during the isovolumic relaxation phase. Whether
 % this is a result of lack of mode fidelity, poor data compatibility, or
@@ -817,7 +817,7 @@ regional performance.
 % Total mechanical power density (TMPD),
 % which is a measure of average total mechanical work normalized to
 % cycle time, is presented in Table
-% \ref{tab:total_mechanical_power} using four different approaches,
+% \ref{paper4:tab:total_mechanical_power} using four different approaches,
 % namely, the PV area, the full stress and strain tensor, the fiber
 % stress-strain loops and the pressure-strain loops.
 
@@ -837,14 +837,14 @@ values of TMPD in the range from 0.5 to 12.5 kW m$^{-3}$. Note that
 TMPD is a measure that is independent of morphology, i.e size of the
 ventricle and heart rate, and therefore reflect the actual performance.
 
-The values in Table \ref{tab:total_mechanical_power} indicate that the
+The values in Table \ref{paper4:tab:total_mechanical_power} indicate that the
 total mechanical work performed in the direction of the fibers is
 approximately 60 $\%$ of the 
 total mechanical work computed by taking into account the full stress
 and strain tensor (LBBB: 60.5 $\%$, normal:58.7 $\%$). Of course, the
 amount of work performed in transverse direction of the fibers will depend upon the
 chosen form of the active deformation gradient in
-\eqref{eq:active_strain_Fa_gjerald}. In the active stress approach on 
+\eqref{paper4:eq:active_strain_Fa_gjerald}. In the active stress approach on 
 the other hand, where the total Cauchy stress tensor is additively decomposed into
 active and passive contributions, it is common to add an active stress
 in the transverse direction, which is also reported
@@ -855,7 +855,7 @@ value that has been used in other modeling studies using the active
 stress approach \cite{sun2009computationally}.
 
 The values of regional TMPD in the mid segments presented
-in Figure \ref{fig:regional_power_density} show that the septal
+in Figure \ref{paper4:fig:regional_power_density} show that the septal
 segments for the LBBB patient actually consume energy and yield a
 negative TMPD. On the other hand, the healthy heart shows positive TMPD
 in all segments and generally higher values than the LBBB heart.
@@ -872,7 +872,7 @@ This indicates that quantitatively this is not a good measure of
 myocardial work. However, the area of the pressure-strain loops have shown to be a good metric
 of regional efficiency and a promising index for predicting response
 to CRT \cite{vecera2016wasted}. From Figure
-\ref{fig:regional_work_indices} we see the same trends in terms of efficiency and wasted
+\ref{paper4:fig:regional_work_indices} we see the same trends in terms of efficiency and wasted
 work can be seen regardless of how work is computed, namely that early
 activated segments are less efficient and have a higher wasted work
 ratio than the other segments for the LBBB case. Therefore, relative
@@ -906,7 +906,7 @@ base in the finite element model might not be reliable. Therefore we
 will pay most attention to the stress 
 estimates in the mid segments as these are not greatly influenced by
 the boundary condition at the base. For the normal patient we see in
-Figure \ref{fig:regional_fiber_stress_strain_loops} a
+Figure \ref{paper4:fig:regional_fiber_stress_strain_loops} a
 more or less uniform distribution of fiber stress with peak regional
 averaged fiber
 stress ranging from approximately 100 to 160 kPa. For the LBBB
@@ -932,8 +932,8 @@ segments, a finding that is also reported in other studies
 % trace during late diastole. Moreover a thorough analysis of the
 % convergence and stability of this method with respect to noise in the
 % volume and pressure data is conducted in Appendix
-% \ref{sec:convergence_unloading} and Appendix
-% \ref{sec:convergence_unloaded_material}.
+% \ref{paper4:sec:convergence_unloading} and Appendix
+% \ref{paper4:sec:convergence_unloaded_material}.
 
 % Other studies have also tried to jointly estimate the material
 % parameters and the unloaded configuration
@@ -964,7 +964,7 @@ pressure traces are not really reliable during the diastolic filling
 phase, so that error is expected to be present in the joint estimation
 of unloaded geometries and material parameters. However, the
 methodology presented here still applies, and the analysis in Appendix
-\ref{sec:convergence_unloaded_material} shows that the relative error
+\ref{paper4:sec:convergence_unloaded_material} shows that the relative error
 in the  resulting material parameters are approximately of the same
 order as the error in the pressure. Furthermore, recent studies have
 shown that it is
@@ -1054,17 +1054,17 @@ the University of Oslo via Notur project nn9249k.
 
 \clearpage
 
-\appendix
+% \appendix
 \section{Appendix}
 \subsection{Joint estimation of unloaded
   configuration and passive material parameters}
-\label{sec:unloading}
+\label{paper4:sec:unloading}
 In this section we outline the main steps in the backward displacement
 method, and the iterative approach for joint estimation of material
 parameters and unloaded configuration. In Appendix
-\ref{sec:convergence_unloading} we analyze the convergence of the
+\ref{paper4:sec:convergence_unloading} we analyze the convergence of the
 backward displacement method, and in Appendix
-\ref{sec:convergence_unloaded_material} we investigate the convergence
+\ref{paper4:sec:convergence_unloaded_material} we investigate the convergence
 of the joint estimation as well as the stability with respect to noise
 in the pressure and volume data. 
 
@@ -1080,7 +1080,7 @@ $\Xvec^{\mathcal{I}} = \Xvec^{\mathcal{U}} +
 \begin{align}
   \Xvec_{n+1} = g(\Xvec_n) =  \Xvec^{\mathcal{I}} - \mathbf{d}(\Xvec_n),
   && \Xvec_0 = \Xvec^{\mathcal{I}}.
-    \label{eq:backward_displacement_method}
+    \label{paper4:eq:backward_displacement_method}
 \end{align}
 According to Banach fixed point theorem, this sequence converges to a
 unique fixed-point provided that $\| \nabla g \|_{\infty} = \| \nabla \mathbf{d}
@@ -1113,23 +1113,23 @@ Denote by $p^{\mathcal{I}}$ and $p^{\mathrm{ED}}$ the measured cavity
 pressure in the image-based geometry and at end-diastole respectively
 and let similarly $V^{\mathcal{I}}$ and $V^{\mathrm{ED}}$ denote the
 measured cavity volumes. We want to estimate the linear isotropic
-parameter $a$ in \eqref{eq:hoa} so that the simulated and measured
+parameter $a$ in \eqref{paper4:eq:hoa} so that the simulated and measured
 end-diastolic volumes agrees. In this
 case we have the PDE-constrained optimization problem in
-\eqref{eq:pde_opt}, with $\mu = a$ and the cost functional given by
+\eqref{paper4:eq:pde_opt}, with $\mu = a$ and the cost functional given by
 \begin{align}
   \mathcal{J} = \left(\frac{\mathcal{H}_{\mathrm{volume}}(\uvec(p^{\mathrm{ED}}))
   - V^{\mathrm{ED}}}{V^{\mathrm{ED}}} \right)^2.
-  \label{eq:passive_cost}
+  \label{paper4:eq:passive_cost}
 \end{align}
 To estimate both the unloaded configuration and the material
 parameter we apply the iterative strategy outlined in Algorithm
-\ref{alg:unload_mat_bdm} which has previously been applied in
+\ref{paper4:alg:unload_mat_bdm} which has previously been applied in
 \cite{nikou2016effects,finsberg2017estimating}.
   
 \begin{algorithm}
   \caption{Estimation of unloaded geometry and material parameter
-    estimation\label{alg:unload_mat_bdm}}   
+    estimation\label{paper4:alg:unload_mat_bdm}}   
 \begin{algorithmic}[1]
 
   \State Initialize $a^0$ \Comment{initial guess for material parameter}
@@ -1137,9 +1137,9 @@ parameter we apply the iterative strategy outlined in Algorithm
   \While{$\Delta V_0^i > 1 \%$ and $i < 20$}
 
   \State Reference geometry $\gets$ Estimate unloaded geometry using using
-  \eqref{eq:backward_displacement_method} and $a^i$ as material parameter.
-  \State $a^{i+1} \gets$ Solve \eqref{eq:pde_opt} using $\mathcal{J}$
-  defined in \eqref{eq:passive_cost} 
+  \eqref{paper4:eq:backward_displacement_method} and $a^i$ as material parameter.
+  \State $a^{i+1} \gets$ Solve \eqref{paper4:eq:pde_opt} using $\mathcal{J}$
+  defined in \eqref{paper4:eq:passive_cost} 
   \State Compute $\Delta V_0^i$
   \State $i = i + 1$
   \EndWhile
@@ -1152,12 +1152,12 @@ two successive iterations $\Delta V_0$ is less than $1 \%$, or the
 number of iterations exceeds 20. A verification of this iterative
 algorithm and well as an analysis of stability to noise in the
 measurements are provided in Appendix
-\ref{sec:convergence_unloaded_material}.  
+\ref{paper4:sec:convergence_unloaded_material}.  
 
 
 
 \subsubsection{Convergence of the backward displacement method}
-\label{sec:convergence_unloading}
+\label{paper4:sec:convergence_unloading}
 In this section we want to verify that the implementation of the
 unloading algorithm behaves as expected. More specifically we want to
 verify that 1) we are able to find a geometry so that when loaded with
@@ -1185,7 +1185,7 @@ d_H(\Xvec^{\mathcal{I}}, \Xvec^{\mathcal{U}_n}) $, where
 is the directed Hausdorff distance \cite{huttenlocher1993comparing}
 and $d(\cdot, \cdot)$ is the standard euclidean metric.
 
-Figure \ref{fig:unloaded_convergece_test} shows the residuals $\mathrm{res}\;\mathcal{U}$
+Figure \ref{paper4:fig:unloaded_convergece_test} shows the residuals $\mathrm{res}\;\mathcal{U}$
 and $\mathrm{res}\;\mathcal{I}$ plotted against the number of
 iterations, and we see that both residuals converges linearly towards
 the correct solutions. 
@@ -1194,7 +1194,7 @@ the correct solutions.
 \begin{figure}[htbp]
   \centering
   \includegraphics{figures/unloaded_error}
-  \caption{\label{fig:unloaded_convergece_test}Convergence of the
+  \caption{\label{paper4:fig:unloaded_convergece_test}Convergence of the
     backward displacement method for the unloaded
     ($\mathrm{res}\;\mathcal{U}$) and loaded
     ($\mathrm{res}\;\mathcal{I}$) geometry.}
@@ -1203,10 +1203,10 @@ the correct solutions.
 
 \subsubsection{Convergence of the joint estimation of unloaded
   configuration and passive material parameters}
-\label{sec:convergence_unloaded_material}
+\label{paper4:sec:convergence_unloaded_material}
 
 In this section we want to show that the iterative approach outlined
-in Algorithm \ref{alg:unload_mat_bdm} is able to retrieve a known
+in Algorithm \ref{paper4:alg:unload_mat_bdm} is able to retrieve a known
 material parameter under ideal circumstances. Further, we would like
 to analyze the stability of the method with respect to noise in the
 measurements.
@@ -1221,7 +1221,7 @@ the end-diastolic state, and the cavity volume is computed.
 We start the joint estimation with an initial guess for $a$ of 30
 kPa. The relative error in the material
 parameter is shown for each iteration in Figure
-\ref{fig:unloaded_materror}. Here we also plot the chosen residual, which
+\ref{paper4:fig:unloaded_materror}. Here we also plot the chosen residual, which
 is the relative difference in unloaded cavity volumes in two
 successive iterations. We note that both of these residuals
 converges at the same rate. 
@@ -1230,7 +1230,7 @@ converges at the same rate.
 \begin{figure}[htbp]
   \centering
   \includegraphics{figures/materror}
-  \caption{\label{fig:unloaded_materror}Relative error in the material parameter for each iteration
+  \caption{\label{paper4:fig:unloaded_materror}Relative error in the material parameter for each iteration
   (red curve). The first point, at iteration -1 represent the error in
   the initial guess which is set to 30 kPa. The second point
   represents the error after estimating the material parameter by
@@ -1246,20 +1246,20 @@ adding noise to the volume and pressure measurements. More specifically, we add
 $\pm$ 0.1, 1, 5 and 10 $\%$ error to the pressure and volumes
 independently. The resulting relative deviation from the exact value of the
 material parameter is shown in Figure
-\ref{fig:unloaded_materror_noise} for each iteration. We note that the
+\ref{paper4:fig:unloaded_materror_noise} for each iteration. We note that the
 relative error in the resulting material parameter is of the same
 order as noise level.
 
 \begin{figure}[htbp]
   \centering
     \includegraphics{figures/materror_noise}
-   \caption{\label{fig:unloaded_materror_noise}  Relative deviation from the
+   \caption{\label{paper4:fig:unloaded_materror_noise}  Relative deviation from the
      exact value of the material parameter when noise is added
      to the measured volumes (left)
      and pressure (right). Noise of 0.1, 1, 5 and 10 $\%$
      is added and subtracted from the target volume and pressure, and
      the material parameter is estimated using Algorithm
-     \ref{alg:unload_mat_bdm}. On the $y-$axis we show the
+     \ref{paper4:alg:unload_mat_bdm}. On the $y-$axis we show the
      relative deviation from the exact value, plotted against the number
    of iterations on the $x-$axis. }
 \end{figure} 
@@ -1269,13 +1269,13 @@ order as noise level.
 % \begin{figure}[htbp]
 %   \begin{subfigure}[t]{\textwidth}
 %     \includegraphics[width=\textwidth]{../convergence_tests/unloaded_material_parameter_estimaton/material_parameter}
-%     \caption{\label{fig:unloaded_material_parameter_value}} 
+%     \caption{\label{paper4:fig:unloaded_material_parameter_value}} 
 %   \end{subfigure}
 %   \begin{subfigure}[t]{\textwidth}
 %     \includegraphics[width=\textwidth]{../convergence_tests/unloaded_material_parameter_estimaton/material_parameter_error}
-%     \caption{\label{fig:unloaded_material_parameter_error}} 
+%     \caption{\label{paper4:fig:unloaded_material_parameter_error}} 
 %   \end{subfigure}
-% \caption{\label{fig:material_control}} 
+% \caption{\label{paper4:fig:material_control}} 
 % \end{figure}
 
 \newpage
