@@ -331,7 +331,7 @@ when comparing the simulated results to the image-based measurements.
 % volume as the reference geometry (i.e the end-systolic geometry)
 % (references), the mid-diastolic or the end-diastolic ??
 A general problem in biomechanics is that the geometry extracted from
-imaging data is not the stress-free geometry, meaning the the geometry
+imaging data is not the stress-free geometry, meaning that the geometry
 that we observe is subjected to a physical load, e.g blood
 pressure. In order for the stress and strain to be correct, we need to
 find a geometry, so that when loaded with the measured loads, gives
@@ -475,7 +475,7 @@ problem of finding the unloaded, zero pressure geometry.
 In \cite{nikou2016effects}, Nikou et al proposed a method for estimating
 material parameters and the unloaded geometry by iterating between
 the two methods, and terminating if the difference in unloaded cavity
-volume is less than $5 \%$. This method is general and could be applied
+volume was less than $5 \%$. This method is general and could be applied
 using any unloading algorithm and any method to estimate the material
 parameters. In the last paper in this thesis, we analyze this method
 and show that it actually converges to the correct solution and is
@@ -741,14 +741,14 @@ surface element in the reference configuration.
 
 \paragraph{The strain observation operator
   $\mathcal{H}_{\mathrm{strain}}$}
-Another observation that is encountered in this thesis are strain
-measurements, or more precisely average regional strain in the
+Another observation that is encountered in this thesis is strain, or
+more precisely average regional strain in the 
 circumferential, radial or longitudinal direction. Let $\Omega_j$
 denote the volume for which the strain should be averaged over, and
 let $\mathbf{e}_k$ denote the unit vector field in the preferred strain
 direction. Then for a given strain tensor $\mathbf{A}$ we define 
 \begin{align}
-  \mathcal{H}_{\mathrm{strain}}(\uvec) = \frac{1}{|\Omega_j|}\int_{\Omega_j} \mathbf{e}_k^T \mathbf{A}(\uvec) \mathbf{e}_k  \mathrm{d}V
+  \mathcal{H}_{\mathrm{strain}}(\uvec) = \frac{1}{|\Omega_j|}\int_{\Omega_j} \mathbf{e}_k^T \mathbf{A}(\uvec) \mathbf{e}_k  \mathrm{d}V.
 \end{align}
 The strain tensor $ \mathbf{A}$ is typically chosen to be the
 Green-Lagrange strain tensor $\mathbf{E}$, or
@@ -1001,7 +1001,7 @@ regularization.
 Another reason for using regularization is to stabilize the solver for
 the underlying PDE that we solve. Parameters with sharp spikes
 can make Newtons iterations in-feasible, and restricting the
-parameter space to exclude such solutions might help stabilize the
+parameter space to exclude such solutions might help to stabilize the
 Newton solver. 
 
 
@@ -1121,7 +1121,7 @@ often difficult, especially when your data is corrupted with noise,
 and when the complexity of the model increases. Balancing the
 complexity of the model in terms of \emph{model fidelity}, i.e whether
 your 
-model is rich enough to representing the data, and the identifiability
+model is rich enough to represent the data, and the identifiability
 is often key in order to have robust model. A too simple model will
 often fail to represent your data, while a too complex model might
 give completely different answers with just a slight perturbation of

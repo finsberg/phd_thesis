@@ -257,7 +257,7 @@ to another can results in complicated computations. Therefore it would be benefi
 could work with quantities which do not depend on the choice of
 coordinate-system. Such quantities are called invariants. 
 If the material is isotropic, the representation theorem for
-invariants states that $\Psi$ can be expressed in terms of the
+invariants \cite{wang1970new} states that $\Psi$ can be expressed in terms of the
 principle invariants of $\mathbf{C}$, that is $\Psi = \Psi(I_1, I_2,
 I_3)$. The principle invariants $I_i, i=1,2,3$ are the coefficients in
 the characteristic polynomial of $\mathbf{C}$, and is given by 
@@ -364,8 +364,8 @@ The myocardium contains small blood vessels that supply the
 myocardial cells with oxygen. When the myocardium contracts, this
 perfused blood is squeezed out, resulting in an overall loss of
 2-4\% volume\cite{yin1996compressibility}. A material that change its
-volume in response to applied loads are referred to as compressible. When the 
-volume is preserved we refer to the material as incompressible.
+volume in response to applied loads is referred to as compressible. When the 
+volume is preserved we say that the material is incompressible.
 Since 2-4\% is very little, a common assumption in cardiac mechanical modeling,
 which has also been made in the work conducted in this thesis, is to assume
 the myocardium to be incompressible. The reason for this choice is
@@ -523,7 +523,7 @@ Lagrangian formulation
  \label{eq:force_balance_strong}
 \end{align}
 completed with appropriate boundary conditions. To solve this
-numerically using the finite element method, we need to derive weak
+numerically using the finite element method, we need to derive the weak
 variational form of this equation.
 % \begin{align}
 %   \FPK \Nvec + k \uvec &= \mathbf{0},  \;  \Xvec \in \lvbase\\
@@ -754,7 +754,7 @@ function is convex, and that the requirements for existence and
 uniqueness discussed in Section \ref{sec:strain_energy_req} are
 fulfilled.
 
-In this thesis we have in used a transversely isotropic version of
+In this thesis we have used a transversely isotropic version of
 \eqref{eq:holzapel_full} which is obtained by setting $a_{fs} =
 b_{fs}= a_s = b_s = 0$, i.e 
 \begin{align}
@@ -893,7 +893,7 @@ microstructure. The elastic part $\F_e$ is responsible for preserving
 compatibility of the tissue and stores all the energy in the
 deformations. As a consequence, the strain energy function is a
 function of the elastic deformation gradient only. The
-decoupling can illustrated by considering two sarcomeres connected in
+decoupling can be illustrated by considering two sarcomeres connected in
 series as shown in Figure \ref{fig:actstrain}. 
 
 \begin{figure}[htbp]
@@ -961,7 +961,7 @@ Solving PDEs using FEM involves many implementation details that can
 be tedious to implement yourselves. The idea behind FEniCS is to
 automate code generation so that the user can spend more time on doing
 research and less time on implementation of assembly matrices. At the
-core of FEniCS is DOLFIN \cite{logg2012dolfin}, which is C++/Python
+core of FEniCS is DOLFIN \cite{logg2012dolfin}, which is a C++/Python
 library, and works as the main interface in FEniCS. In this thesis
 only the Python interface has been used, in which C++ code is
 automatically generated using SWIG. This allows for simplicity through
@@ -1024,7 +1024,7 @@ $(\uvec_0, \lambda_0)$ there exist (under conditions stated by the
 implicit function theorem) a solution curve $\uvec(\lambda)$ such that
 $F(\uvec(\lambda), \lambda)=0$ and $\uvec(\lambda_0) = \uvec_0$.
 To explicitly find such a curve is not always easy but a simple
-approximation can be found by extrapolation: Given two pairs
+approximation can be found by linear extrapolation: Given two pairs
 $(\uvec_0, \lambda_0)$ and $(\uvec_1, \lambda_1)$, and a new target
 parameter $\lambda_2$, a possible solution is 
 \begin{align}
